@@ -11,7 +11,10 @@ import 'package:universidad_lg_24/users/services/services.dart';
 
 sealed class AuthenticationService {
   Future<User?> getCurrentUser();
-  Future<User?> signInWithEmailAndPassword(String email, String password);
+  Future<User?> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  });
   Future<void> signOut();
 }
 
@@ -65,10 +68,10 @@ class IsAuthenticationService extends AuthenticationService {
   }
 
   @override
-  Future<User?> signInWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
+  Future<User?> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     final response = await http.post(
       Uri.https(baseUrl, 'app/login'),
       headers: <String, String>{
