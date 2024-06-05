@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:universidad_lg_24/constants.dart';
+import 'package:universidad_lg_24/helpers/my_long_print.dart';
 import 'package:universidad_lg_24/users/exceptions/exceptions.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -85,10 +86,22 @@ class IsAuthenticationService extends AuthenticationService {
 
     if (response.statusCode == 200) {
       final request = json.decode(response.body);
-
+      myLongPrint('request: $request');
       if (request['status']['type'] != 'error') {
-        final user =
-            User.fromJson(json.decode(response.body) as Map<String, dynamic>);
+        final user = User(
+          userId: request['status']['dataUser']['userId'].toString(),
+          token: request['status']['dataUser']['token'].toString(),
+          codigo: int.parse(request['status']['dataUser']['codigo'].toString()),
+          email: request['status']['dataUser']['email'].toString(),
+          username: request['status']['dataUser']['username'].toString(),
+          name: request['status']['dataUser']['nombre'].toString(),
+          documento: request['status']['dataUser']['documento'].toString(),
+          celular: request['status']['dataUser']['celular'].toString(),
+          empresa: request['status']['dataUser']['empresa'].toString(),
+          cargo: request['status']['dataUser']['cargo'].toString(),
+          mensaje: request['status']['dataUser']['mensaje'].toString(),
+        );
+
         final userStorage = UserStorage(user: user);
         await userStorage.createUserStorage();
         return user;

@@ -49,7 +49,7 @@ class DrawerMenuRight extends StatelessWidget {
                     }
                   },
                   child: const Image(
-                    image: AssetImage('assets/img/new_logo.png'),
+                    image: AssetImage('assets/images/new_logo.png'),
                     height: 40,
                   ),
                 ),

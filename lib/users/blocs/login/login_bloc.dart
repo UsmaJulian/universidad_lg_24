@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:universidad_lg_24/helpers/my_long_print.dart';
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 import 'package:universidad_lg_24/users/exceptions/exceptions.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -50,7 +51,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     emit(LoginLoadingState());
     try {
-      final userCodeStorage = UserSecureStorage.getLoginCodigo().toString();
+      final userCodeStorage = await UserSecureStorage.getLoginCodigo();
+      myLongPrint('userCodeStorage: $userCodeStorage');
+      myLongPrint('event.codigo: ${event.codigo}');
       if (userCodeStorage == event.codigo) {
         final token = await UserSecureStorage.getLoginToken();
         final name = await UserSecureStorage.getNombre();

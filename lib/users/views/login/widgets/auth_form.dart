@@ -25,7 +25,7 @@ class AuthForm extends StatelessWidget {
           // border: Border
           ),
       child: const Image(
-        image: AssetImage('assets/img/logo-new.png'),
+        image: AssetImage('assets/images/logo-new.png'),
       ),
     );
 
@@ -51,7 +51,7 @@ class AuthForm extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             BackgroundImage(
-              image: 'assets/img/back-login.jpg',
+              image: 'assets/images/back-login.jpg',
               height: null,
             ),
             SingleChildScrollView(

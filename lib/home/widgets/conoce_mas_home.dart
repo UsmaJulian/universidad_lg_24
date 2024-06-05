@@ -35,7 +35,7 @@ class ConoceMas extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     BackgroundImage(
-                      image: 'assets/img/club.png',
+                      image: 'assets/images/club.png',
                       height: 240.0,
                     ),
                     ElevatedButton(
@@ -64,7 +64,7 @@ class ConoceMas extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     BackgroundImage(
-                      image: 'assets/img/biblioteca.png',
+                      image: 'assets/images/biblioteca.png',
                       height: 240.0,
                     ),
                     ElevatedButton(

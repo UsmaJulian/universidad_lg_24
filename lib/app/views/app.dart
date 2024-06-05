@@ -9,39 +9,47 @@ import 'package:universidad_lg_24/l10n/l10n.dart';
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 import 'package:universidad_lg_24/users/views/login/login_view.dart';
 
+/// La clase [App] representa la aplicación principal.
+/// Extiende [StatelessWidget] ya que no mantiene ningún estado interno.
 class App extends StatelessWidget {
+  /// Constructor para la clase [App].
   const App({super.key});
 
+  /// Construye el widget [App] que configura el [MaterialApp] principal.
+  /// Configura el tema, las localizaciones y la lógica de autenticación.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false, // Oculta el banner de modo debug
       theme: ThemeData(
         appBarTheme: AppBarTheme(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          backgroundColor: Theme.of(context)
+              .colorScheme
+              .inversePrimary, // Color de fondo de la AppBar
         ),
-        useMaterial3: true,
+        useMaterial3: true, // Habilita el uso de Material Design 3
       ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      navigatorKey: globals.appNavigator,
+      localizationsDelegates:
+          AppLocalizations.localizationsDelegates, // Delegados de localización
+      supportedLocales: AppLocalizations.supportedLocales, // Locales soportados
+      navigatorKey: globals.appNavigator, // Clave del navegador global
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthenticationAuthenticatedState) {
-            // show home page
+            // Si el usuario está autenticado, mostrar la vista de inicio
             return HomeView(
               user: state.user,
             );
           }
-          // otherwise show login page
 
-          if (state is AuthenticationAuthenticatedState) {
+          if (state is AuthenticationNotAuthenticatedState ||
+              state is AuthenticationInitialState ||
+              state is AuthenticationNotCodeState) {
+            // Si el usuario no está autenticado, mostrar la vista de login
             return const LoginView();
           }
-          if (state is AuthenticationNotCodeState) {
-            return const LoginView();
-          }
-          // print(state);
+
+          // Mostrar un indicador de progreso mientras se determina el estado de autenticación
           return const Center(
             child: CircularProgressIndicator(color: mainColor),
           );

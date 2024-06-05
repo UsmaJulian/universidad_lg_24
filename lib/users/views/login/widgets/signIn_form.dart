@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:string_extensions/string_extensions.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/blocs/login/login_bloc.dart';
+import 'package:universidad_lg_24/users/views/therms/views/terminos_view.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -16,7 +17,8 @@ class _SignInFormState extends State<SignInForm> {
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
   bool _autoValidate = false;
-  bool isobscureText = true;
+  bool isObscureText = true;
+  bool _checkTherms = false;
 
   @override
   Widget build(BuildContext context) {
@@ -121,20 +123,20 @@ class _SignInFormState extends State<SignInForm> {
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          isobscureText
+                          isObscureText
                               ? Icons.visibility_off
                               : Icons.visibility,
                         ),
                         onPressed: () {
                           setState(() {
-                            isobscureText = !isobscureText;
+                            isObscureText = !isObscureText;
                           });
-                          print(isobscureText);
+                          print(isObscureText);
                         },
                         color: Colors.white,
                       ),
                     ),
-                    obscureText: isobscureText,
+                    obscureText: isObscureText,
                     controller: _passwordController,
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
@@ -166,6 +168,30 @@ class _SignInFormState extends State<SignInForm> {
                       return null;
                     },
                   ), */
+                  Row(
+                    children: <Widget>[
+                      Checkbox(
+                        value: _checkTherms,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _checkTherms = value!;
+                          });
+                        },
+                        activeColor: mainColor,
+                      ),
+                      InkWell(
+                        child: const Text(
+                          'Políticas de confidencialidad y privacidad',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.of(context).push(_terminosRoute());
+                        },
+                      ),
+                    ],
+                  ),
                   const SizedBox(
                     height: 16,
                   ),
@@ -194,6 +220,26 @@ class _SignInFormState extends State<SignInForm> {
         content: Text(error),
         backgroundColor: Theme.of(context).colorScheme.error,
       ),
+    );
+  }
+
+  Route<Object?> _terminosRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          const TerminosView(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0, 1);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        final tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
     );
   }
 }

@@ -19,6 +19,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_secure_storage: ^9.2.2
+  flutter_widget_from_html: ^0.15.0
   http: ^1.2.1
   intl: ^0.19.0
   string_extensions: ^0.7.1
@@ -34,11 +35,22 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
-  # fonts:
-  #   - family: TitilliumWeb
-  #     fonts:
-  #       - asset: fonts/Archivo-Bold.ttf
-  #         weight: 700
-  #       - asset: fonts/Archivo-Regular.ttf
-  #         weight: 400
-  #         style: normal
+  assets:
+    - assets/images/back-login.jpg
+    - assets/images/logo-new.png
+    - assets/images/new_logo.png
+    - assets/images/biblioteca.png
+    - assets/images/club.png
+    - assets/images/back-perfil.png
+  fonts:
+    - family: TitilliumWeb
+      fonts:
+        - asset: assets/fonts/TitilliumWeb-Bold.ttf
+          weight: 700
+          style: normal
+        - asset: assets/fonts/TitilliumWeb-SemiBold.ttf
+          weight: 600
+          style: normal
+        - asset: assets/fonts/TitilliumWeb-Regular.ttf
+          weight: 400
+          style: normal

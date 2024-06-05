@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_dynamic_calls
 
+import 'package:universidad_lg_24/helpers/my_long_print.dart';
 import 'package:universidad_lg_24/users/services/services.dart';
 
 /// Clase que representa a un usuario en la aplicación.
@@ -64,6 +65,7 @@ class UserStorage {
 
   /// Crea el almacenamiento del usuario guardando los datos en almacenamiento seguro.
   Future<dynamic> createUserStorage() async {
+    myLongPrint('creación del usuario: $user');
     await UserSecureStorage.setUserId(user!.userId.toString());
     await UserSecureStorage.setLoginToken(user!.token.toString());
     await UserSecureStorage.setLoginCodigo(user!.codigo.toString());
