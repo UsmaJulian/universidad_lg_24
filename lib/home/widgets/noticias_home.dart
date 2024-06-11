@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class NoticiasHome extends StatefulWidget {
 
 class _NoticiasHome extends State<NoticiasHome> {
   CarouselController buttonCarouselController = CarouselController();
-  final int _current = 0;
+  // final int _current = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
