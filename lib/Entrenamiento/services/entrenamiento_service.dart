@@ -1,3 +1,5 @@
+// ignore_for_file: inference_failure_on_collection_literal
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -25,7 +27,8 @@ class EntrenamientoService {
       if (request['status']['type'] != 'error') {
         print('API Entrenamiento');
         final entrenamientoJson = EntrenamientoModel.fromJson(
-            json.decode(response.body) as Map<String, dynamic>);
+          json.decode(response.body) as Map<String, dynamic>,
+        );
         return entrenamientoJson;
       } else {
         throw {};
