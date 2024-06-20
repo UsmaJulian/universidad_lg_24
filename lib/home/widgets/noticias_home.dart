@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:universidad_lg_24/Noticias/views/noticias_single_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/home/models/models.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -44,15 +45,15 @@ class _NoticiasHome extends State<NoticiasHome> {
                   builder: (BuildContext context) {
                     return InkWell(
                       onTap: () {
-                        /* Navigator.push(
+                        Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          MaterialPageRoute<void>(
                             builder: (context) => NoticiaSinglePage(
                               user: widget.user,
                               nid: i.nid,
                             ),
                           ),
-                        ); */
+                        );
                       },
                       child: Column(
                         children: [

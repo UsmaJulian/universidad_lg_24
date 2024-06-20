@@ -4,14 +4,18 @@ import 'package:universidad_lg_24/home/widgets/widgets.dart'; // Importa los wid
 import 'package:universidad_lg_24/users/models/models.dart'; // Importa los modelos de usuario utilizados en el proyecto.
 import 'package:universidad_lg_24/widgets/widgets.dart'; // Importa otros widgets utilizados en el proyecto.
 
-/// `HomeView` es un widget que representa la pantalla principal de la aplicación.
+/// `HomeView` es un widget que representa la pantalla principal
+///  de la aplicación.
 ///
-/// Este widget es de tipo `StatelessWidget` ya que su contenido no cambia una vez construido.
-/// Recibe un objeto `User` opcional que contiene la información del usuario actual.
+/// Este widget es de tipo `StatelessWidget` ya que su contenido no cambia
+///  una vez construido.
+/// Recibe un objeto `User` opcional que contiene la información del usuario
+///  actual.
 class HomeView extends StatelessWidget {
   const HomeView({super.key, this.user});
 
-  /// `user` es un parámetro opcional de tipo `User` que representa al usuario actual.
+  /// `user` es un parámetro opcional de tipo `User` que representa
+  ///  al usuario actual.
   final User? user;
 
   @override
@@ -20,7 +24,8 @@ class HomeView extends StatelessWidget {
       // Configura la AppBar de la pantalla principal
       appBar: AppBar(
         backgroundColor:
-            mainColor, // Establece el color de fondo de la AppBar usando `mainColor`.
+            mainColor, // Establece el color de fondo de la AppBar usando
+        // `mainColor`.
         title: const Center(
           child: InkWell(
             child: Image(
@@ -36,29 +41,30 @@ class HomeView extends StatelessWidget {
             builder: (context) => IconButton(
               onPressed: () {
                 Scaffold.of(context)
-                    .openEndDrawer(); // Abre el endDrawer cuando se presiona el icono.
+                    .openEndDrawer(); // Abre el endDrawer cuando se presiona
+                // el icono.
               },
               icon: const Icon(Icons.person), // Establece el icono de persona.
             ),
           ),
         ],
       ),
-      backgroundColor:
-          mainColor, // Establece el color de fondo de la pantalla usando `mainColor`.
+      backgroundColor: mainColor, // Establece el color de fondo de la pantalla
+      // usando `mainColor`.
       drawer: DrawerMenuLeft(
         user: user,
-        isHome:
-            true, // Indica que el DrawerMenuLeft se está utilizando en la pantalla de inicio.
+        isHome: true, // Indica que el DrawerMenuLeft se está utilizando
+        // en la pantalla de inicio.
       ),
       endDrawer: DrawerMenuRight(
         user: user,
-        isHome:
-            true, // Indica que el DrawerMenuRight se está utilizando en la pantalla de inicio.
+        isHome: true, // Indica que el DrawerMenuRight se está utilizando
+        // en la pantalla de inicio.
       ),
 
       // Configura el cuerpo de la pantalla principal
       body: Builder(
-        builder: (context) => Container(
+        builder: (context) => ColoredBox(
           color: Colors
               .white, // Establece el color de fondo del contenido a blanco.
           child: HomeContent(

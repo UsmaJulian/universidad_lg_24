@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:universidad_lg_24/Entrenamiento/views/entrenamiento_view.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -28,7 +29,7 @@ class ConoceMas extends StatelessWidget {
               textAlign: TextAlign.left,
             ),
           ),
-          Container(
+          SizedBox(
             child: Column(
               children: [
                 Stack(
@@ -47,14 +48,14 @@ class ConoceMas extends StatelessWidget {
                         side: const BorderSide(color: Colors.white),
                       ),
                       onPressed: () {
-                        /* Navigator.push(
+                        Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          MaterialPageRoute<void>(
                             builder: (context) {
-                              return EntrenamientoPage(user: user);
+                              return EntrenamientoView(user: user!);
                             },
                           ),
-                        ); */
+                        );
                       },
                       child: const Text('ENTRENAMIENTO'),
                     ),

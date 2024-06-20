@@ -41,7 +41,6 @@ class _HomeContent extends State<HomeContent> {
     super.initState();
     _loader();
     initPlatformState();
-    print('fff');
   }
 
   @override
@@ -49,7 +48,7 @@ class _HomeContent extends State<HomeContent> {
     // final authBloc = BlocProvider.of<AuthenticationBloc>(context);
 
     if (load) {
-      return Container(
+      return SizedBox(
         // padding: EdgeInsets.all(0),
         child: SingleChildScrollView(
           child: Column(
