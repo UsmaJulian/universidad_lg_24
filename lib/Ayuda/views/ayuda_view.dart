@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:universidad_lg_24/Ayuda/blocs/ayuda/ayuda_bloc.dart';
+import 'package:universidad_lg_24/Ayuda/services/ayuda_service.dart';
+import 'package:universidad_lg_24/Ayuda/views/ayuda_form_view.dart';
+import 'package:universidad_lg_24/Ayuda/views/widgets/widgets.dart';
 import 'package:universidad_lg_24/Home/views/home_view.dart';
-import 'package:universidad_lg_24/Noticias/blocs/general/general_bloc.dart';
-import 'package:universidad_lg_24/Noticias/services/services.dart';
-import 'package:universidad_lg_24/Noticias/views/widgets/widgets.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
-
 import 'package:universidad_lg_24/widgets/widgets.dart';
 
-class NoticiasView extends StatelessWidget {
-  const NoticiasView({super.key, this.user});
+class AyudaView extends StatelessWidget {
+  const AyudaView({super.key, this.user});
   final User? user;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,14 +53,32 @@ class NoticiasView extends StatelessWidget {
       backgroundColor: Colors.white,
       drawer: DrawerMenuLeft(
         user: user,
-        currenPage: 'noticias',
+        currenPage: 'ayuda',
       ),
       endDrawer: DrawerMenuRight(
         user: user,
       ),
-      body: BlocProvider<GeneralBloc>(
-        create: (context) => GeneralBloc(service: IsNoticiasService()),
-        child: ContentNoticiasPage(user: user),
+      body: BlocProvider<AyudaBloc>(
+        create: (context) => AyudaBloc(
+          service: IsAyudaService(),
+        ),
+        child: ContentAyuda(user: user),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: mainColor,
+        child: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (context) {
+                return AyudaFormView(
+                  user: user,
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }

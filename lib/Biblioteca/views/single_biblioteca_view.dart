@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:universidad_lg_24/Home/views/home_view.dart';
-import 'package:universidad_lg_24/Noticias/blocs/general/general_bloc.dart';
-import 'package:universidad_lg_24/Noticias/services/services.dart';
-import 'package:universidad_lg_24/Noticias/views/widgets/widgets.dart';
+import 'package:universidad_lg_24/Biblioteca/models/biblioteca_model.dart';
+import 'package:universidad_lg_24/Biblioteca/views/widgets/widgets.dart';
 import 'package:universidad_lg_24/constants.dart';
+import 'package:universidad_lg_24/home/views/home_view.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
-
 import 'package:universidad_lg_24/widgets/widgets.dart';
 
-class NoticiasView extends StatelessWidget {
-  const NoticiasView({super.key, this.user});
+class SingleBibliotecaView extends StatelessWidget {
+  const SingleBibliotecaView({super.key, this.user, this.data});
   final User? user;
+  final BibliotecaValue? data;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,15 +50,11 @@ class NoticiasView extends StatelessWidget {
       backgroundColor: Colors.white,
       drawer: DrawerMenuLeft(
         user: user,
-        currenPage: 'noticias',
       ),
       endDrawer: DrawerMenuRight(
         user: user,
       ),
-      body: BlocProvider<GeneralBloc>(
-        create: (context) => GeneralBloc(service: IsNoticiasService()),
-        child: ContentNoticiasPage(user: user),
-      ),
+      body: ContentSingleBibliotecaView(data: data),
     );
   }
 }

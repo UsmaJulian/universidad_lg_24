@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:universidad_lg_24/Ayuda/views/ayuda_view.dart';
+import 'package:universidad_lg_24/Biblioteca/views/biblioteca_view.dart';
+import 'package:universidad_lg_24/Entrenamiento/views/entrenamiento_view.dart';
+import 'package:universidad_lg_24/Noticias/views/noticias_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/home/views/home_view.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -20,7 +24,7 @@ class DrawerMenuLeft extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          Container(
+          SizedBox(
             child: DrawerHeader(
               decoration: const BoxDecoration(
                 color: mainColor,
@@ -54,7 +58,7 @@ class DrawerMenuLeft extends StatelessWidget {
               ),
             ),
           ),
-          /* ListTile(
+          ListTile(
             leading: const Icon(Icons.school),
             title: const Text('Entrenamiento'),
             onTap: () {
@@ -63,18 +67,18 @@ class DrawerMenuLeft extends StatelessWidget {
                 if (isHome) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (context) {
-                        return EntrenamientoPage(user: user);
+                        return EntrenamientoView(user: user!);
                       },
                     ),
                   );
                 } else {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (context) {
-                        return EntrenamientoPage(user: user);
+                        return EntrenamientoView(user: user!);
                       },
                     ),
                   );
@@ -82,7 +86,7 @@ class DrawerMenuLeft extends StatelessWidget {
               }
               return;
             },
-          ), */
+          ),
           /* ListTile(
             leading: const Icon(Icons.history_edu),
             title: const Text('Evaluación'),
@@ -112,7 +116,7 @@ class DrawerMenuLeft extends StatelessWidget {
               return;
             },
           ), */
-          /* ListTile(
+          ListTile(
             leading: const Icon(Icons.collections_bookmark),
             title: const Text('Biblioteca'),
             onTap: () {
@@ -121,18 +125,18 @@ class DrawerMenuLeft extends StatelessWidget {
                 if (isHome) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (context) {
-                        return BibliotecaPage(user: user);
+                        return BibliotecaView(user: user);
                       },
                     ),
                   );
                 } else {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (context) {
-                        return BibliotecaPage(user: user);
+                        return BibliotecaView(user: user);
                       },
                     ),
                   );
@@ -140,8 +144,8 @@ class DrawerMenuLeft extends StatelessWidget {
               }
               return;
             },
-          ), */
-          /* ListTile(
+          ),
+          ListTile(
             leading: const Icon(Icons.local_activity),
             title: const Text('Noticias'),
             onTap: () {
@@ -150,18 +154,18 @@ class DrawerMenuLeft extends StatelessWidget {
                 if (isHome) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (context) {
-                        return NoticiasPage(user: user);
+                        return NoticiasView(user: user);
                       },
                     ),
                   );
                 } else {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (context) {
-                        return NoticiasPage(user: user);
+                        return NoticiasView(user: user);
                       },
                     ),
                   );
@@ -169,7 +173,7 @@ class DrawerMenuLeft extends StatelessWidget {
               }
               return;
             },
-          ), */
+          ),
           // ListTile(
           //     leading: Icon(Icons.cast_for_education),
           //     title: Text('Streamings'),
@@ -190,7 +194,7 @@ class DrawerMenuLeft extends StatelessWidget {
           //       }
           //       return null;
           //     }),
-          /* ListTile(
+          ListTile(
             leading: const Icon(Icons.help),
             title: const Text('Ayuda'),
             onTap: () {
@@ -199,18 +203,18 @@ class DrawerMenuLeft extends StatelessWidget {
                 if (isHome) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (context) {
-                        return AyudaPage(user: user);
+                        return AyudaView(user: user);
                       },
                     ),
                   );
                 } else {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (context) {
-                        return AyudaPage(user: user);
+                        return AyudaView(user: user);
                       },
                     ),
                   );
@@ -218,7 +222,7 @@ class DrawerMenuLeft extends StatelessWidget {
               }
               return;
             },
-          ), */
+          ),
         ],
       ),
     );

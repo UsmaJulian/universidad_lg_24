@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:universidad_lg_24/Biblioteca/views/biblioteca_view.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/entrenamiento_view.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
@@ -37,7 +38,7 @@ class ConoceMas extends StatelessWidget {
                   children: [
                     BackgroundImage(
                       image: 'assets/images/club.png',
-                      height: 240.0,
+                      height: 240,
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -66,7 +67,7 @@ class ConoceMas extends StatelessWidget {
                   children: [
                     BackgroundImage(
                       image: 'assets/images/biblioteca.png',
-                      height: 240.0,
+                      height: 240,
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -77,14 +78,14 @@ class ConoceMas extends StatelessWidget {
                         side: const BorderSide(color: Colors.white),
                       ),
                       onPressed: () {
-                        /*  Navigator.push(
+                        Navigator.push(
                           context,
-                          MaterialPageRoute(
+                          MaterialPageRoute<void>(
                             builder: (context) {
-                              return BibliotecaPage(user: user);
+                              return BibliotecaView(user: user);
                             },
                           ),
-                        ); */
+                        );
                       },
                       child: const Text('BIBLIOTECA'),
                     ),

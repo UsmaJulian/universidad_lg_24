@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:universidad_lg_24/Home/views/home_view.dart';
-import 'package:universidad_lg_24/Noticias/blocs/general/general_bloc.dart';
-import 'package:universidad_lg_24/Noticias/services/services.dart';
-import 'package:universidad_lg_24/Noticias/views/widgets/widgets.dart';
+import 'package:universidad_lg_24/Biblioteca/bloc/biblioteca/biblioteca_bloc.dart';
+import 'package:universidad_lg_24/Biblioteca/services/biblioteca_services.dart';
+import 'package:universidad_lg_24/Biblioteca/views/widgets/widgets.dart';
 import 'package:universidad_lg_24/constants.dart';
+import 'package:universidad_lg_24/home/views/home_view.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
-
 import 'package:universidad_lg_24/widgets/widgets.dart';
 
-class NoticiasView extends StatelessWidget {
-  const NoticiasView({super.key, this.user});
+class BibliotecaView extends StatelessWidget {
+  const BibliotecaView({super.key, this.user});
   final User? user;
   @override
   Widget build(BuildContext context) {
@@ -52,14 +51,14 @@ class NoticiasView extends StatelessWidget {
       backgroundColor: Colors.white,
       drawer: DrawerMenuLeft(
         user: user,
-        currenPage: 'noticias',
+        currenPage: 'biblioteca',
       ),
       endDrawer: DrawerMenuRight(
         user: user,
       ),
-      body: BlocProvider<GeneralBloc>(
-        create: (context) => GeneralBloc(service: IsNoticiasService()),
-        child: ContentNoticiasPage(user: user),
+      body: BlocProvider<BibliotecaBloc>(
+        create: (context) => BibliotecaBloc(service: IsBibliotecaService()),
+        child: ContentBibliotecaView(user: user),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:universidad_lg_24/Noticias/blocs/general/general_bloc.dart';
 import 'package:universidad_lg_24/Noticias/models/models.dart';
+import 'package:universidad_lg_24/Noticias/views/noticias_single_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
@@ -158,10 +159,10 @@ class _ItemNoticias extends StatelessWidget {
                 const SizedBox(height: 15),
                 ButtonMain(
                   text: 'LEER MÁS',
-                  // onpress: NoticiaSinglePage(
-                  //   user: user,
-                  //   nid: item.nid,
-                  // ),
+                  onPress: NoticiaSinglePage(
+                    user: user,
+                    nid: item!.nid,
+                  ),
                 ),
               ],
             ),

@@ -38,7 +38,7 @@ class Status {
         code: int.parse(json['code'].toString()),
         message: json['message'].toString(),
         data: List<Datum>.from(
-          json['data'].map(Datum.fromJson) as Iterable<Datum>,
+          json['data'].map(Datum.fromJson) as Iterable,
         ),
       );
 
@@ -64,7 +64,7 @@ class Datum {
     required this.bodyValue,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Datum.fromJson(dynamic json) => Datum(
         nid: json['nid'].toString(),
         title: json['title'].toString(),
         created: json['created'].toString(),
