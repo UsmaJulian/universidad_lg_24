@@ -2,6 +2,8 @@
 //
 //     final biblioteca = bibliotecaFromMap(jsonString);
 
+// ignore_for_file: inference_failure_on_instance_creation, inference_failure_on_collection_literal
+
 import 'dart:convert';
 
 Biblioteca bibliotecaFromMap(String str) =>

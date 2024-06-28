@@ -5,6 +5,7 @@ import 'package:universidad_lg_24/home/views/home_view.dart';
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/users/views/login/login_view.dart';
+import 'package:universidad_lg_24/users/views/profile/perfil_view.dart';
 
 class DrawerMenuRight extends StatelessWidget {
   const DrawerMenuRight({
@@ -60,7 +61,7 @@ class DrawerMenuRight extends StatelessWidget {
               ],
             ),
           ),
-          /* ListTile(
+          ListTile(
             leading: const Icon(Icons.account_circle),
             title: const Text('Mi perfil'),
             onTap: () {
@@ -69,9 +70,9 @@ class DrawerMenuRight extends StatelessWidget {
                 if (isHome) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (context) {
-                        return PerfilPage(
+                        return PerfilView(
                           user: user,
                         );
                       },
@@ -80,9 +81,9 @@ class DrawerMenuRight extends StatelessWidget {
                 } else {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (context) {
-                        return PerfilPage(
+                        return PerfilView(
                           user: user,
                         );
                       },
@@ -92,7 +93,7 @@ class DrawerMenuRight extends StatelessWidget {
               }
               return;
             },
-          ), */
+          ),
           /* ListTile(
             leading: const Icon(Icons.emoji_events),
             title: const Text('Mis logros'),
