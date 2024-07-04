@@ -75,9 +75,13 @@ class _ContentSingleBibliotecaViewState
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               backgroundColor: mainColor,
-              shape: const RoundedRectangleBorder(),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
+                ),
+              ),
             ),
-            child: const Text('Volver'),
+            child: const Text('Volver', style: TextStyle(color: Colors.white)),
             onPressed: () {
               Navigator.of(context).pop();
             },

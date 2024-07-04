@@ -65,25 +65,23 @@ class _SignInFormState extends State<SignInForm> {
                 children: <Widget>[
                   TextFormField(
                     style: const TextStyle(
-                      color: Colors.white,
-                      decorationColor: Colors.white,
+                      color: Colors.black,
+                      decorationColor: Colors.black,
                     ),
-                    cursorColor: Colors.white,
+                    cursorColor: Colors.black,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       hintText: 'Correo Eletronico',
-                      hintStyle: TextStyle(color: Colors.white),
+                      hintStyle: TextStyle(color: Colors.black),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: mainColor,
                         ),
                       ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
+                      enabledBorder: UnderlineInputBorder(),
                       icon: Icon(
                         Icons.person,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                     ),
                     controller: _emailController,
@@ -101,25 +99,19 @@ class _SignInFormState extends State<SignInForm> {
                     height: 12,
                   ),
                   TextFormField(
-                    cursorColor: Colors.white,
+                    cursorColor: Colors.black,
                     style: const TextStyle(
-                      color: Colors.white,
-                      decorationColor: Colors.white,
+                      color: Colors.black,
+                      decorationColor: Colors.black,
                     ),
                     decoration: InputDecoration(
                       hintText: 'Contraseña',
-                      hintStyle: const TextStyle(color: Colors.white),
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: mainColor,
-                        ),
-                      ),
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: mainColor),
-                      ),
+                      hintStyle: const TextStyle(color: Colors.black),
+                      focusedBorder: const UnderlineInputBorder(),
+                      enabledBorder: const UnderlineInputBorder(),
                       icon: const Icon(
                         Icons.lock,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -133,7 +125,7 @@ class _SignInFormState extends State<SignInForm> {
                           });
                           print(isObscureText);
                         },
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                     ),
                     obscureText: isObscureText,
@@ -154,7 +146,7 @@ class _SignInFormState extends State<SignInForm> {
                       child: const Text(
                         'Polílicas de confidencialidad y privacidad',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                       onTap: () {
@@ -183,7 +175,7 @@ class _SignInFormState extends State<SignInForm> {
                         child: const Text(
                           'Políticas de confidencialidad y privacidad',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                         ),
                         onTap: () {
@@ -201,9 +193,16 @@ class _SignInFormState extends State<SignInForm> {
                         : onLoginButtonPressed,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: mainColor,
-                      shape: const RoundedRectangleBorder(),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30),
+                        ),
+                      ),
                     ),
-                    child: const Text('Continuar'),
+                    child: const Text(
+                      'Continuar',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ],
               ),

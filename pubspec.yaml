@@ -43,6 +43,8 @@ flutter:
     - assets/images/biblioteca.png
     - assets/images/club.png
     - assets/images/back-perfil.png
+    - assets/images/logo-new2.png
+    - assets/images/IMG_3719.PNG
   fonts:
     - family: TitilliumWeb
       fonts:

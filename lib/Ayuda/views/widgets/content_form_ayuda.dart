@@ -147,9 +147,16 @@ class _ContentFormAyuda extends State<ContentFormAyuda> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: mainColor,
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        shape: const RoundedRectangleBorder(),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                        ),
                       ),
-                      child: const Text('ENVIAR'),
+                      child: const Text(
+                        'ENVIAR',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ],
                 ),

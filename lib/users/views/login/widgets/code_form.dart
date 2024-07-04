@@ -72,23 +72,21 @@ class _CodeForm extends State<CodeForm> {
                   TextFormField(
                     textAlignVertical: TextAlignVertical.center,
                     textAlign: TextAlign.center,
-                    cursorColor: Colors.white,
+                    cursorColor: Colors.black,
                     keyboardType: TextInputType.number,
                     style: const TextStyle(
-                      color: Colors.white,
-                      decorationColor: Colors.white,
+                      color: Colors.black,
+                      decorationColor: Colors.black,
                     ),
                     decoration: const InputDecoration(
                       hintText: 'Ingresa tu Código',
-                      hintStyle: TextStyle(color: Colors.white),
+                      hintStyle: TextStyle(color: Colors.black),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: mainColor,
                         ),
                       ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
+                      enabledBorder: UnderlineInputBorder(),
                     ),
                     controller: _codigodController,
                     validator: (String? value) {
@@ -109,9 +107,14 @@ class _CodeForm extends State<CodeForm> {
                         : oncodigoButtonPressed,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: mainColor,
-                      shape: const RoundedRectangleBorder(),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
                     ),
-                    child: const Text('Validar'),
+                    child: const Text(
+                      'Validar',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ],
               ),

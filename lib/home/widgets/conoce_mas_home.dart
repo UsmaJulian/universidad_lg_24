@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Biblioteca/views/biblioteca_view.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/entrenamiento_view.dart';
+import 'package:universidad_lg_24/constants.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -43,9 +44,11 @@ class ConoceMas extends StatelessWidget {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
-                        backgroundColor: Colors.transparent,
+                        backgroundColor: Colors.white,
                         shadowColor: Colors.transparent,
-                        shape: const RoundedRectangleBorder(),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
                         side: const BorderSide(color: Colors.white),
                       ),
                       onPressed: () {
@@ -58,7 +61,10 @@ class ConoceMas extends StatelessWidget {
                           ),
                         );
                       },
-                      child: const Text('ENTRENAMIENTO'),
+                      child: const Text(
+                        'ENTRENAMIENTO',
+                        style: TextStyle(color: mainColor),
+                      ),
                     ),
                   ],
                 ),
@@ -72,9 +78,11 @@ class ConoceMas extends StatelessWidget {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(horizontal: 30),
-                        backgroundColor: Colors.transparent,
+                        backgroundColor: Colors.white,
                         shadowColor: Colors.transparent,
-                        shape: const RoundedRectangleBorder(),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
                         side: const BorderSide(color: Colors.white),
                       ),
                       onPressed: () {
@@ -87,7 +95,12 @@ class ConoceMas extends StatelessWidget {
                           ),
                         );
                       },
-                      child: const Text('BIBLIOTECA'),
+                      child: const Text(
+                        'BIBLIOTECA',
+                        style: TextStyle(
+                          color: mainColor,
+                        ),
+                      ),
                     ),
                   ],
                 ),

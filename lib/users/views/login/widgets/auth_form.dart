@@ -25,7 +25,9 @@ class AuthForm extends StatelessWidget {
           // border: Border
           ),
       child: const Image(
-        image: AssetImage('assets/images/logo-new.png'),
+        image: AssetImage(
+          'assets/images/logo-new2.png',
+        ),
       ),
     );
 
@@ -36,7 +38,7 @@ class AuthForm extends StatelessWidget {
       child: const Text(
         'Universidad LG',
         style: TextStyle(
-          color: Colors.white,
+          color: Colors.black,
           fontSize: 25,
         ),
       ),
@@ -44,21 +46,21 @@ class AuthForm extends StatelessWidget {
 
     final form = isLogin ? const SignInForm() : const CodeForm();
 
-    return Container(
+    return SizedBox(
       child: BlocProvider<LoginBloc>(
         create: (context) => LoginBloc(authBloc, authService),
         child: Stack(
           alignment: Alignment.center,
           children: [
             BackgroundImage(
-              image: 'assets/images/back-login.jpg',
-              height: null,
+              image: 'assets/images/IMG_3719.PNG',
             ),
             SingleChildScrollView(
               child: Column(
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(left: 30, right: 30),
+                    margin:
+                        const EdgeInsets.only(left: 30, right: 30, bottom: 290),
                     child: Column(
                       children: [
                         logo,

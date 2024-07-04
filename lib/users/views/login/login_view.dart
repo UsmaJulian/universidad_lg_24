@@ -11,7 +11,7 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Container(
+      body: SizedBox(
         child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
             // print('$state login page');

@@ -278,7 +278,7 @@ class _ContentBibliotecaView extends State<ContentBibliotecaView> {
               search(searchController.text);
               // print(searchController.text);
             },
-            child: Container(child: const Icon(Icons.search, color: mainColor)),
+            child: const SizedBox(child: Icon(Icons.search, color: mainColor)),
           ),
         ],
       ),

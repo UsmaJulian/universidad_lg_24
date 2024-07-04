@@ -14,19 +14,27 @@ class ButtonMain extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         backgroundColor: mainColor,
-        shape: const RoundedRectangleBorder(),
-      ),
-      child: Text(text!),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute<void>(
-            builder: (context) {
-              return onPress!;
-            },
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(30),
           ),
-        );
-      },
+        ),
+      ),
+      onPressed: (onPress != null)
+          ? () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (context) {
+                    return onPress!;
+                  },
+                ),
+              );
+            }
+          : null,
+      child: (onPress != null)
+          ? Text(text!, style: const TextStyle(color: Colors.white))
+          : const Text('Próximamente', style: TextStyle(color: mainColor)),
     );
   }
 }

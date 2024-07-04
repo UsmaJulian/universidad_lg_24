@@ -135,9 +135,16 @@ class _FormPerfilState extends State<FormPerfil> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: mainColor,
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  shape: const RoundedRectangleBorder(),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30),
+                    ),
+                  ),
                 ),
-                child: const Text('GUARDAR'),
+                child: const Text(
+                  'GUARDAR',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ],
           ),
