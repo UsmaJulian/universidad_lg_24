@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Ayuda/views/ayuda_view.dart';
 import 'package:universidad_lg_24/Biblioteca/views/biblioteca_view.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/entrenamiento_view.dart';
+import 'package:universidad_lg_24/Evaluaciones/views/evaluacion_view.dart';
 import 'package:universidad_lg_24/Noticias/views/noticias_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/home/views/home_view.dart';
@@ -87,7 +88,7 @@ class DrawerMenuLeft extends StatelessWidget {
               return;
             },
           ),
-          /* ListTile(
+          ListTile(
             leading: const Icon(Icons.history_edu),
             title: const Text('Evaluación'),
             onTap: () {
@@ -96,18 +97,18 @@ class DrawerMenuLeft extends StatelessWidget {
                 if (isHome) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (context) {
-                        return EvaluacionPage(user: user);
+                        return EvaluacionView(user: user!);
                       },
                     ),
                   );
                 } else {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (context) {
-                        return EvaluacionPage(user: user);
+                        return EvaluacionView(user: user!);
                       },
                     ),
                   );
@@ -115,7 +116,7 @@ class DrawerMenuLeft extends StatelessWidget {
               }
               return;
             },
-          ), */
+          ),
           ListTile(
             leading: const Icon(Icons.collections_bookmark),
             title: const Text('Biblioteca'),

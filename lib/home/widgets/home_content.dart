@@ -37,7 +37,6 @@ class _HomeContent extends State<HomeContent> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _loader();
     initPlatformState();
