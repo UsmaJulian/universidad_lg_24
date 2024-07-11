@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:universidad_lg_24/Home/views/new_home_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 
 import 'package:universidad_lg_24/home/views/globals.dart' as globals;
-import 'package:universidad_lg_24/home/views/home_view.dart';
+
 import 'package:universidad_lg_24/l10n/l10n.dart';
 
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
@@ -37,9 +38,10 @@ class App extends StatelessWidget {
         builder: (context, state) {
           if (state is AuthenticationAuthenticatedState) {
             // Si el usuario está autenticado, mostrar la vista de inicio
-            return HomeView(
+            /* return HomeView(
               user: state.user,
-            );
+            ); */
+            return NewHomeView(user: state.user);
           }
 
           if (state is AuthenticationNotAuthenticatedState ||

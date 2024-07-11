@@ -11,6 +11,7 @@ dependencies:
   bloc: ^8.1.4
   cached_network_image: ^3.3.1
   carousel_slider: ^4.2.1
+  chewie: ^1.8.1
   cool_stepper_reloaded: ^3.2.6
   cupertino_icons: ^1.0.8
   equatable: ^2.0.5
@@ -27,6 +28,7 @@ dependencies:
   intl: ^0.19.0
   rainbow_color: ^2.0.1
   string_extensions: ^0.7.1
+  video_player: ^2.9.1
 
 dev_dependencies:
   bloc_test: ^9.1.7
@@ -48,6 +50,10 @@ flutter:
     - assets/images/back-perfil.png
     - assets/images/logo-new2.png
     - assets/images/IMG_3719.PNG
+    - assets/images/Grupo 77.png
+    - assets/images/Home.png
+    - assets/static/
+    - assets/images/
   fonts:
     - family: TitilliumWeb
       fonts:

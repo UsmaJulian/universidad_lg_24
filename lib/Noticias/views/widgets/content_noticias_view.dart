@@ -26,6 +26,7 @@ class _ContentNoticiasPageState extends State<ContentNoticiasPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.only(top: 55, bottom: 95),
       child: BlocBuilder<GeneralBloc, GeneralState>(
         builder: (context, state) {
           final noticiasBloc = BlocProvider.of<GeneralBloc>(context);

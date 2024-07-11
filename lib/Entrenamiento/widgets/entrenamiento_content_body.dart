@@ -29,14 +29,12 @@ class _EntrenamientoContentBodyState extends State<EntrenamientoContentBody> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     dropdownValue = widget.entrenamientoInfo?.status?.filtros?[0].tid;
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Stack(
       children: [
         Container(

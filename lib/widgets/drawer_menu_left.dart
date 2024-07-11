@@ -32,7 +32,7 @@ class DrawerMenuLeft extends StatelessWidget {
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   InkWell(
                     onTap: () {
