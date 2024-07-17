@@ -2,6 +2,8 @@
 //
 //     final testSalida = testSalidaFromJson(jsonString);
 
+// ignore_for_file: inference_failure_on_untyped_parameter
+
 import 'dart:convert';
 
 TestSalida testSalidaFromJson(String str) =>

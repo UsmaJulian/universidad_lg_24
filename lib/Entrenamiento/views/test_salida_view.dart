@@ -1,3 +1,5 @@
+// ignore_for_file: strict_raw_type, must_be_immutable, inference_failure_on_function_return_type
+
 import 'package:cool_stepper_reloaded/cool_stepper_reloaded.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';

@@ -1,10 +1,12 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:universidad_lg_24/Entrenamiento/entrenamiento/entrenamiento_bloc.dart';
-import 'package:universidad_lg_24/Entrenamiento/models/active_test_salida_model.dart';
+
 import 'package:universidad_lg_24/Entrenamiento/models/leccion_model.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/curso_preview_view.dart';
 import 'package:universidad_lg_24/Home/views/new_home_view.dart';
@@ -228,6 +230,7 @@ class __LeccionContentState extends State<_LeccionContent> {
     }
   }
 
+  // ignore: inference_failure_on_function_return_type
   _onFinishTime() {
     // print('dddd');
 

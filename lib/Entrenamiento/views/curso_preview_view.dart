@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, inference_failure_on_function_return_type
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +49,7 @@ class _CursoPreviewPageState extends State<CursoPreviewPage> {
             onTap: () {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(
+                MaterialPageRoute<void>(
                   builder: (_) {
                     return HomeView(
                       user: widget.user,
@@ -396,7 +398,7 @@ class __CursoPreviewContentState extends State<_CursoPreviewContent> {
                   if (acceso) {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
+                      MaterialPageRoute<void>(
                         builder: (context) => TestSalidaPage(
                           user: widget.user!,
                           curso: cursoPreview!.status!.data!.curso!.nid!,

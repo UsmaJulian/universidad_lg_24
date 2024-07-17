@@ -1,3 +1,5 @@
+// ignore_for_file: strict_raw_type
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:universidad_lg_24/Entrenamiento/models/active_test_salida_model.dart';

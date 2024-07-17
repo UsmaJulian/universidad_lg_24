@@ -1,3 +1,5 @@
+// ignore_for_file: inference_failure_on_uninitialized_variable
+
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Entrenamiento/entrenamiento/entrenamiento_bloc.dart';
 import 'package:universidad_lg_24/Entrenamiento/models/respuestas_test_salida_model.dart';

@@ -1,4 +1,4 @@
-// ignore_for_file: inference_failure_on_collection_literal
+// ignore_for_file: inference_failure_on_collection_literal, strict_raw_type
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -338,7 +338,8 @@ class EntrenamientoService {
       final request = json.decode(response.body);
       if (request['status']['type'] != 'error') {
         final respuestasTestSalidaJson = RespuestasTestSalida.fromJson(
-            json.decode(response.body) as Map<String, dynamic>);
+          json.decode(response.body) as Map<String, dynamic>,
+        );
 
         return respuestasTestSalidaJson;
       } else {
