@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Entrenamiento/widgets/widgets.dart';
-import 'package:universidad_lg_24/constants.dart';
-import 'package:universidad_lg_24/home/views/home_view.dart';
+
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
+import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
 
 class EntrenamientoView extends StatelessWidget {
@@ -15,50 +16,20 @@ class EntrenamientoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        title: Center(
-          child: InkWell(
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (_) {
-                    return HomeView(
-                      user: user,
-                    );
-                  },
-                ),
-                (route) => false,
-              );
-            },
-            child: const Image(
-              image: AssetImage('assets/images/new_logo.png'),
-              height: 35,
-            ),
-          ),
-        ),
-        actions: [
-          Builder(
-            builder: (context) => IconButton(
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-              icon: const Icon(Icons.person),
-            ),
-          ),
-        ],
-      ),
-      backgroundColor: Colors.white,
-      drawer: DrawerMenuLeft(
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      backgroundColor: const Color(0xffF6F3EB),
+      appBar: CustomAppBar(),
+      endDrawer: DrawerMenu(
         user: user,
-        currenPage: 'entrenamiento',
+        isHome: true, // Indica que el DrawerMenuLeft se está utilizando
+        // en la pantalla de inicio.
       ),
-      endDrawer: DrawerMenuRight(
-        user: user,
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 96),
+        child: EntrenamientoContent(user: user),
       ),
-      body: EntrenamientoContent(user: user),
+      bottomNavigationBar: const CustomBottomAppBar(),
     );
   }
 }

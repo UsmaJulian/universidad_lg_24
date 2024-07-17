@@ -10,6 +10,7 @@ environment:
 dependencies:
   bloc: ^8.1.4
   cached_network_image: ^3.3.1
+
   carousel_slider: ^4.2.1
   chewie: ^1.8.1
   cool_stepper_reloaded: ^3.2.6
@@ -27,6 +28,7 @@ dependencies:
   http: ^1.2.1
   image_picker: ^1.1.2
   intl: ^0.19.0
+  kalender: ^0.4.1
   rainbow_color: ^2.0.1
   string_extensions: ^0.7.1
   video_player: ^2.9.1
