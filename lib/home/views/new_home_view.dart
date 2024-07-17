@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:universidad_lg_24/Entrenamiento/views/curso_preview_view.dart';
 import 'package:universidad_lg_24/Juegos/views/Juegos_view.dart';
 import 'package:universidad_lg_24/Noticias/views/noticias_view.dart';
 import 'package:universidad_lg_24/Reels/views/reels_view.dart';
@@ -40,6 +41,10 @@ class NewHomeView extends StatelessWidget {
                   children: [
                     ButtonMain(
                       text: 'Cursos',
+                      onPress: CursoPreviewPage(
+                        user: user,
+                        nid: '3715',
+                      ),
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 15, right: 15),

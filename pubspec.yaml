@@ -15,6 +15,7 @@ dependencies:
   cool_stepper_reloaded: ^3.2.6
   cupertino_icons: ^1.0.8
   equatable: ^2.0.5
+  flick_video_player: ^0.8.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6

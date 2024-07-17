@@ -2,8 +2,15 @@
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:universidad_lg_24/Entrenamiento/models/active_test_salida_model.dart';
+import 'package:universidad_lg_24/Entrenamiento/models/leccion_model.dart';
 
 import 'package:universidad_lg_24/Entrenamiento/models/models.dart';
+import 'package:universidad_lg_24/Entrenamiento/models/respuestas_test_salida_model.dart';
+import 'package:universidad_lg_24/Entrenamiento/models/send_test_entrada_model.dart';
+import 'package:universidad_lg_24/Entrenamiento/models/send_test_salida_model.dart';
+import 'package:universidad_lg_24/Entrenamiento/models/test_entrada_model.dart';
+import 'package:universidad_lg_24/Entrenamiento/models/test_salida_model.dart';
 import 'package:universidad_lg_24/constants.dart';
 
 class EntrenamientoService {
@@ -41,8 +48,11 @@ class EntrenamientoService {
     return null;
   }
 
-/*   Future<CursoPreview> serviceGetCursoPreviewContent(
-      String userid, String token, String curso,) async {
+  Future<CursoPreview?> serviceGetCursoPreviewContent(
+    String userid,
+    String token,
+    String curso,
+  ) async {
     final response = await http.post(
       Uri.https(baseUrl, 'app/entrenamiento/curso'),
       headers: <String, String>{
@@ -60,21 +70,27 @@ class EntrenamientoService {
       final request = json.decode(response.body);
       if (request['status']['type'] != 'error') {
         print('API Curso Preview');
-        final cursoPreviewJson =
-            CursoPreview.fromJson(json.decode(response.body));
+        final cursoPreviewJson = CursoPreview.fromJson(
+          json.decode(response.body) as Map<String, dynamic>,
+        );
         return cursoPreviewJson;
       } else {
-        throw null;
+        throw {};
       }
 
       // throw AuthenticationException(message: 'Wrong username or password');
     } else {
       // throw HomeException(message: 'ocurrio un problema de conexion');
     }
-  } */
+    return null;
+  }
 
-  /*  Future<TestEntrada> serviceGetTestEntradaContent(
-      String userid, String token, String curso, String leccion,) async {
+  Future<TestEntrada?> serviceGetTestEntradaContent(
+    String userid,
+    String token,
+    String curso,
+    String leccion,
+  ) async {
     final response = await http.post(
       Uri.https(baseUrl, 'app/entrenamiento/curso/test-entrada'),
       headers: <String, String>{
@@ -93,21 +109,28 @@ class EntrenamientoService {
       final request = json.decode(response.body);
       if (request['status']['type'] != 'error') {
         print('API Test Entrada');
-        final var testEntradaJson =
-            TestEntrada.fromJson(json.decode(response.body));
+        final testEntradaJson = TestEntrada.fromJson(
+          json.decode(response.body) as Map<String, dynamic>,
+        );
         return testEntradaJson;
       } else {
-        throw null;
+        throw {};
       }
 
       // throw AuthenticationException(message: 'Wrong username or password');
     } else {
       // throw HomeException(message: 'ocurrio un problema de conexion');
     }
-  } */
+    return null;
+  }
 
-  /*  Future<SendTestEntrada> serviceSendTestEntrada(String userid, String token,
-      String curso, String leccion, Map data,) async {
+  Future<SendTestEntrada> serviceSendTestEntrada(
+    String userid,
+    String token,
+    String curso,
+    String leccion,
+    Map data,
+  ) async {
     final response = await http.post(
       Uri.https(baseUrl, 'app/entrenamiento/curso/test-entrada/save'),
       headers: <String, String>{
@@ -125,21 +148,26 @@ class EntrenamientoService {
     if (response.statusCode == 200) {
       final request = json.decode(response.body);
       if (request['status']['type'] != 'error') {
-        final sendTestEntradaJson =
-            SendTestEntrada.fromJson(json.decode(response.body));
+        final sendTestEntradaJson = SendTestEntrada.fromJson(
+          json.decode(response.body) as Map<String, dynamic>,
+        );
 
         return sendTestEntradaJson;
       } else {
-        throw request['status']['message'];
+        throw request['status']['message'].toString();
       }
       // throw AuthenticationException(message: 'Wrong username or password');
     } else {
       throw 'error';
     }
-  } */
+  }
 
-  /*  Future<Leccion> serviceGetLeccionContent(
-      String userid, String token, String curso, String leccion,) async {
+  Future<Leccion?> serviceGetLeccionContent(
+    String userid,
+    String token,
+    String curso,
+    String leccion,
+  ) async {
     final response = await http.post(
       Uri.https(baseUrl, 'app/entrenamiento/curso/ver'),
       headers: <String, String>{
@@ -158,10 +186,12 @@ class EntrenamientoService {
       final request = json.decode(response.body);
       if (request['status']['type'] != 'error') {
         print('API Leccion');
-        final var leccionJson = Leccion.fromJson(json.decode(response.body));
+        final leccionJson = Leccion.fromJson(
+          json.decode(response.body) as Map<String, dynamic>,
+        );
         return leccionJson;
       } else {
-        throw null;
+        throw {};
       }
 
       // throw AuthenticationException(message: 'Wrong username or password');
@@ -169,10 +199,14 @@ class EntrenamientoService {
       // throw HomeException(message: 'ocurrio un problema de conexion');
       print('Error Leccion');
     }
-  } */
+    return null;
+  }
 
-  /*  Future<ActiveTestSalida> serviceActiveTestSalida(
-      String userid, String token, String curso,) async {
+  Future<ActiveTestSalida?> serviceActiveTestSalida(
+    String userid,
+    String token,
+    String curso,
+  ) async {
     final response = await http.post(
       Uri.https(baseUrl, 'app/entrenamiento/curso/active'),
       headers: <String, String>{
@@ -190,11 +224,12 @@ class EntrenamientoService {
       final request = json.decode(response.body);
       if (request['status']['type'] != 'error') {
         print('API Active TestSalida');
-        final var activeTSJson =
-            ActiveTestSalida.fromJson(json.decode(response.body));
+        final activeTSJson = ActiveTestSalida.fromJson(
+          json.decode(response.body) as Map<String, dynamic>,
+        );
         return activeTSJson;
       } else {
-        throw null;
+        throw {};
       }
 
       // throw AuthenticationException(message: 'Wrong username or password');
@@ -202,10 +237,15 @@ class EntrenamientoService {
       // throw HomeException(message: 'ocurrio un problema de conexion');
       print('Error Leccion');
     }
-  } */
+    return null;
+  }
 
-/*   Future<TestSalida> serviceGetTestSalidaContent(
-      String userid, String token, String curso, String leccion,) async {
+  Future<TestSalida?> serviceGetTestSalidaContent(
+    String userid,
+    String token,
+    String curso,
+    String leccion,
+  ) async {
     final response = await http.post(
       Uri.https(baseUrl, 'app/entrenamiento/curso/test-salida'),
       headers: <String, String>{
@@ -224,21 +264,28 @@ class EntrenamientoService {
       final request = json.decode(response.body);
       if (request['status']['type'] != 'error') {
         print('API Test Entrada');
-        final testSalidaJson =
-            TestSalida.fromJson(json.decode(response.body));
+        final testSalidaJson = TestSalida.fromJson(
+          json.decode(response.body) as Map<String, dynamic>,
+        );
         return testSalidaJson;
       } else {
-        throw null;
+        throw {};
       }
 
       // throw AuthenticationException(message: 'Wrong username or password');
     } else {
       // throw HomeException(message: 'ocurrio un problema de conexion');
     }
-  } */
+    return null;
+  }
 
-  /*  Future<SendTestSalida> serviceSendTestSalida(String userid, String token,
-      String curso, String leccion, Map data,) async {
+  Future<SendTestSalida> serviceSendTestSalida(
+    String userid,
+    String token,
+    String curso,
+    String leccion,
+    Map data,
+  ) async {
     final response = await http.post(
       Uri.https(baseUrl, 'app/entrenamiento/curso/test-salida/save'),
       headers: <String, String>{
@@ -256,21 +303,25 @@ class EntrenamientoService {
     if (response.statusCode == 200) {
       final request = json.decode(response.body);
       if (request['status']['type'] != 'error') {
-        final var sendTestSalidaJson =
-            SendTestSalida.fromJson(json.decode(response.body));
+        final sendTestSalidaJson = SendTestSalida.fromJson(
+          json.decode(response.body) as Map<String, dynamic>,
+        );
 
         return sendTestSalidaJson;
       } else {
-        throw request['status']['message'];
+        throw request['status']['message'].toString();
       }
       // throw AuthenticationException(message: 'Wrong username or password');
     } else {
       throw 'error';
     }
-  } */
+  }
 
-/*   Future<RespuestasTestSalida> serviceRespuestasTestSalida(
-      String userid, String token, String curso,) async {
+  Future<RespuestasTestSalida> serviceRespuestasTestSalida(
+    String userid,
+    String token,
+    String curso,
+  ) async {
     final response = await http.post(
       Uri.https(baseUrl, 'app/entrenamiento/curso/test-salida/answers'),
       headers: <String, String>{
@@ -286,16 +337,16 @@ class EntrenamientoService {
     if (response.statusCode == 200) {
       final request = json.decode(response.body);
       if (request['status']['type'] != 'error') {
-        final respuestasTestSalidaJson =
-            RespuestasTestSalida.fromJson(json.decode(response.body));
+        final respuestasTestSalidaJson = RespuestasTestSalida.fromJson(
+            json.decode(response.body) as Map<String, dynamic>);
 
         return respuestasTestSalidaJson;
       } else {
-        throw request['status']['message'];
+        throw request['status']['message'].toString();
       }
       // throw AuthenticationException(message: 'Wrong username or password');
     } else {
       throw 'error';
     }
-  } */
+  }
 }
