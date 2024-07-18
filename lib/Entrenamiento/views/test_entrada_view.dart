@@ -2,6 +2,7 @@
 
 import 'package:cool_stepper_reloaded/cool_stepper_reloaded.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
@@ -14,13 +15,16 @@ import 'package:universidad_lg_24/Entrenamiento/views/curso_preview_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/helpers/flutter_radio_button_form_field.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/widgets/button_main.dart';
+import 'package:universidad_lg_24/widgets/global/header_global.dart';
+import 'package:universidad_lg_24/widgets/widgets.dart';
 
 Map preguntasList = {};
 CountdownTimerController? controllerTime;
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-class TestEntradaPage extends StatefulWidget {
-  const TestEntradaPage({
+class TestEntradaView extends StatefulWidget {
+  const TestEntradaView({
     required this.user,
     required this.curso,
     required this.leccion,
@@ -33,66 +37,52 @@ class TestEntradaPage extends StatefulWidget {
   final String? leccion;
 
   @override
-  _TestEntradaPageState createState() => _TestEntradaPageState();
+  _TestEntradaViewState createState() => _TestEntradaViewState();
 }
 
-class _TestEntradaPageState extends State<TestEntradaPage> {
+class _TestEntradaViewState extends State<TestEntradaView> {
   EntrenamientoBloc testEntradaBloc = EntrenamientoBloc();
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return WillPopScope(
-      onWillPop: () async {
-        return _onBackPressed();
-      },
-      child: Scaffold(
-        key: _scaffoldKey,
-        // backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: mainColor,
-          title: const Center(
-            child: InkWell(
-              // onTap: () {
-              //   Navigator.pushReplacement(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (context) => HomePage(
-              //                 user: widget.user,
-              //               )));
-              // },
-              child: Image(
-                image: AssetImage('assets/images/new_logo.png'),
-                height: 35,
+    return Scaffold(
+      key: _scaffoldKey,
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      backgroundColor: secondColor,
+      appBar: CustomAppBar(),
+      endDrawer: DrawerMenu(
+        user: widget.user,
+        isHome: true, // Indica que el DrawerMenuLeft se está utilizando
+        // en la pantalla de inicio.
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 128),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+              child: OutlinedButton(
+                onPressed: _onBackPressed,
+                child: const Text(
+                  'Volver',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ),
-          ),
-          actions: [
-            Builder(
-              builder: (context) => IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
-                },
-                icon: const Icon(Icons.person),
-                color: Colors.transparent,
+            Expanded(
+              child: _TestEntradaContent(
+                user: widget.user,
+                curso: widget.curso,
+                leccion: widget.leccion,
+                parent: widget.parent,
               ),
             ),
           ],
         ),
-        backgroundColor: Colors.white,
-        // drawer: DrawerMenuLeft(
-        //   user: widget.user,
-        //   currenPage: 'evaluaciones',
-        // ),
-        // endDrawer: DrawerMenuRight(),
-        body: _TestEntradaContent(
-          user: widget.user,
-          curso: widget.curso,
-          leccion: widget.leccion,
-          parent: widget.parent,
-        ),
-
-        // otherwise show login page
       ),
+
+      // otherwise show login page
     );
   }
 
@@ -209,7 +199,7 @@ class __TestEntradaContentState extends State<_TestEntradaContent> {
   @override
   Widget build(BuildContext context) {
     if (load) {
-      return Container(
+      return SizedBox(
         // padding: EdgeInsets.all(0),
         child: _ContentTestEntrada(
           testEntradaInfo: testEntradaInfo,
@@ -292,6 +282,9 @@ class __ContentTestEntradaState extends State<_ContentTestEntrada>
         CountdownTimerController(endTime: endTime, onEnd: _onFinishTime);
 
     /// animacion del loader
+    if (controllerAnimation != null) {
+      controllerAnimation?.dispose();
+    }
     controllerAnimation = AnimationController(
       vsync: this,
       duration: Duration(minutes: widget.time!),
@@ -316,23 +309,84 @@ class __ContentTestEntradaState extends State<_ContentTestEntrada>
         child: Column(
           children: [
             Expanded(
-              child: CoolStepper(
-                onCompleted: _onFinish,
-                steps: steps,
-                config: const CoolStepperConfig(
-                  backText: 'ANTERIOR',
-                  nextText: 'SIGUIENTE',
-                  finalText: 'ENVIAR',
-                  stepText: '',
-                  ofText: 'DE',
-                  headerColor: mainColor,
-                  titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
-                  subtitleTextStyle:
-                      TextStyle(color: Colors.white, fontSize: 16),
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: CoolStepper(
+                  onCompleted: _onFinish,
+                  contentPadding: const EdgeInsets.all(15),
+                  steps: steps,
+                  config: CoolStepperConfig(
+                    backText: 'ANTERIOR',
+                    nextText: 'SIGUIENTE',
+                    finalText: 'ENVIAR',
+                    stepText: '',
+                    ofText: 'DE',
+                    headerColor: secondColor,
+                    titleTextStyle:
+                        const TextStyle(color: Colors.black, fontSize: 20),
+                    subtitleTextStyle:
+                        const TextStyle(color: Colors.black, fontSize: 16),
+                    nextTextStyle: const TextStyle(
+                      color: mainColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                    nextButton: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(110, 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        backgroundColor: mainColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        'SIGUIENTE',
+                        style: TextStyle(color: secondColor),
+                      ),
+                    ),
+                    finishButton: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(110, 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        backgroundColor: mainColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        'ENVIAR',
+                        style: TextStyle(color: secondColor),
+                      ),
+                    ),
+                    backButton: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(110, 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        backgroundColor: secondColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        'ANTERIOR',
+                        style: TextStyle(color: mainColor),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -389,7 +443,7 @@ class __ContentTestEntradaState extends State<_ContentTestEntrada>
     var cont = 1;
     for (final item in widget.testEntradaInfo!.status!.preguntas!) {
       // List<Respuesta> repustas = item.respuestas;
-      final respuesta = item.respuestas!;
+      final respuesta = item.respuestas! as List<dynamic>;
 
       final data = <Map>[];
 
@@ -400,7 +454,7 @@ class __ContentTestEntradaState extends State<_ContentTestEntrada>
       steps.add(
         CoolStep(
           title: 'Pregunta $cont',
-          subtitle: item.texto!,
+          subtitle: item.texto!.toString(),
           content: Container(
             child: Column(
               children: <Widget>[
@@ -583,8 +637,8 @@ class __ContentTestEntradaState extends State<_ContentTestEntrada>
   @override
   void dispose() {
     // detroy de la animacion
-    super.dispose();
     controllerAnimation?.dispose();
+    super.dispose();
   }
 }
 

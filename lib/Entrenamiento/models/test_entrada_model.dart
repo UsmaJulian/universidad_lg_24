@@ -34,13 +34,13 @@ class Status {
     this.preguntas,
   });
 
-  factory Status.fromJson(Map<String, dynamic> json) => Status(
+  factory Status.fromJson(dynamic json) => Status(
         type: json['type'].toString(),
         code: int.parse(json['code'].toString()),
         message: json['message'].toString(),
         tiempo: json['tiempo'].toString(),
-        preguntas: List<Pregunta>.from(
-          json['preguntas'].map(Pregunta.fromJson) as Iterable<Pregunta>,
+        preguntas: List<dynamic>.from(
+          json['preguntas'].map(Pregunta.fromJson) as Iterable<dynamic>,
         ),
       );
 
@@ -48,7 +48,7 @@ class Status {
   int? code;
   String? message;
   String? tiempo;
-  List<Pregunta>? preguntas;
+  List<dynamic>? preguntas;
 
   Map<String, dynamic> toJson() => {
         'type': type,
@@ -68,13 +68,13 @@ class Pregunta {
     this.respuestas,
   });
 
-  factory Pregunta.fromJson(Map<String, dynamic> json) => Pregunta(
+  factory Pregunta.fromJson(dynamic json) => Pregunta(
         id: json['id'].toString(),
         texto: json['texto'].toString(),
         correcta: json['correcta'].toString(),
         tipo: int.parse(json['tipo'].toString()),
-        respuestas: List<Respuesta>.from(
-          json['respuestas'].map(Respuesta.fromJson) as Iterable<Respuesta>,
+        respuestas: List<dynamic>.from(
+          json['respuestas'].map(Respuesta.fromJson) as Iterable<dynamic>,
         ),
       );
 
@@ -82,7 +82,7 @@ class Pregunta {
   String? texto;
   String? correcta;
   int? tipo;
-  List<Respuesta>? respuestas;
+  List<dynamic>? respuestas;
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -99,7 +99,7 @@ class Respuesta {
     this.texto,
   });
 
-  factory Respuesta.fromJson(Map<String, dynamic> json) => Respuesta(
+  factory Respuesta.fromJson(dynamic json) => Respuesta(
         delta: int.parse(json['delta'].toString()),
         texto: json['texto'].toString(),
       );

@@ -57,8 +57,11 @@ class _SingleEvaluacionViewState extends State<SingleEvaluacionView> {
             Padding(
               padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
               child: OutlinedButton(
-                onPressed: _onBackPressed, 
-                child: const Text('Volver', style: TextStyle(color: Colors.black),),
+                onPressed: _onBackPressed,
+                child: const Text(
+                  'Volver',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ),
             Expanded(

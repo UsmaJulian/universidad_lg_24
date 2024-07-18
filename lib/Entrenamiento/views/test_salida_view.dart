@@ -14,6 +14,8 @@ import 'package:universidad_lg_24/Entrenamiento/views/respuestas_test_salida_vie
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/helpers/flutter_radio_button_form_field.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/widgets/global/header_global.dart';
+import 'package:universidad_lg_24/widgets/widgets.dart';
 
 Map preguntasList = {};
 CountdownTimerController? controllerTime;
@@ -38,57 +40,44 @@ class _TestSalidaPageState extends State<TestSalidaPage> {
   EntrenamientoBloc testSalidaBloc = EntrenamientoBloc();
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return _onBackPressed();
-      },
-      child: Scaffold(
-        // backgroundColor: Colors.transparent,
-        key: _scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: mainColor,
-          title: Center(
-            child: InkWell(
-              onTap: () {
-                // Navigator.pushReplacement(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => HomePage(
-                //               user: widget.user,
-                //             )));
-              },
-              child: const Image(
-                image: AssetImage('assets/images/new_logo.png'),
-                height: 35,
+    return Scaffold(
+      key: _scaffoldKey,
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      backgroundColor: secondColor,
+      appBar: CustomAppBar(),
+      endDrawer: DrawerMenu(
+        user: widget.user,
+        isHome: true, // Indica que el DrawerMenuLeft se está utilizando
+        // en la pantalla de inicio.
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 128),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+              child: OutlinedButton(
+                onPressed: _onBackPressed,
+                child: const Text(
+                  'Volver',
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
             ),
-          ),
-          actions: [
-            Builder(
-              builder: (context) => IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
-                },
-                icon: const Icon(Icons.person),
-                color: Colors.transparent,
+            Expanded(
+              child: _TestSalidaContent(
+                user: widget.user,
+                curso: widget.curso,
+                leccion: widget.leccion,
               ),
             ),
           ],
         ),
-        backgroundColor: Colors.white,
-        // drawer: DrawerMenuLeft(
-        //   user: widget.user,
-        //   currenPage: 'evaluaciones',
-        // ),
-        // endDrawer: DrawerMenuRight(),
-        body: _TestSalidaContent(
-          user: widget.user,
-          curso: widget.curso,
-          leccion: widget.leccion,
-        ),
-
-        // otherwise show login page
       ),
+
+      // otherwise show login page
     );
   }
 
@@ -203,8 +192,7 @@ class __TestSalidaContentState extends State<_TestSalidaContent> {
   @override
   Widget build(BuildContext context) {
     if (load) {
-      return Container(
-        // padding: EdgeInsets.all(0),
+      return SizedBox(
         child: _ContentTestSalida(
           testSalidaInfo: testSalidaInfo,
           time: int.parse(
@@ -283,6 +271,9 @@ class __ContentTestSalidaState extends State<_ContentTestSalida>
         CountdownTimerController(endTime: endTime, onEnd: _onFinishTime);
 
     /// animacion del loader
+    if (controllerAnimation != null) {
+      controllerAnimation?.dispose();
+    }
     controllerAnimation = AnimationController(
       vsync: this,
       duration: Duration(minutes: widget.time!),
@@ -306,7 +297,7 @@ class __ContentTestSalidaState extends State<_ContentTestSalida>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: Form(
         key: _key,
         autovalidateMode:
@@ -314,23 +305,84 @@ class __ContentTestSalidaState extends State<_ContentTestSalida>
         child: Column(
           children: [
             Expanded(
-              child: CoolStepper(
-                onCompleted: _onFinish,
-                steps: steps,
-                config: const CoolStepperConfig(
-                  backText: 'ANTERIOR',
-                  nextText: 'SIGUIENTE',
-                  finalText: 'ENVIAR',
-                  stepText: '',
-                  ofText: 'DE',
-                  headerColor: mainColor,
-                  titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
-                  subtitleTextStyle:
-                      TextStyle(color: Colors.white, fontSize: 16),
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: CoolStepper(
+                  onCompleted: _onFinish,
+                  contentPadding: const EdgeInsets.all(15),
+                  steps: steps,
+                  config: CoolStepperConfig(
+                    backText: 'ANTERIOR',
+                    nextText: 'SIGUIENTE',
+                    finalText: 'ENVIAR',
+                    stepText: '',
+                    ofText: 'DE',
+                    headerColor: secondColor,
+                    titleTextStyle:
+                        const TextStyle(color: Colors.black, fontSize: 20),
+                    subtitleTextStyle:
+                        const TextStyle(color: Colors.black, fontSize: 16),
+                    nextTextStyle: const TextStyle(
+                      color: mainColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                    nextButton: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(110, 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        backgroundColor: mainColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        'SIGUIENTE',
+                        style: TextStyle(color: secondColor),
+                      ),
+                    ),
+                    finishButton: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(110, 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        backgroundColor: mainColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        'ENVIAR',
+                        style: TextStyle(color: secondColor),
+                      ),
+                    ),
+                    backButton: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(110, 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        backgroundColor: secondColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        'ANTERIOR',
+                        style: TextStyle(color: mainColor),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -387,18 +439,18 @@ class __ContentTestSalidaState extends State<_ContentTestSalida>
     var cont = 1;
     for (final item in widget.testSalidaInfo!.status!.preguntas!) {
       // List<Respuesta> repustas = item.respuestas;
-      final respuesta = item.respuestas!;
+      final respuesta = item.respuestas;
 
       final data = <Map>[];
 
-      for (final rs in respuesta) {
+      for (final rs in respuesta as List<dynamic>) {
         data.add({'value': rs.delta, 'display': rs.texto});
       }
       preguntasList[item.id] = '0';
       steps.add(
         CoolStep(
           title: 'Pregunta $cont',
-          subtitle: item.texto!,
+          subtitle: item.texto!.toString(),
           content: Container(
             child: Column(
               children: <Widget>[

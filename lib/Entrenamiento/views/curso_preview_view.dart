@@ -12,10 +12,10 @@ import 'package:universidad_lg_24/Entrenamiento/views/test_entrada_view.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/test_salida_view.dart';
 import 'package:universidad_lg_24/Home/views/home_view.dart';
 import 'package:universidad_lg_24/constants.dart';
+import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/users/views/login/login_view.dart';
 
-import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 import 'package:video_player/video_player.dart';
 
 class CursoPreviewPage extends StatefulWidget {
@@ -302,7 +302,7 @@ class __CursoPreviewContentState extends State<_CursoPreviewContent> {
                     Navigator.push(
                       context,
                       MaterialPageRoute<void>(
-                        builder: (context) => TestEntradaPage(
+                        builder: (context) => TestEntradaView(
                           parent: widget.nid,
                           user: widget.user,
                           curso: cursoPreview!.status!.data!.curso!.nid,
