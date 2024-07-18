@@ -21,8 +21,8 @@ Map preguntasList = {};
 CountdownTimerController? controllerTime;
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-class TestSalidaPage extends StatefulWidget {
-  const TestSalidaPage({
+class TestSalidaView extends StatefulWidget {
+  const TestSalidaView({
     required this.user,
     required this.curso,
     required this.leccion,
@@ -33,10 +33,10 @@ class TestSalidaPage extends StatefulWidget {
   final String leccion;
 
   @override
-  _TestSalidaPageState createState() => _TestSalidaPageState();
+  _TestSalidaViewState createState() => _TestSalidaViewState();
 }
 
-class _TestSalidaPageState extends State<TestSalidaPage> {
+class _TestSalidaViewState extends State<TestSalidaView> {
   EntrenamientoBloc testSalidaBloc = EntrenamientoBloc();
   @override
   Widget build(BuildContext context) {

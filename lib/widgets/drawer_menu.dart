@@ -6,6 +6,7 @@ import 'package:universidad_lg_24/Entrenamiento/views/entrenamiento_view.dart';
 import 'package:universidad_lg_24/Evaluaciones/views/evaluacion_view.dart';
 import 'package:universidad_lg_24/Home/views/new_home_view.dart';
 import 'package:universidad_lg_24/Noticias/views/noticias_view.dart';
+import 'package:universidad_lg_24/Ranking/views/ranking_view.dart';
 import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 
@@ -269,6 +270,109 @@ class DrawerMenu extends StatelessWidget {
           //       }
           //       return null;
           //     }),
+          ListTile(
+            title: const Center(child: Text('Resuelvelo con LG')),
+            onTap: () {
+              if (currenPage != 'resuelvelo') {
+                Navigator.of(context).pop();
+                if (isHome) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) {
+                        return ResuelveloView(user: user!);
+                      },
+                    ),
+                  );
+                } else {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) {
+                        return ResuelveloView(user: user!);
+                      },
+                    ),
+                  );
+                }
+              }
+              return;
+            },
+          ),
+          Divider(
+            color: const Color(
+              0xff707070,
+            ).withOpacity(0.4),
+            thickness: 1,
+          ),
+          ListTile(
+            title: const Center(child: Text('Calendario')),
+            onTap: () {
+              if (currenPage != 'calendario') {
+                Navigator.of(context).pop();
+                if (isHome) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) {
+                        return CalendarioView(user: user!);
+                      },
+                    ),
+                  );
+                } else {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) {
+                        return CalendarioView(user: user!);
+                      },
+                    ),
+                  );
+                }
+              }
+              return;
+            },
+          ),
+          Divider(
+            color: const Color(
+              0xff707070,
+            ).withOpacity(0.4),
+            thickness: 1,
+          ),
+
+          ListTile(
+            title: const Center(child: Text('Ranking')),
+            onTap: () {
+              if (currenPage != 'ranking') {
+                Navigator.of(context).pop();
+                if (isHome) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) {
+                        return RankingView(user: user);
+                      },
+                    ),
+                  );
+                } else {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) {
+                        return RankingView(user: user);
+                      },
+                    ),
+                  );
+                }
+              }
+              return;
+            },
+          ),
+          Divider(
+            color: const Color(
+              0xff707070,
+            ).withOpacity(0.4),
+            thickness: 1,
+          ),
           ListTile(
             title: const Center(child: Text('Ayuda')),
             onTap: () {

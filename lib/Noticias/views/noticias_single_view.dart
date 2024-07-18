@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:universidad_lg_24/Home/views/home_view.dart';
+
 import 'package:universidad_lg_24/Noticias/blocs/single/single_bloc.dart';
 import 'package:universidad_lg_24/Noticias/services/services.dart';
 import 'package:universidad_lg_24/constants.dart';
@@ -27,7 +27,7 @@ class NoticiaSinglePage extends StatelessWidget {
         // en la pantalla de inicio.
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top:120),
+        padding: const EdgeInsets.only(top: 120),
         child: BlocProvider<SingleBloc>(
           create: (context) => SingleBloc(
             service: IsServiceNoticiasSingle(),

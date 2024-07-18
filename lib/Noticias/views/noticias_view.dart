@@ -6,7 +6,7 @@ import 'package:universidad_lg_24/Noticias/services/services.dart';
 import 'package:universidad_lg_24/Noticias/views/widgets/widgets.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
-import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
+
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 
 import 'package:universidad_lg_24/widgets/widgets.dart';

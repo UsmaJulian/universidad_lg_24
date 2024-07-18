@@ -399,7 +399,7 @@ class __CursoPreviewContentState extends State<_CursoPreviewContent> {
                     Navigator.push(
                       context,
                       MaterialPageRoute<void>(
-                        builder: (context) => TestSalidaPage(
+                        builder: (context) => TestSalidaView(
                           user: widget.user!,
                           curso: cursoPreview!.status!.data!.curso!.nid!,
                           leccion: cursoPreview!.status!.data!.leccionId!,

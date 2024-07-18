@@ -145,7 +145,7 @@ class _NewCursoSingleViewState extends State<NewCursoSingleView> {
                   if (cursoData != null)
                     ButtonMain(
                       text: 'Test de salida',
-                      onPress: TestSalidaPage(
+                      onPress: TestSalidaView(
                         user: widget.user,
                         curso: cursoData!.status!.data!.curso!.nid.toString(),
                         leccion: cursoData!.status!.data!.leccionId.toString(),

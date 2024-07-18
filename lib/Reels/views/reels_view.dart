@@ -4,7 +4,7 @@ import 'package:universidad_lg_24/constants.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/body_footer_global.dart';
-import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
+
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
 import 'package:video_player/video_player.dart';
@@ -82,7 +82,8 @@ class _ReelsViewState extends State<ReelsView> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 120, left: 20, right: 20, bottom: 20),
+              padding: const EdgeInsets.only(
+                  top: 120, left: 20, right: 20, bottom: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -104,7 +105,8 @@ class _ReelsViewState extends State<ReelsView> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 25),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(30),
@@ -121,7 +123,8 @@ class _ReelsViewState extends State<ReelsView> {
                                                   dialogo(context, reel);
                                                 },
                                                 icon: const Icon(
-                                                  Icons.play_circle_fill_outlined,
+                                                  Icons
+                                                      .play_circle_fill_outlined,
                                                   color: mainColor,
                                                   size: 90,
                                                 ),
@@ -172,7 +175,8 @@ class _ReelsViewState extends State<ReelsView> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 25),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(30),
@@ -222,7 +226,6 @@ class _ReelsViewState extends State<ReelsView> {
                       ),
                     ),
                   ),
-                  
                 ],
               ),
             ),
