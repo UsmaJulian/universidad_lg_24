@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:universidad_lg_24/Biblioteca/bloc/biblioteca/biblioteca_bloc.dart';
 import 'package:universidad_lg_24/Biblioteca/services/biblioteca_services.dart';
 import 'package:universidad_lg_24/Biblioteca/views/widgets/widgets.dart';
-import 'package:universidad_lg_24/constants.dart';
-import 'package:universidad_lg_24/home/views/home_view.dart';
+
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';

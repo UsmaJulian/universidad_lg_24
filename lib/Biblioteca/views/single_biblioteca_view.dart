@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Biblioteca/models/biblioteca_model.dart';
 import 'package:universidad_lg_24/Biblioteca/views/widgets/widgets.dart';
-import 'package:universidad_lg_24/constants.dart';
-import 'package:universidad_lg_24/home/views/home_view.dart';
+
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';

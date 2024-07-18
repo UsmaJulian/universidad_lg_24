@@ -4,7 +4,7 @@ import 'package:universidad_lg_24/Ayuda/blocs/ayuda/ayuda_bloc.dart';
 import 'package:universidad_lg_24/Ayuda/services/ayuda_service.dart';
 import 'package:universidad_lg_24/Ayuda/views/ayuda_form_view.dart';
 import 'package:universidad_lg_24/Ayuda/views/widgets/widgets.dart';
-import 'package:universidad_lg_24/Home/views/home_view.dart';
+
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';

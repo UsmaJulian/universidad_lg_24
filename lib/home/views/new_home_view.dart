@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Cursos/views/new_cursos_view.dart';
-import 'package:universidad_lg_24/Entrenamiento/views/curso_preview_view.dart';
+
 import 'package:universidad_lg_24/Juegos/views/Juegos_view.dart';
 import 'package:universidad_lg_24/Noticias/views/noticias_view.dart';
 import 'package:universidad_lg_24/Reels/views/reels_view.dart';

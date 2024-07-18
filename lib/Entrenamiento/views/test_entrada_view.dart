@@ -15,7 +15,7 @@ import 'package:universidad_lg_24/Entrenamiento/views/curso_preview_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/helpers/flutter_radio_button_form_field.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
-import 'package:universidad_lg_24/widgets/button_main.dart';
+
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
 

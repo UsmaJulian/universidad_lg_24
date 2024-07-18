@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Evaluaciones/bloc/evaluacion_bloc.dart';
 import 'package:universidad_lg_24/Evaluaciones/models/models.dart';
 import 'package:universidad_lg_24/Evaluaciones/views/widgets/content_evaluacion.dart';
-import 'package:universidad_lg_24/constants.dart';
+
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/body_footer_global.dart';
 
@@ -60,7 +60,7 @@ class _EvaluacionContent extends State<EvaluacionContent> {
                 evaluacionInfo: evaluacionInfo!.status!.evaluaciones,
                 user: widget.user,
               ),
-              const BodyFooter()
+              const BodyFooter(),
             ],
           ),
         ),
@@ -74,4 +74,3 @@ class _EvaluacionContent extends State<EvaluacionContent> {
     );
   }
 }
-

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:universidad_lg_24/Home/views/home_view.dart';
-import 'package:universidad_lg_24/constants.dart';
+
 import 'package:universidad_lg_24/users/blocs/perfil/perfil_bloc.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/users/services/services.dart';

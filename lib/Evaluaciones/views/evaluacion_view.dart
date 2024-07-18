@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Evaluaciones/views/widgets/evaluacion_content.dart';
-import 'package:universidad_lg_24/Home/views/home_view.dart';
-import 'package:universidad_lg_24/constants.dart';
+
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
@@ -28,7 +27,9 @@ class EvaluacionView extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 120),
-        child: EvaluacionContent(user: user,)
+        child: EvaluacionContent(
+          user: user,
+        ),
       ),
     );
   }
