@@ -6,6 +6,7 @@ import 'package:universidad_lg_24/Entrenamiento/views/entrenamiento_view.dart';
 import 'package:universidad_lg_24/Evaluaciones/views/evaluacion_view.dart';
 import 'package:universidad_lg_24/Home/views/new_home_view.dart';
 import 'package:universidad_lg_24/Noticias/views/noticias_view.dart';
+import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -248,34 +249,6 @@ class DrawerMenu extends StatelessWidget {
             ).withOpacity(0.4),
             thickness: 1,
           ),
-          ListTile(
-            title: const Center(child: Text('Calendario')),
-            onTap: () {
-              if (currenPage != 'calendario') {
-                Navigator.of(context).pop();
-                if (isHome) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return CalendarioView(user: user!);
-                      },
-                    ),
-                  );
-                } else {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return CalendarioView(user: user!);
-                      },
-                    ),
-                  );
-                }
-              }
-              return;
-            },
-          ),
           // ListTile(
           //     leading: Icon(Icons.cast_for_education),
           //     title: Text('Streamings'),
@@ -296,12 +269,6 @@ class DrawerMenu extends StatelessWidget {
           //       }
           //       return null;
           //     }),
-          Divider(
-            color: const Color(
-              0xff707070,
-            ).withOpacity(0.4),
-            thickness: 1,
-          ),
           ListTile(
             title: const Center(child: Text('Ayuda')),
             onTap: () {

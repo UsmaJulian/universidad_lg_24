@@ -25,11 +25,13 @@ class NoticiasView extends StatelessWidget {
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando
         // en la pantalla de inicio.
       ),
-      body: BlocProvider<GeneralBloc>(
-        create: (context) => GeneralBloc(service: IsNoticiasService()),
-        child: ContentNoticiasPage(user: user),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 120),
+        child: BlocProvider<GeneralBloc>(
+          create: (context) => GeneralBloc(service: IsNoticiasService()),
+          child: ContentNoticiasPage(user: user),
+        ),
       ),
-      bottomNavigationBar: const CustomBottomAppBar(),
     );
   }
 }
