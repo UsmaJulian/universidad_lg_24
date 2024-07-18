@@ -13,6 +13,8 @@ import 'package:universidad_lg_24/Evaluaciones/views/resultado_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/helpers/flutter_radio_button_form_field.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/widgets/drawer_menu.dart';
+import 'package:universidad_lg_24/widgets/global/header_global.dart';
 
 Map<dynamic, dynamic> preguntasList = {};
 CountdownTimerController? controllerTime;
@@ -36,38 +38,36 @@ class _SingleEvaluacionViewState extends State<SingleEvaluacionView> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return WillPopScope(
-      onWillPop: () async {
-        return _onBackPressed();
-      },
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: mainColor,
-          title: const Center(
-            child: InkWell(
-              child: Image(
-                image: AssetImage('assets/images/new_logo.png'),
-                height: 35,
+    return Scaffold(
+      key: _scaffoldKey,
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      backgroundColor: const Color(0xffF6F3EB),
+      appBar: CustomAppBar(),
+      endDrawer: DrawerMenu(
+        user: widget.user,
+        isHome: true, // Indica que el DrawerMenuLeft se está utilizando
+        // en la pantalla de inicio.
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 120),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+              child: OutlinedButton(
+                onPressed: _onBackPressed, 
+                child: const Text('Volver', style: TextStyle(color: Colors.black),),
               ),
             ),
-          ),
-          actions: [
-            Builder(
-              builder: (context) => IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
-                },
-                icon: const Icon(Icons.person),
-                color: Colors.transparent,
+            Expanded(
+              child: _SingleEvaluacionContent(
+                user: widget.user,
+                nid: widget.nid,
               ),
             ),
           ],
-        ),
-        backgroundColor: Colors.white,
-        body: _SingleEvaluacionContent(
-          user: widget.user,
-          nid: widget.nid,
         ),
       ),
     );
@@ -198,7 +198,7 @@ class __SingleEvaluacionContentState extends State<_SingleEvaluacionContent> {
 
     return const Center(
       child: CircularProgressIndicator(
-        color: mainColor,
+        color: bgColor,
       ),
     );
   }
@@ -301,10 +301,10 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
                   finalText: 'ENVIAR',
                   stepText: '',
                   ofText: 'DE',
-                  headerColor: mainColor,
-                  titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
+                  headerColor: bgColor,
+                  titleTextStyle: TextStyle(color: Colors.black, fontSize: 20),
                   subtitleTextStyle:
-                      TextStyle(color: Colors.white, fontSize: 16),
+                      TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ),
             ),

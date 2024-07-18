@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/constants.dart';
 
-class CustomBottomAppBar extends StatelessWidget {
-  const CustomBottomAppBar({
+class BodyFooter extends StatelessWidget {
+  const BodyFooter({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return const BottomAppBar(
-      color: footerColor,
+    return Container( 
+      width: MediaQuery.of(context).size.width,
       height: 85,
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 40,
+      decoration: const BoxDecoration(color: footerColor),
+      child: const Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 40
         ),
         child: Center(
           child: Text(

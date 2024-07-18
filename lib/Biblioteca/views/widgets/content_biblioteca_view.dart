@@ -5,6 +5,7 @@ import 'package:universidad_lg_24/Biblioteca/models/biblioteca_model.dart';
 import 'package:universidad_lg_24/Biblioteca/views/widgets/widgets.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/widgets/global/body_footer_global.dart';
 
 class ContentBibliotecaView extends StatefulWidget {
   const ContentBibliotecaView({super.key, this.user});
@@ -126,6 +127,7 @@ class _ContentBibliotecaView extends State<ContentBibliotecaView> {
                                 filter: filtro,
                                 categoria: categoria,
                               ),
+                              const BodyFooter()
                         ],
                       ),
                     ),
@@ -210,6 +212,7 @@ class _ContentBibliotecaView extends State<ContentBibliotecaView> {
                                 filter: filtro,
                                 categoria: categoria,
                               ),
+                              const BodyFooter()
                         ],
                       ),
                     ),

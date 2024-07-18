@@ -17,7 +17,7 @@ class AyudaFormView extends StatelessWidget {
           'FORMULA TU RESPUESTA',
           style: TextStyle(fontSize: 16),
         ),
-        backgroundColor: mainColor,
+        backgroundColor: bgColor,
       ),
       body: BlocProvider<FormularioBloc>(
         create: (context) => FormularioBloc(service: IsFormAyudaService()),

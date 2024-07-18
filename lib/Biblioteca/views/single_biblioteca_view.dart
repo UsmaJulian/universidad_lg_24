@@ -4,6 +4,7 @@ import 'package:universidad_lg_24/Biblioteca/views/widgets/widgets.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/home/views/home_view.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
 
 class SingleBibliotecaView extends StatelessWidget {
@@ -13,48 +14,19 @@ class SingleBibliotecaView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        title: Center(
-          child: InkWell(
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (_) {
-                    return HomeView(
-                      user: user,
-                    );
-                  },
-                ),
-                (route) => false,
-              );
-            },
-            child: const Image(
-              image: AssetImage('assets/images/new_logo.png'),
-              height: 35,
-            ),
-          ),
-        ),
-        actions: [
-          Builder(
-            builder: (context) => IconButton(
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-              icon: const Icon(Icons.person),
-            ),
-          ),
-        ],
-      ),
-      backgroundColor: Colors.white,
-      drawer: DrawerMenuLeft(
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      backgroundColor: const Color(0xffF6F3EB),
+      appBar: CustomAppBar(),
+      endDrawer: DrawerMenu(
         user: user,
+        isHome: true, // Indica que el DrawerMenuLeft se está utilizando
+        // en la pantalla de inicio.
       ),
-      endDrawer: DrawerMenuRight(
-        user: user,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 120),
+        child: ContentSingleBibliotecaView(data: data),
       ),
-      body: ContentSingleBibliotecaView(data: data),
     );
   }
 }
