@@ -11,6 +11,7 @@ import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/users/views/logros/logros_view.dart';
 import 'package:universidad_lg_24/users/views/profile/perfil_view.dart';
 
 class DrawerMenu extends StatelessWidget {
@@ -393,6 +394,40 @@ class DrawerMenu extends StatelessWidget {
                     MaterialPageRoute<void>(
                       builder: (context) {
                         return AyudaView(user: user);
+                      },
+                    ),
+                  );
+                }
+              }
+              return;
+            },
+          ),
+          Divider(
+            color: const Color(
+              0xff707070,
+            ).withOpacity(0.4),
+            thickness: 1,
+          ),
+          ListTile(
+            title: const Center(child: Text('Logros')),
+            onTap: () {
+              if (currenPage != 'logros') {
+                Navigator.of(context).pop();
+                if (isHome) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) {
+                        return LogrosView(user: user);
+                      },
+                    ),
+                  );
+                } else {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) {
+                        return LogrosView(user: user);
                       },
                     ),
                   );
