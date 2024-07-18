@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:universidad_lg_24/Biblioteca/models/biblioteca_model.dart';
 import 'package:universidad_lg_24/constants.dart';
+import 'package:universidad_lg_24/widgets/global/body_footer_global.dart';
 
 class ContentSingleBibliotecaView extends StatefulWidget {
   const ContentSingleBibliotecaView({super.key, this.data});
@@ -71,21 +72,25 @@ class _ContentSingleBibliotecaViewState
                 },
               ),
             ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              backgroundColor: mainColor,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 30,),
+                backgroundColor: mainColor,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(30),
+                  ),
                 ),
               ),
+              child: const Text('Volver', style: TextStyle(color: Colors.white)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
-            child: const Text('Volver', style: TextStyle(color: Colors.white)),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
           ),
+          const BodyFooter()
         ],
       ),
     );

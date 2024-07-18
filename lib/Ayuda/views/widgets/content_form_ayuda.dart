@@ -52,7 +52,7 @@ class _ContentFormAyuda extends State<ContentFormAyuda> {
 
     return BlocListener<FormularioBloc, FormularioState>(
       listener: (context, state) {
-        print(state);
+        // print(state);
         if (state is FormularioayudaSuccess) {
           _showResponse(state.message);
         }
