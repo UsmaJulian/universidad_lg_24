@@ -6,6 +6,7 @@ import 'package:universidad_lg_24/Noticias/models/models.dart';
 import 'package:universidad_lg_24/Noticias/views/noticias_single_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/widgets/global/body_footer_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
 
 class ContentNoticiasPage extends StatefulWidget {
@@ -26,7 +27,6 @@ class _ContentNoticiasPageState extends State<ContentNoticiasPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 55, bottom: 95),
       child: BlocBuilder<GeneralBloc, GeneralState>(
         builder: (context, state) {
           final noticiasBloc = BlocProvider.of<GeneralBloc>(context);
@@ -66,6 +66,7 @@ class _ContentNoticiasPageState extends State<ContentNoticiasPage> {
                     ),
                     for (final item in state.data.status.data)
                       _ItemNoticias(item: item, user: widget.user),
+                    const BodyFooter(),
                   ],
                 ),
               ),

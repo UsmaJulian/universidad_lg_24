@@ -6,6 +6,8 @@ import 'package:universidad_lg_24/Noticias/blocs/single/single_bloc.dart';
 import 'package:universidad_lg_24/Noticias/services/services.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/widgets/global/body_footer_global.dart';
+import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
 
 class NoticiaSinglePage extends StatelessWidget {
@@ -16,52 +18,22 @@ class NoticiaSinglePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        title: Center(
-          child: InkWell(
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (_) {
-                    return HomeView(
-                      user: user,
-                    );
-                  },
-                ),
-                (route) => false,
-              );
-            },
-            child: const Image(
-              image: AssetImage('assets/images/new_logo.png'),
-              height: 35,
-            ),
-          ),
-        ),
-        actions: [
-          Builder(
-            builder: (context) => IconButton(
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-              icon: const Icon(Icons.person),
-            ),
-          ),
-        ],
-      ),
-      backgroundColor: Colors.white,
-      drawer: DrawerMenuLeft(
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      appBar: CustomAppBar(),
+      endDrawer: DrawerMenu(
         user: user,
+        isHome: true, // Indica que el DrawerMenuLeft se está utilizando
+        // en la pantalla de inicio.
       ),
-      endDrawer: DrawerMenuRight(
-        user: user,
-      ),
-      body: BlocProvider<SingleBloc>(
-        create: (context) => SingleBloc(
-          service: IsServiceNoticiasSingle(),
+      body: Padding(
+        padding: const EdgeInsets.only(top:120),
+        child: BlocProvider<SingleBloc>(
+          create: (context) => SingleBloc(
+            service: IsServiceNoticiasSingle(),
+          ),
+          child: _ContentSingleNoticia(user: user, nid: nid),
         ),
-        child: _ContentSingleNoticia(user: user, nid: nid),
       ),
     );
   }
@@ -135,6 +107,7 @@ class __ContentSingleNoticia extends State<_ContentSingleNoticia> {
                       textStyle: const TextStyle(color: mainColor),
                     ),
                   ),
+                  const BodyFooter(),
                 ],
               ),
             );

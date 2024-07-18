@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/constants.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/widgets/global/body_footer_global.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
@@ -78,156 +79,157 @@ class _ReelsViewState extends State<ReelsView> {
         // en la pantalla de inicio.
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 155, left: 40, right: 40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Reels',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              ),
-              searchInput(),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 42,
-                ),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.55,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        for (final reel in reels)
-                          if (reel['tags'].toString().contains(searchTerm))
-                            if (reel['type'] == 'video')
-                              Padding(
-                                padding: const EdgeInsets.only(top: 25),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(30),
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: [
-                                          Image.asset(
-                                            reel['thumbnail'].toString(),
-                                            fit: BoxFit.cover,
-                                          ),
-                                          Center(
-                                            child: IconButton(
-                                              onPressed: () {
-                                                dialogo(context, reel);
-                                              },
-                                              icon: const Icon(
-                                                Icons.play_circle_fill_outlined,
-                                                color: mainColor,
-                                                size: 90,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 120, left: 20, right: 20, bottom: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Reels',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                  searchInput(),
+                  SizedBox(
+                    // height: MediaQuery.of(context).size.height * 0.55,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          for (final reel in reels)
+                            if (reel['tags'].toString().contains(searchTerm))
+                              if (reel['type'] == 'video')
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 25),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(30),
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Image.asset(
+                                              reel['thumbnail'].toString(),
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Center(
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  dialogo(context, reel);
+                                                },
+                                                icon: const Icon(
+                                                  Icons.play_circle_fill_outlined,
+                                                  color: mainColor,
+                                                  size: 90,
+                                                ),
+                                                iconSize: 50,
                                               ),
-                                              iconSize: 50,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.favorite_border_outlined,
+                                            size: 40,
+                                          ),
+                                          const SizedBox(width: 5),
+                                          Text(
+                                            reel['likes'].toString(),
+                                            style: const TextStyle(
+                                              fontSize: 44,
+                                              fontWeight: FontWeight.bold,
+                                              color: mainColor,
                                             ),
                                           ),
                                         ],
                                       ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.favorite_border_outlined,
-                                          size: 40,
+                                      Container(
+                                        height: 1,
+                                        decoration: const BoxDecoration(
+                                          color: Color(0xff707070),
                                         ),
-                                        const SizedBox(width: 5),
-                                        Text(
-                                          reel['likes'].toString(),
-                                          style: const TextStyle(
-                                            fontSize: 44,
-                                            fontWeight: FontWeight.bold,
-                                            color: mainColor,
-                                          ),
+                                      ),
+                                      Text(
+                                        reel['tags'].toString().replaceAll(
+                                              RegExp(r'[^\#\w\s]+'),
+                                              '',
+                                            ),
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                      ],
-                                    ),
-                                    Container(
-                                      height: 1,
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xff707070),
                                       ),
-                                    ),
-                                    Text(
-                                      reel['tags'].toString().replaceAll(
-                                            RegExp(r'[^\#\w\s]+'),
-                                            '',
+                                    ],
+                                  ),
+                                )
+                              else
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 25),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(30),
+                                        child: Image.asset(
+                                          reel['resource'].toString(),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.favorite_border_outlined,
+                                            size: 40,
                                           ),
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
+                                          const SizedBox(width: 5),
+                                          Text(
+                                            reel['likes'].toString(),
+                                            style: const TextStyle(
+                                              fontSize: 44,
+                                              fontWeight: FontWeight.bold,
+                                              color: mainColor,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
+                                      Container(
+                                        height: 1,
+                                        decoration: const BoxDecoration(
+                                          color: Color(0xff707070),
+                                        ),
+                                      ),
+                                      Text(
+                                        reel['tags'].toString().replaceAll(
+                                              RegExp(r'[^\#\w\s]+'),
+                                              '',
+                                            ),
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              )
-                            else
-                              Padding(
-                                padding: const EdgeInsets.only(top: 25),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(30),
-                                      child: Image.asset(
-                                        reel['resource'].toString(),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.favorite_border_outlined,
-                                          size: 40,
-                                        ),
-                                        const SizedBox(width: 5),
-                                        Text(
-                                          reel['likes'].toString(),
-                                          style: const TextStyle(
-                                            fontSize: 44,
-                                            fontWeight: FontWeight.bold,
-                                            color: mainColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      height: 1,
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xff707070),
-                                      ),
-                                    ),
-                                    Text(
-                                      reel['tags'].toString().replaceAll(
-                                            RegExp(r'[^\#\w\s]+'),
-                                            '',
-                                          ),
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
+                  
+                ],
               ),
-            ],
-          ),
+            ),
+            const BodyFooter(),
+          ],
         ),
       ),
-      bottomNavigationBar: const CustomBottomAppBar(),
     );
   }
 
