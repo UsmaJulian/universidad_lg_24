@@ -42,9 +42,7 @@ class App extends StatelessWidget {
               user: state.user,
             ); */
             return NewHomeView(user: state.user);
-          }
-
-          if (state is AuthenticationNotAuthenticatedState ||
+          } else if (state is AuthenticationNotAuthenticatedState ||
               state is AuthenticationInitialState ||
               state is AuthenticationNotCodeState) {
             // Si el usuario no está autenticado, mostrar la vista de login

@@ -52,29 +52,40 @@ class _CalendarioViewState extends State<CalendarioView> {
   @override
   void initState() {
     super.initState();
-    final now = DateTime.now();
+    // final now = DateTime.now();
     eventController.addEvents([
       CalendarEvent(
         dateTimeRange: DateTimeRange(
-          start: now.add(const Duration(days: 2)),
-          end: now.add(const Duration(days: 3, hours: 2)),
+          start: DateTime(2024, 7, 2),
+          end: DateTime(2024, 7, 4),
         ),
-        eventData: Event(title: 'Nueva Noticia', color: blackColor),
+        eventData: Event(
+          title: 'Nueva Noticia',
+          color: blackColor,
+          description: 'Nueva noticia de la universidad LG.',
+        ),
       ),
       CalendarEvent(
         dateTimeRange: DateTimeRange(
-          start: now.add(const Duration(hours: 2)),
-          end: now.add(const Duration(hours: 5)),
+          start: DateTime(2024, 7, 19),
+          end: DateTime(2024, 7, 22),
         ),
-        eventData: Event(title: 'Nuevo reel', color: vioColor),
+        eventData: Event(
+          title: 'Nuevo reel',
+          color: vioColor,
+          description: 'Diviértete con nuestro videos.',
+        ),
       ),
       CalendarEvent(
         dateTimeRange: DateTimeRange(
-          start: DateTime(now.year, now.month, now.day),
-          end: DateTime(now.year, now.month, now.day)
-              .add(const Duration(days: 2)),
+          start: DateTime(2024, 8),
+          end: DateTime(2024, 8, 3),
         ),
-        eventData: Event(title: 'Nuevo juego', color: mainColor),
+        eventData: Event(
+          title: 'Nuevo juego',
+          color: mainColor,
+          description: 'Juega con nosotros.',
+        ),
       ),
     ]);
   }
@@ -179,14 +190,8 @@ class _CalendarioViewState extends State<CalendarioView> {
           title: Text(event.eventData?.title ?? 'New Event'),
           content: Text(event.eventData?.description ?? 'No description'),
           actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Close'),
-            ),
             ButtonMain(
-              text: 'Curso',
+              text: 'Ver',
               onPress: NewCursosView(
                 user: widget.user,
               ),
