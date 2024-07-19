@@ -376,6 +376,29 @@ class _TriviaViewState extends State<TriviaView> {
                                 setState(() {
                                   if (_currentTrivia < _trivias.length - 1) {
                                     _currentTrivia++;
+                                  } else if (_currentTrivia ==
+                                      _trivias.length - 1) {
+                                    showDialog<void>(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: const Text(
+                                            '¡Gracias por participar!',
+                                          ),
+                                          content: const Text(
+                                            'Has completado la trivia',
+                                          ),
+                                          actions: [
+                                            ButtonMain(
+                                              text: 'Aceptar',
+                                              onPress: JuegosView(
+                                                user: widget.user,
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                   }
                                 });
                               },
