@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kalender/kalender.dart';
+import 'package:universidad_lg_24/Cursos/views/new_cursos_view.dart';
+import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
@@ -54,17 +56,17 @@ class _CalendarioViewState extends State<CalendarioView> {
     eventController.addEvents([
       CalendarEvent(
         dateTimeRange: DateTimeRange(
-          start: now,
-          end: now.add(const Duration(hours: 1)),
+          start: now.add(const Duration(days: 2)),
+          end: now.add(const Duration(days: 3, hours: 2)),
         ),
-        eventData: Event(title: 'Event 1'),
+        eventData: Event(title: 'Nueva Noticia', color: blackColor),
       ),
       CalendarEvent(
         dateTimeRange: DateTimeRange(
           start: now.add(const Duration(hours: 2)),
           end: now.add(const Duration(hours: 5)),
         ),
-        eventData: Event(title: 'Event 2'),
+        eventData: Event(title: 'Nuevo reel', color: vioColor),
       ),
       CalendarEvent(
         dateTimeRange: DateTimeRange(
@@ -72,7 +74,7 @@ class _CalendarioViewState extends State<CalendarioView> {
           end: DateTime(now.year, now.month, now.day)
               .add(const Duration(days: 2)),
         ),
-        eventData: Event(title: 'Event 3'),
+        eventData: Event(title: 'Nuevo juego', color: mainColor),
       ),
     ]);
   }
@@ -91,9 +93,9 @@ class _CalendarioViewState extends State<CalendarioView> {
       //     ),
       eventHandlers: CalendarEventHandlers(
         onEventTapped: _onEventTapped,
-        onEventChanged: _onEventChanged,
-        onCreateEvent: _onCreateEvent,
-        onEventCreated: _onEventCreated,
+        // onEventChanged: _onEventChanged,
+        // onCreateEvent: _onCreateEvent,
+        // onEventCreated: _onEventCreated,
       ),
     );
 
@@ -110,7 +112,31 @@ class _CalendarioViewState extends State<CalendarioView> {
         ),
         body: Padding(
           padding: const EdgeInsets.only(top: 94, bottom: 96),
-          child: calendar,
+          child: Column(
+            children: [
+              const SizedBox(
+                width: 260,
+                child: Center(
+                  child: Text(
+                    'Calendario de contenido',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10,
+                    right: 25,
+                    left: 25,
+                    bottom: 10,
+                  ),
+                  child: calendar,
+                ),
+              ),
+            ],
+          ),
         ),
         bottomNavigationBar: const CustomBottomAppBar(),
       ),
@@ -140,12 +166,35 @@ class _CalendarioViewState extends State<CalendarioView> {
   Future<void> _onEventTapped(
     CalendarEvent<Event> event,
   ) async {
-    print('evento 1');
-    if (isMobile) {
-      eventController.selectedEvent == event
-          ? eventController.deselectEvent()
-          : eventController.selectEvent(event);
-    }
+    print('evento 1: ${event.eventData?.title}');
+    // if (isMobile) {
+    //   eventController.selectedEvent == event
+    //       ? eventController.deselectEvent()
+    //       : eventController.selectEvent(event);
+    // }
+    await showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(event.eventData?.title ?? 'New Event'),
+          content: Text(event.eventData?.description ?? 'No description'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Close'),
+            ),
+            ButtonMain(
+              text: 'Curso',
+              onPress: NewCursosView(
+                user: widget.user,
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _onEventChanged(
@@ -176,7 +225,10 @@ class _CalendarioViewState extends State<CalendarioView> {
         child: configuration.tileType != TileType.ghost
             ? Padding(
                 padding: const EdgeInsets.all(8),
-                child: Text(event.eventData?.title ?? 'New Event'),
+                child: Text(
+                  event.eventData?.title ?? 'New Event',
+                  style: const TextStyle(color: Colors.white),
+                ),
               )
             : null,
       ),
@@ -189,14 +241,17 @@ class _CalendarioViewState extends State<CalendarioView> {
   ) {
     final color = event.eventData?.color ?? Colors.blue;
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 2),
+      margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 1),
       elevation: configuration.tileType == TileType.selected ? 8 : 0,
       color: configuration.tileType == TileType.ghost
           ? color.withAlpha(100)
           : color,
       child: Center(
         child: configuration.tileType != TileType.ghost
-            ? Text(event.eventData?.title ?? 'New Event')
+            ? Text(
+                event.eventData?.title ?? 'New Event',
+                style: const TextStyle(color: Colors.white, fontSize: 11),
+              )
             : null,
       ),
     );

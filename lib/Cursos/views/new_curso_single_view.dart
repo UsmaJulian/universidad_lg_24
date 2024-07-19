@@ -117,41 +117,51 @@ class _NewCursoSingleViewState extends State<NewCursoSingleView> {
                 ),
               if (cursoData != null)
                 if (cursoData!.status!.data!.curso!.video.toString().isNotEmpty)
-                  Chewie(
-                    controller: ChewieController(
-                      videoPlayerController: VideoPlayerController.networkUrl(
-                        Uri.parse(
-                          cursoData!.status!.data!.curso!.video.toString(),
+                  SizedBox(
+                    height: 555,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Chewie(
+                        controller: ChewieController(
+                          videoPlayerController:
+                              VideoPlayerController.networkUrl(
+                            Uri.parse(
+                              cursoData!.status!.data!.curso!.video.toString(),
+                            ),
+                          ),
+                          aspectRatio: 16 / 9,
                         ),
                       ),
-                      aspectRatio: 16 / 9,
-                      autoInitialize: true,
                     ),
                   )
                 else
                   const SizedBox(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  if (cursoData != null)
-                    ButtonMain(
-                      text: 'Test de entrada',
-                      onPress: TestEntradaView(
-                        user: widget.user,
-                        curso: cursoData!.status!.data!.curso!.nid,
-                        leccion: cursoData!.status!.data!.leccionId,
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (cursoData != null)
+                      ButtonMain(
+                        text: 'Test de entrada',
+                        onPress: TestEntradaView(
+                          user: widget.user,
+                          curso: cursoData!.status!.data!.curso!.nid,
+                          leccion: cursoData!.status!.data!.leccionId,
+                        ),
                       ),
-                    ),
-                  if (cursoData != null)
-                    ButtonMain(
-                      text: 'Test de salida',
-                      onPress: TestSalidaView(
-                        user: widget.user,
-                        curso: cursoData!.status!.data!.curso!.nid.toString(),
-                        leccion: cursoData!.status!.data!.leccionId.toString(),
+                    if (cursoData != null)
+                      ButtonMain(
+                        text: 'Test de salida',
+                        onPress: TestSalidaView(
+                          user: widget.user,
+                          curso: cursoData!.status!.data!.curso!.nid.toString(),
+                          leccion:
+                              cursoData!.status!.data!.leccionId.toString(),
+                        ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(height: 30),
             ],

@@ -37,12 +37,11 @@ class _SingleEvaluacionViewState extends State<SingleEvaluacionView> {
   EvaluacionBloc evalacionBloc = EvaluacionBloc();
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       key: _scaffoldKey,
       extendBodyBehindAppBar: true,
       extendBody: true,
-      backgroundColor: const Color(0xffF6F3EB),
+      backgroundColor: secondColor,
       appBar: CustomAppBar(),
       endDrawer: DrawerMenu(
         user: widget.user,
@@ -55,7 +54,7 @@ class _SingleEvaluacionViewState extends State<SingleEvaluacionView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+              padding: const EdgeInsets.only(left: 20, bottom: 10, top: 20),
               child: OutlinedButton(
                 onPressed: _onBackPressed,
                 child: const Text(
@@ -186,7 +185,7 @@ class __SingleEvaluacionContentState extends State<_SingleEvaluacionContent> {
   Widget build(BuildContext context) {
     // TODO: implement build
     if (load) {
-      return Container(
+      return SizedBox(
         // padding: EdgeInsets.all(0),
         child: _ContentSingleEvaluacion(
           evaluacionInfo: evaluacionInfo,
@@ -287,7 +286,7 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: Form(
         key: _key,
         autovalidateMode:
@@ -295,19 +294,81 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
         child: Column(
           children: [
             Expanded(
-              child: CoolStepper(
-                onCompleted: _onFinish,
-                steps: steps,
-                config: const CoolStepperConfig(
-                  backText: 'ANTERIOR',
-                  nextText: 'SIGUIENTE',
-                  finalText: 'ENVIAR',
-                  stepText: '',
-                  ofText: 'DE',
-                  headerColor: bgColor,
-                  titleTextStyle: TextStyle(color: Colors.black, fontSize: 20),
-                  subtitleTextStyle:
-                      TextStyle(color: Colors.black, fontSize: 16),
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: CoolStepper(
+                  onCompleted: _onFinish,
+                  contentPadding: const EdgeInsets.all(10),
+                  steps: steps,
+                  config: CoolStepperConfig(
+                    backText: 'ANTERIOR',
+                    nextText: 'SIGUIENTE',
+                    finalText: 'ENVIAR',
+                    stepText: '',
+                    ofText: 'DE',
+                    icon: const Icon(null, size: 0),
+                    headerColor: secondColor,
+                    titleTextStyle:
+                        const TextStyle(color: Colors.black, fontSize: 20),
+                    subtitleTextStyle:
+                        const TextStyle(color: Colors.black, fontSize: 16),
+                    nextTextStyle: const TextStyle(
+                      color: mainColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                    nextButton: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(110, 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        backgroundColor: mainColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        'SIGUIENTE',
+                        style: TextStyle(color: secondColor),
+                      ),
+                    ),
+                    finishButton: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(110, 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        backgroundColor: mainColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        'ENVIAR',
+                        style: TextStyle(color: secondColor),
+                      ),
+                    ),
+                    backButton: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(110, 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        backgroundColor: secondColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        'ANTERIOR',
+                        style: TextStyle(color: mainColor),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/users/views/logros/logros_view.dart';
 import 'package:universidad_lg_24/users/views/profile/widgets/widgets.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
 
@@ -95,11 +96,10 @@ class ContentBody extends StatelessWidget {
             height: 20,
           ),
           ButtonMain(
-            text: 'RANKING',
-            // onpress: StreamingSinglePage(
-            //   user: user,
-            //   nid: item.nid,
-            // ),
+            text: 'Logros',
+            onPress: LogrosView(
+              user: user,
+            ),
           ),
           const SizedBox(
             height: 40,

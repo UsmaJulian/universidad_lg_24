@@ -309,7 +309,7 @@ class __ContentTestSalidaState extends State<_ContentTestSalida>
                 padding: const EdgeInsets.all(8),
                 child: CoolStepper(
                   onCompleted: _onFinish,
-                  contentPadding: const EdgeInsets.all(15),
+                  contentPadding: const EdgeInsets.all(10),
                   steps: steps,
                   config: CoolStepperConfig(
                     backText: 'ANTERIOR',
@@ -317,6 +317,7 @@ class __ContentTestSalidaState extends State<_ContentTestSalida>
                     finalText: 'ENVIAR',
                     stepText: '',
                     ofText: 'DE',
+                    icon: const Icon(null, size: 0),
                     headerColor: secondColor,
                     titleTextStyle:
                         const TextStyle(color: Colors.black, fontSize: 20),
