@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.juliandev.universidad_lg_24">
+    package="com.universidadlg">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="${appName}"
+        android:label="Universidad LG Perú"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true">

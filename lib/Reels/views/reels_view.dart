@@ -20,18 +20,30 @@ class _ReelsViewState extends State<ReelsView> {
   final reels = [
     {
       'likes': 10,
-      'resource': 'assets/static/craft_ice.mp4',
+      'resource': 'https://www.universidadlg.com.pe/videos-reels/craft_ice.mp4',
       'tags': ['#LG'],
       'thumbnail': 'assets/static/portada_craft_0.png',
       'title': 'CRAFT ICE',
       'type': 'video',
+      'id': 1,
+      'usuarios': [7461, 2],
     },
     {
       'likes': 15,
-      'resource': 'assets/static/loco_cine_2.0.mp4',
+      'resource':
+          'https://www.universidadlg.com.pe/videos-reels/loco_cine_2.0.mp4',
       'tags': ['#LG'],
       'thumbnail': 'assets/static/portada_loco_cine4.png',
       'title': 'MATCH PERFECTO',
+      'type': 'video',
+    },
+    {
+      'likes': 35,
+      'resource':
+          'https://www.universidadlg.com.pe/videos-reels/reel_yogurt_final.mp4',
+      'tags': ['#LG'],
+      'thumbnail': 'assets/static/meliportadayogurt.png',
+      'title': 'YOGURT EN TU NEOCHEF',
       'type': 'video',
     },
     {
@@ -51,14 +63,6 @@ class _ReelsViewState extends State<ReelsView> {
       'resource': 'assets/static/portada_loco_cine4.png',
       'tags': ['#LG'],
       'type': 'image',
-    },
-    {
-      'likes': 35,
-      'resource': 'assets/static/reel_yogurt_final.mp4',
-      'tags': ['#LG'],
-      'thumbnail': 'assets/static/meliportadayogurt.png',
-      'title': 'YOGURT EN TU NEOCHEF',
-      'type': 'video',
     },
   ];
 
@@ -83,7 +87,11 @@ class _ReelsViewState extends State<ReelsView> {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                  top: 120, left: 20, right: 20, bottom: 20),
+                top: 120,
+                left: 20,
+                right: 20,
+                bottom: 20,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -237,8 +245,9 @@ class _ReelsViewState extends State<ReelsView> {
   }
 
   Future<void> dialogo(BuildContext context, Map<String, Object> reel) async {
-    final videoPlayerController =
-        VideoPlayerController.asset(reel['resource'].toString());
+    final videoPlayerController = VideoPlayerController.networkUrl(
+      Uri.parse(reel['resource'].toString()),
+    );
     await videoPlayerController.initialize();
     return Future.delayed(Duration.zero, () {
       return showDialog<void>(

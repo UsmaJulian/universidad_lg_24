@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Juegos/views/widgets/trivia_card_basico.dart';
 import 'package:universidad_lg_24/Juegos/views/widgets/trivia_card_experto.dart';
