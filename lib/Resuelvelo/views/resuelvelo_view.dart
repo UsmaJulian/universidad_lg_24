@@ -57,7 +57,7 @@ class _ResuelveloViewState extends State<ResuelveloView> {
               const Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: Text(
-                  'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.',
+                  '¡Bienvenido a Resuélvelo con LG! Aquí encontrarás muchos videos que te ayudarán a solucionar cualquier problema técnico con tus productos LG.',
                   style: TextStyle(
                     color: Color.fromARGB(255, 0, 0, 0),
                     fontSize: 16,

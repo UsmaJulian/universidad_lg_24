@@ -5,7 +5,6 @@ import 'package:universidad_lg_24/Cursos/services/cursos_services.dart';
 import 'package:universidad_lg_24/Entrenamiento/models/models.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/test_entrada_view.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/test_salida_view.dart';
-import 'package:universidad_lg_24/constants.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
@@ -88,23 +87,23 @@ class _NewCursoSingleViewState extends State<NewCursoSingleView> {
               Divider(
                 color: Colors.grey[400],
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: GestureDetector(
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: footerColor,
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: const Icon(
-                      Icons.mail_outline,
-                      color: Colors.white,
-                    ),
-                  ),
-                  onTap: () {},
-                ),
-              ),
+              // Align(
+              //   alignment: Alignment.topRight,
+              //   child: GestureDetector(
+              //     child: Container(
+              //       padding: const EdgeInsets.all(10),
+              //       decoration: BoxDecoration(
+              //         color: footerColor,
+              //         borderRadius: BorderRadius.circular(100),
+              //       ),
+              //       child: const Icon(
+              //         Icons.mail_outline,
+              //         color: Colors.white,
+              //       ),
+              //     ),
+              //     onTap: () {},
+              //   ),
+              // ),
               if (cursoData != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 36, bottom: 36),

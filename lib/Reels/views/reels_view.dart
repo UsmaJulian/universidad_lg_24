@@ -19,50 +19,94 @@ class ReelsView extends StatefulWidget {
 class _ReelsViewState extends State<ReelsView> {
   final reels = [
     {
-      'likes': 10,
-      'resource': 'https://www.universidadlg.com.pe/videos-reels/craft_ice.mp4',
-      'tags': ['#LG'],
-      'thumbnail': 'assets/static/portada_craft_0.png',
-      'title': 'CRAFT ICE',
-      'type': 'video',
-      'id': 1,
-      'usuarios': [7461, 2],
-    },
-    {
-      'likes': 15,
+      'likes': 2,
       'resource':
-          'https://www.universidadlg.com.pe/videos-reels/loco_cine_2.0.mp4',
-      'tags': ['#LG'],
-      'thumbnail': 'assets/static/portada_loco_cine4.png',
+          'https://www.universidadlg.com.pe/sites/default/files/reels/loco_cine_2.0.mp4',
+      'tags': ['#MATCH-PERFECTO'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/portada_loco_cine4.png',
       'title': 'MATCH PERFECTO',
       'type': 'video',
     },
     {
-      'likes': 35,
+      'likes': 2,
       'resource':
-          'https://www.universidadlg.com.pe/videos-reels/reel_yogurt_final.mp4',
-      'tags': ['#LG'],
-      'thumbnail': 'assets/static/meliportadayogurt.png',
-      'title': 'YOGURT EN TU NEOCHEF',
+          'https://www.universidadlg.com.pe/sites/default/files/reels/craft_ice._final_1_-_trim_0.mp4',
+      'tags': ['#CRAFT ICE', '#LG'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/portada_craft_0.png',
+      'title': 'CRAFT ICE',
       'type': 'video',
     },
     {
-      'likes': 20,
-      'resource': 'assets/static/meliportadayogurt.png',
-      'tags': ['#LG', '#Yogurt'],
-      'type': 'image',
+      'likes': 0,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/reel_yogurt_final.mp4',
+      'tags': ['#LG', '#Yogurt', '#NEOCHEF'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/meliportadayogurt.png',
+      'title': 'Yogurt EN TU NEOCHEF',
+      'type': 'video',
     },
     {
-      'likes': 25,
-      'resource': 'assets/static/portada_craft_0.png',
-      'tags': ['#LG'],
-      'type': 'image',
+      'likes': 0,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/lg_washtower_vivencial_final.mp4',
+      'tags': ['#SMART', '#PAIRING'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/portada_smart_pairing.png',
+      'title': 'SMART PAIRING',
+      'type': 'video',
     },
     {
-      'likes': 30,
-      'resource': 'assets/static/portada_loco_cine4.png',
-      'tags': ['#LG'],
-      'type': 'image',
+      'likes': 0,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/reel_av1.mp4',
+      'tags': ['#LG XBOOM', '#XG2'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/portada_xg2.png',
+      'title': 'LG XBOOM XG2',
+      'type': 'video',
+    },
+    {
+      'likes': 0,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/apple_tv.mp4',
+      'tags': ['#APPLE TV', '#SUSCRIPCIÓN'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/danny_apple.png',
+      'title': 'APPLE TV SUSCRIPCIÓN',
+      'type': 'video',
+    },
+    {
+      'likes': 0,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/3_beneficios.mp4',
+      'tags': ['#OLED', '#POSÉ'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/portada_oled_pose_1.png',
+      'title': 'OLED POSÉ',
+      'type': 'video',
+    },
+    {
+      'likes': 0,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/reel_nykol_microondas_-_trim.mp4',
+      'tags': ['#MICROONDAS', '#NEOCHEFLG'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/neo_nykol.png',
+      'title': 'MICROONDAS NEOCHEFLG',
+      'type': 'video',
+    },
+    {
+      'likes': 0,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/5_cosas_que_no_sabias_en_2_minutos.mp4',
+      'tags': ['#DATOS', '#IMPORTANTES'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/melisa_5_cosas_2.png',
+      'title': '5 COSAS QUE NO SABIAS EN 2 MINUTOS',
+      'type': 'video',
     },
   ];
 
@@ -87,7 +131,7 @@ class _ReelsViewState extends State<ReelsView> {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                top: 120,
+                top: 135,
                 left: 20,
                 right: 20,
                 bottom: 20,
@@ -121,7 +165,7 @@ class _ReelsViewState extends State<ReelsView> {
                                         child: Stack(
                                           alignment: Alignment.center,
                                           children: [
-                                            Image.asset(
+                                            Image.network(
                                               reel['thumbnail'].toString(),
                                               fit: BoxFit.cover,
                                             ),

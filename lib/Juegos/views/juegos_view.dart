@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Juegos/views/widgets/trivia_card_basico.dart';
 import 'package:universidad_lg_24/Juegos/views/widgets/trivia_card_experto.dart';
 import 'package:universidad_lg_24/Juegos/views/widgets/trivia_card_intermedio.dart';
-import 'package:universidad_lg_24/constants.dart';
+
 import 'package:universidad_lg_24/users/models/models.dart';
 
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
@@ -45,10 +45,10 @@ class _JuegosViewState extends State<JuegosView> {
               ),
               child: Column(
                 children: [
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Text(
+                      Text(
                         'Juegos',
                         style: TextStyle(
                           fontSize: 30,
@@ -56,13 +56,13 @@ class _JuegosViewState extends State<JuegosView> {
                           color: Colors.white,
                         ),
                       ),
-                      const SizedBox(width: 20),
-                      ButtonMain(
-                        text: 'Menú',
-                        bgColor: Colors.white,
-                        textColor: mainColor,
-                        onPress: Container(),
-                      ),
+                      // const SizedBox(width: 20),
+                      // ButtonMain(
+                      //   text: 'Menú',
+                      //   bgColor: Colors.white,
+                      //   textColor: mainColor,
+                      //   onPress: Container(),
+                      // ),
                     ],
                   ),
                   Expanded(

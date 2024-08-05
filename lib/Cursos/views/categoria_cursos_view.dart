@@ -3,7 +3,6 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:universidad_lg_24/Cursos/services/cursos_services.dart';
 import 'package:universidad_lg_24/Cursos/views/new_curso_single_view.dart';
 
-import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/helpers/my_long_print.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -124,20 +123,20 @@ class CursoCard extends StatelessWidget {
                 ),
               ),
             ),
-            GestureDetector(
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: footerColor,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: const Icon(
-                  Icons.mail_outline,
-                  color: Colors.white,
-                ),
-              ),
-              onTap: () {},
-            ),
+            // GestureDetector(
+            //   child: Container(
+            //     padding: const EdgeInsets.all(10),
+            //     decoration: BoxDecoration(
+            //       color: footerColor,
+            //       borderRadius: BorderRadius.circular(100),
+            //     ),
+            //     child: const Icon(
+            //       Icons.mail_outline,
+            //       color: Colors.white,
+            //     ),
+            //   ),
+            //   onTap: () {},
+            // ),
           ],
         ),
         HtmlWidget(

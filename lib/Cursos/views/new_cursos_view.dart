@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Cursos/views/categoria_cursos_view.dart';
-import 'package:universidad_lg_24/constants.dart';
+
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
@@ -19,20 +19,19 @@ class _NewCursosViewState extends State<NewCursosView> {
     {
       'image': 'assets/static/basico.png',
       'title': 'Básico',
-      'description': 'Sint officia sunt et consectetur.',
+      'description': '',
       'query': 'basico',
     },
     {
       'image': 'assets/static/medio.jpg',
       'title': 'Intermedio',
-      'description': 'Laborum sunt ullamco reprehenderit incididunt ex labore.',
+      'description': '',
       'query': 'intermedio',
     },
     {
       'image': 'assets/static/avanzado.jpg',
       'title': 'Avanzado',
-      'description':
-          'Duis sint voluptate do commodo occaecat ea id laboris magna cupidatat cillum nulla nostrud commodo.',
+      'description': '',
       'query': 'avanzado',
     }
   ];
@@ -138,20 +137,20 @@ class CursoCard extends StatelessWidget {
               ),
             ),
             //Botton Mail(),
-            GestureDetector(
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: footerColor,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: const Icon(
-                  Icons.mail_outline,
-                  color: Colors.white,
-                ),
-              ),
-              onTap: () {},
-            ),
+            // GestureDetector(
+            //   child: Container(
+            //     padding: const EdgeInsets.all(10),
+            //     decoration: BoxDecoration(
+            //       color: footerColor,
+            //       borderRadius: BorderRadius.circular(100),
+            //     ),
+            //     child: const Icon(
+            //       Icons.mail_outline,
+            //       color: Colors.white,
+            //     ),
+            //   ),
+            //   onTap: () {},
+            // ),
           ],
         ),
       ],
