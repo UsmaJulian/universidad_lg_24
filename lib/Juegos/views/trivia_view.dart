@@ -1,74 +1,87 @@
 import 'package:flutter/material.dart';
+import 'package:universidad_lg_24/Juegos/models/juegos_content_model.dart';
+import 'package:universidad_lg_24/Juegos/services/juegos_services.dart';
+
 import 'package:universidad_lg_24/Juegos/views/juegos_view.dart';
 
 import 'package:universidad_lg_24/constants.dart';
+import 'package:universidad_lg_24/helpers/my_long_print.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
 
 class TriviaView extends StatefulWidget {
-  const TriviaView({required this.user, super.key});
+  const TriviaView({required this.user, required this.content, super.key});
   final User user;
+  final JuegosContent content;
   @override
   State<TriviaView> createState() => _TriviaViewState();
 }
 
 class _TriviaViewState extends State<TriviaView> {
   int _currentTrivia = 0;
-  final List<Map<String, dynamic>> _trivias = [
-    {
-      'pregunta':
-          '¿Cuánto es el ahorro de energía del Compresor linear Inverter en refrigeradoras?',
-      'respuestas': [
-        '31%',
-        '32%',
-        '36%',
-        'N.A',
-      ],
-    },
-    {
-      'pregunta':
-          '¿Cuánto es el porcentaje de ahorro de energía del compresor Smart Inverter en refrigeradoras?',
-      'respuestas': [
-        '36%',
-        '37%',
-        '32%',
-        'N.A',
-      ],
-    },
-    {
-      'pregunta':
-          '¿Cuánto es el porcentaje de ahorro en las lavadoras Smart Inverter?',
-      'respuestas': [
-        '36%',
-        '37%',
-        '32%',
-        'N.A',
-      ],
-    },
-    {
-      'pregunta':
-          '¿Cuánto es La capacidad de horno de nuestras cocinas Lupin 2?',
-      'respuestas': [
-        '165 Litros',
-        '164 Litros',
-        '153 Litros',
-        'N.A',
-      ],
-    },
-    {
-      'pregunta': '¿Cuáles son las capacidades de nuestros hornos Neochef?',
-      'respuestas': [
-        '26 y 43 Litros',
-        '30 y 44 Litros',
-        '25 y 42 Litros',
-        'N.A',
-      ],
-    },
+  final List<String> _currentAnswer = ['', '', '', '', ''];
+  final _trivias = <dynamic>[
+    // {
+    //   'question':
+    //       '¿Cuánto es el ahorro de energía del Compresor linear Inverter en refrigeradoras?',
+    //   'anwers': [
+    //     '31%',
+    //     '32%',
+    //     '36%',
+    //     'N.A',
+    //   ],
+    // },
+    // {
+    //   'question':
+    //       '¿Cuánto es el porcentaje de ahorro de energía del compresor Smart Inverter en refrigeradoras?',
+    //   'anwers': [
+    //     '36%',
+    //     '37%',
+    //     '32%',
+    //     'N.A',
+    //   ],
+    // },
+    // {
+    //   'question':
+    //       '¿Cuánto es el porcentaje de ahorro en las lavadoras Smart Inverter?',
+    //   'anwers': [
+    //     '36%',
+    //     '37%',
+    //     '32%',
+    //     'N.A',
+    //   ],
+    // },
+    // {
+    //   'question':
+    //       '¿Cuánto es La capacidad de horno de nuestras cocinas Lupin 2?',
+    //   'anwers': [
+    //     '165 Litros',
+    //     '164 Litros',
+    //     '153 Litros',
+    //     'N.A',
+    //   ],
+    // },
+    // {
+    //   'question': '¿Cuáles son las capacidades de nuestros hornos Neochef?',
+    //   'anwers': [
+    //     '26 y 43 Litros',
+    //     '30 y 44 Litros',
+    //     '25 y 42 Litros',
+    //     'N.A',
+    //   ],
+    // },
   ];
   @override
+  void initState() {
+    _trivias.addAll(widget.content.body!.trivia!);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    debugPrint('Current: $_currentTrivia');
     return Scaffold(
       backgroundColor: const Color(0xffF6F3EB),
       extendBodyBehindAppBar: true,
@@ -122,39 +135,39 @@ class _TriviaViewState extends State<TriviaView> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Row(
-                children: [
-                  for (var i = 0; i < _trivias.length; i++)
-                    GestureDetector(
-                      child: Container(
-                        width: 41,
-                        height: 41,
-                        margin: const EdgeInsets.only(right: 10),
-                        decoration: BoxDecoration(
-                          color: (_currentTrivia == i)
-                              ? const Color(0xffCBC8C2)
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Center(
-                          child: Text(
-                            '${i + 1}',
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      onTap: () {
-                        setState(() {
-                          _currentTrivia = i;
-                        });
-                      },
-                    ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     for (var i = 0; i < _trivias.length; i++)
+              //       GestureDetector(
+              //         child: Container(
+              //           width: 41,
+              //           height: 41,
+              //           margin: const EdgeInsets.only(right: 10),
+              //           decoration: BoxDecoration(
+              //             color: (_currentTrivia == i)
+              //                 ? const Color(0xffCBC8C2)
+              //                 : Colors.white,
+              //             borderRadius: BorderRadius.circular(30),
+              //           ),
+              //           child: Center(
+              //             child: Text(
+              //               '${i + 1}',
+              //               style: const TextStyle(
+              //                 color: Colors.black,
+              //                 fontSize: 20,
+              //                 fontWeight: FontWeight.bold,
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //         onTap: () {
+              //           setState(() {
+              //             _currentTrivia = i;
+              //           });
+              //         },
+              //       ),
+              //   ],
+              // ),
               const Padding(
                 padding: EdgeInsets.only(top: 43),
                 child: Divider(
@@ -184,7 +197,7 @@ class _TriviaViewState extends State<TriviaView> {
                       padding:
                           const EdgeInsets.only(top: 6, left: 38, right: 38),
                       child: Text(
-                        _trivias[_currentTrivia]['pregunta'].toString(),
+                        _trivias[_currentTrivia].question.toString(),
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Colors.black,
@@ -218,11 +231,23 @@ class _TriviaViewState extends State<TriviaView> {
                               const SizedBox(width: 8),
                               ElevatedButton(
                                 onPressed: () {
+                                  if (_currentTrivia == 0) {
+                                    _currentAnswer[0] = '0';
+                                  } else if (_currentTrivia == 1) {
+                                    _currentAnswer[1] = '0';
+                                  } else if (_currentTrivia == 2) {
+                                    _currentAnswer[2] = '0';
+                                  } else if (_currentTrivia == 3) {
+                                    _currentAnswer[3] = '0';
+                                  } else if (_currentTrivia == 4) {
+                                    _currentAnswer[4] = '0';
+                                  }
                                   setState(() {
                                     if (_currentTrivia < _trivias.length - 1) {
                                       _currentTrivia++;
                                     }
                                   });
+                                  debugPrint('CurrentAnswer: $_currentAnswer');
                                 },
                                 style: ElevatedButton.styleFrom(
                                   minimumSize: const Size(129, 41),
@@ -234,8 +259,7 @@ class _TriviaViewState extends State<TriviaView> {
                                   ),
                                 ),
                                 child: Text(
-                                  _trivias[_currentTrivia]['respuestas'][0]
-                                      .toString(),
+                                  _trivias[_currentTrivia].anwers[0].toString(),
                                   style: const TextStyle(
                                     color: Colors.black,
                                   ),
@@ -265,6 +289,17 @@ class _TriviaViewState extends State<TriviaView> {
                                           _currentTrivia++;
                                         }
                                       });
+                                      if (_currentTrivia == 0) {
+                                        _currentAnswer[0] = '1';
+                                      } else if (_currentTrivia == 1) {
+                                        _currentAnswer[1] = '1';
+                                      } else if (_currentTrivia == 2) {
+                                        _currentAnswer[2] = '1';
+                                      } else if (_currentTrivia == 3) {
+                                        _currentAnswer[3] = '1';
+                                      } else if (_currentTrivia == 4) {
+                                        _currentAnswer[4] = '1';
+                                      }
                                     },
                                     style: ElevatedButton.styleFrom(
                                       minimumSize: const Size(129, 41),
@@ -276,7 +311,8 @@ class _TriviaViewState extends State<TriviaView> {
                                       ),
                                     ),
                                     child: Text(
-                                      _trivias[_currentTrivia]['respuestas'][1]
+                                      _trivias[_currentTrivia]
+                                          .anwers[1]
                                           .toString(),
                                       style: const TextStyle(
                                         color: Colors.black,
@@ -306,6 +342,17 @@ class _TriviaViewState extends State<TriviaView> {
                                       _currentTrivia++;
                                     }
                                   });
+                                  if (_currentTrivia == 0) {
+                                    _currentAnswer[0] = '2';
+                                  } else if (_currentTrivia == 1) {
+                                    _currentAnswer[1] = '2';
+                                  } else if (_currentTrivia == 2) {
+                                    _currentAnswer[2] = '2';
+                                  } else if (_currentTrivia == 3) {
+                                    _currentAnswer[3] = '2';
+                                  } else if (_currentTrivia == 4) {
+                                    _currentAnswer[4] = '2';
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   minimumSize: const Size(129, 41),
@@ -317,8 +364,7 @@ class _TriviaViewState extends State<TriviaView> {
                                   ),
                                 ),
                                 child: Text(
-                                  _trivias[_currentTrivia]['respuestas'][2]
-                                      .toString(),
+                                  _trivias[_currentTrivia].anwers[2].toString(),
                                   style: const TextStyle(
                                     color: Colors.black,
                                   ),
@@ -345,6 +391,17 @@ class _TriviaViewState extends State<TriviaView> {
                                       _currentTrivia++;
                                     }
                                   });
+                                  if (_currentTrivia == 0) {
+                                    _currentAnswer[0] = '3';
+                                  } else if (_currentTrivia == 1) {
+                                    _currentAnswer[1] = '3';
+                                  } else if (_currentTrivia == 2) {
+                                    _currentAnswer[2] = '3';
+                                  } else if (_currentTrivia == 3) {
+                                    _currentAnswer[3] = '3';
+                                  } else if (_currentTrivia == 4) {
+                                    _currentAnswer[4] = '3';
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   minimumSize: const Size(129, 41),
@@ -356,8 +413,7 @@ class _TriviaViewState extends State<TriviaView> {
                                   ),
                                 ),
                                 child: Text(
-                                  _trivias[_currentTrivia]['respuestas'][3]
-                                      .toString(),
+                                  _trivias[_currentTrivia].anwers[3].toString(),
                                   style: const TextStyle(
                                     color: Colors.black,
                                   ),
@@ -372,13 +428,28 @@ class _TriviaViewState extends State<TriviaView> {
                               bottom: 41,
                             ),
                             child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 setState(() {
                                   if (_currentTrivia < _trivias.length - 1) {
                                     _currentTrivia++;
                                   } else if (_currentTrivia ==
-                                      _trivias.length - 1) {
-                                    showDialog<void>(
+                                      _trivias.length - 1) {}
+                                });
+                                if (_currentTrivia == 4) {
+                                  debugPrint(_currentAnswer.toString());
+
+                                  final response = await IsJuegosServices()
+                                      .saveJuegosAnswers(
+                                    user: widget.user.userId,
+                                    token: widget.user.token,
+                                    nid: int.parse(
+                                      widget.content.body!.nid.toString(),
+                                    ),
+                                    answers: _currentAnswer,
+                                  );
+                                  myLongPrint('Respuesta del save:$response');
+                                  if (response.response!.type == 'success') {
+                                    await showDialog<void>(
                                       context: context,
                                       builder: (context) {
                                         return AlertDialog(
@@ -399,8 +470,10 @@ class _TriviaViewState extends State<TriviaView> {
                                         );
                                       },
                                     );
+                                  } else {
+                                    debugPrint('error');
                                   }
-                                });
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 minimumSize: const Size(129, 41),
@@ -411,9 +484,9 @@ class _TriviaViewState extends State<TriviaView> {
                                   ),
                                 ),
                               ),
-                              child: const Text(
-                                'Siguiente',
-                                style: TextStyle(
+                              child: Text(
+                                (_currentTrivia == 4) ? 'Guardar' : 'Siguiente',
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,

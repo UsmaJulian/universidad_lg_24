@@ -17,7 +17,7 @@ import 'package:universidad_lg_24/users/views/login/login_view.dart';
 
 import 'package:universidad_lg_24/users/views/profile/perfil_view.dart';
 
-class DrawerMenu extends StatelessWidget {
+class DrawerMenu extends StatefulWidget {
   const DrawerMenu({
     required this.user,
     super.key,
@@ -28,6 +28,12 @@ class DrawerMenu extends StatelessWidget {
   final String? currenPage;
   final bool isHome;
 
+  @override
+  State<DrawerMenu> createState() => _DrawerMenuState();
+}
+
+class _DrawerMenuState extends State<DrawerMenu> {
+  bool _isVisible = false;
   @override
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
@@ -52,13 +58,13 @@ class DrawerMenu extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          if (!isHome) {
+                          if (!widget.isHome) {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute<void>(
                                 builder: (_) {
                                   return NewHomeView(
-                                    user: user!,
+                                    user: widget.user!,
                                   );
                                 },
                               ),
@@ -88,14 +94,14 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             title: const Center(child: Text('Inicio')),
             onTap: () {
-              if (currenPage != 'inicio') {
+              if (widget.currenPage != 'inicio') {
                 Navigator.of(context).pop();
-                if (isHome) {
+                if (widget.isHome) {
                   Navigator.push(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return NewHomeView(user: user!);
+                        return NewHomeView(user: widget.user!);
                       },
                     ),
                   );
@@ -104,7 +110,7 @@ class DrawerMenu extends StatelessWidget {
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return NewHomeView(user: user!);
+                        return NewHomeView(user: widget.user!);
                       },
                     ),
                   );
@@ -156,14 +162,14 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             title: const Center(child: Text('Evaluación')),
             onTap: () {
-              if (currenPage != 'evaluaciones') {
+              if (widget.currenPage != 'evaluaciones') {
                 Navigator.of(context).pop();
-                if (isHome) {
+                if (widget.isHome) {
                   Navigator.push(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return EvaluacionView(user: user!);
+                        return EvaluacionView(user: widget.user!);
                       },
                     ),
                   );
@@ -172,7 +178,7 @@ class DrawerMenu extends StatelessWidget {
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return EvaluacionView(user: user!);
+                        return EvaluacionView(user: widget.user!);
                       },
                     ),
                   );
@@ -190,14 +196,14 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             title: const Center(child: Text('Biblioteca')),
             onTap: () {
-              if (currenPage != 'biblioteca') {
+              if (widget.currenPage != 'biblioteca') {
                 Navigator.of(context).pop();
-                if (isHome) {
+                if (widget.isHome) {
                   Navigator.push(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return BibliotecaView(user: user);
+                        return BibliotecaView(user: widget.user);
                       },
                     ),
                   );
@@ -206,7 +212,7 @@ class DrawerMenu extends StatelessWidget {
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return BibliotecaView(user: user);
+                        return BibliotecaView(user: widget.user);
                       },
                     ),
                   );
@@ -224,14 +230,14 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             title: const Center(child: Text('Noticias')),
             onTap: () {
-              if (currenPage != 'noticias') {
+              if (widget.currenPage != 'noticias') {
                 Navigator.of(context).pop();
-                if (isHome) {
+                if (widget.isHome) {
                   Navigator.push(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return NoticiasView(user: user);
+                        return NoticiasView(user: widget.user);
                       },
                     ),
                   );
@@ -240,7 +246,7 @@ class DrawerMenu extends StatelessWidget {
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return NoticiasView(user: user);
+                        return NoticiasView(user: widget.user);
                       },
                     ),
                   );
@@ -278,14 +284,14 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             title: const Center(child: Text('Resuelvelo con LG')),
             onTap: () {
-              if (currenPage != 'resuelvelo') {
+              if (widget.currenPage != 'resuelvelo') {
                 Navigator.of(context).pop();
-                if (isHome) {
+                if (widget.isHome) {
                   Navigator.push(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return ResuelveloView(user: user!);
+                        return ResuelveloView(user: widget.user!);
                       },
                     ),
                   );
@@ -294,7 +300,7 @@ class DrawerMenu extends StatelessWidget {
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return ResuelveloView(user: user!);
+                        return ResuelveloView(user: widget.user!);
                       },
                     ),
                   );
@@ -312,14 +318,14 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             title: const Center(child: Text('Calendario')),
             onTap: () {
-              if (currenPage != 'calendario') {
+              if (widget.currenPage != 'calendario') {
                 Navigator.of(context).pop();
-                if (isHome) {
+                if (widget.isHome) {
                   Navigator.push(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return CalendarioView(user: user!);
+                        return CalendarioView(user: widget.user!);
                       },
                     ),
                   );
@@ -328,7 +334,7 @@ class DrawerMenu extends StatelessWidget {
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return CalendarioView(user: user!);
+                        return CalendarioView(user: widget.user!);
                       },
                     ),
                   );
@@ -347,14 +353,14 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             title: const Center(child: Text('Ranking')),
             onTap: () {
-              if (currenPage != 'ranking') {
+              if (widget.currenPage != 'ranking') {
                 Navigator.of(context).pop();
-                if (isHome) {
+                if (widget.isHome) {
                   Navigator.push(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return RankingView(user: user);
+                        return RankingView(user: widget.user);
                       },
                     ),
                   );
@@ -363,7 +369,7 @@ class DrawerMenu extends StatelessWidget {
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return RankingView(user: user);
+                        return RankingView(user: widget.user);
                       },
                     ),
                   );
@@ -381,14 +387,14 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             title: const Center(child: Text('Ayuda')),
             onTap: () {
-              if (currenPage != 'ayuda') {
+              if (widget.currenPage != 'ayuda') {
                 Navigator.of(context).pop();
-                if (isHome) {
+                if (widget.isHome) {
                   Navigator.push(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return AyudaView(user: user);
+                        return AyudaView(user: widget.user);
                       },
                     ),
                   );
@@ -397,7 +403,7 @@ class DrawerMenu extends StatelessWidget {
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
-                        return AyudaView(user: user);
+                        return AyudaView(user: widget.user);
                       },
                     ),
                   );
@@ -419,52 +425,78 @@ class DrawerMenu extends StatelessWidget {
                     size: 32,
                     color: Colors.black,
                   ),
-                  Text('${user!.name} '),
+                  Text('${widget.user!.name} '),
                 ],
               ),
             ),
             onTap: () {
-              if (currenPage != 'perfil') {
-                Navigator.of(context).pop();
-                if (isHome) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return PerfilView(user: user);
-                      },
-                    ),
-                  );
-                } else {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return PerfilView(user: user);
-                      },
-                    ),
-                  );
-                }
-              }
-              return;
+              setState(() {
+                _isVisible = !_isVisible;
+              });
             },
           ),
-          ListTile(
-            title: const Center(child: Text('Cerrar sesión')),
-            tileColor: Colors.white,
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (_) {
-                    authBloc.add(UserLoggedOut());
-                    return const LoginView();
+          if (_isVisible)
+            ColoredBox(
+              color: Colors.white,
+              child: Divider(
+                color: const Color(
+                  0xff707070,
+                ).withOpacity(0.4),
+                thickness: 1,
+              ),
+            ),
+          if (_isVisible)
+            Column(
+              children: [
+                ListTile(
+                  title: const Center(child: Text('Editar perfil')),
+                  tileColor: Colors.white,
+                  onTap: () {
+                    if (widget.currenPage != 'perfil') {
+                      Navigator.of(context).pop();
+                      if (widget.isHome) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (context) {
+                              return PerfilView(user: widget.user);
+                            },
+                          ),
+                        );
+                      } else {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (context) {
+                              return PerfilView(user: widget.user);
+                            },
+                          ),
+                        );
+                      }
+                    }
+                    return;
                   },
                 ),
-                (route) => false,
-              );
-            },
-          ),
+                ListTile(
+                  title: const Center(child: Text('Cerrar sesión')),
+                  tileColor: Colors.white,
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (_) {
+                          authBloc.add(UserLoggedOut());
+                          return const LoginView();
+                        },
+                      ),
+                      (route) => false,
+                    );
+                  },
+                ),
+              ],
+            )
+          else
+            const SizedBox(),
         ],
       ),
     );

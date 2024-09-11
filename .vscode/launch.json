@@ -5,6 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch debug Mode",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug"
+    },
+    {
       "name": "Launch development",
       "request": "launch",
       "type": "dart",

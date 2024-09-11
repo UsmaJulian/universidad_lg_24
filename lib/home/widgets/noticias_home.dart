@@ -2,7 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 import 'package:universidad_lg_24/Noticias/views/noticias_single_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/home/models/models.dart';
@@ -14,11 +14,12 @@ class NoticiasHome extends StatefulWidget {
   List<Noticias>? dataNoticias;
 
   @override
-  _NoticiasHome createState() => _NoticiasHome();
+  State<NoticiasHome> createState() => _NoticiasHome();
 }
 
 class _NoticiasHome extends State<NoticiasHome> {
-  CarouselController buttonCarouselController = CarouselController();
+  CarouselSliderController buttonCarouselController =
+      CarouselSliderController();
   // final int _current = 0;
   @override
   Widget build(BuildContext context) {
