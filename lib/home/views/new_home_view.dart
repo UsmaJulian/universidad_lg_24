@@ -8,7 +8,6 @@ import 'package:universidad_lg_24/Reels/views/reels_view.dart';
 import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_view.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
-import 'package:universidad_lg_24/widgets/global/body_footer_global.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
@@ -42,6 +41,7 @@ class _NewHomeViewState extends State<NewHomeView> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
+
       backgroundColor: const Color(0xffF6F3EB),
       appBar: CustomAppBar(),
       endDrawer: DrawerMenu(
@@ -108,7 +108,7 @@ class _NewHomeViewState extends State<NewHomeView> {
         ],
       ), */
       body: Padding(
-        padding: const EdgeInsets.only(top: 138),
+        padding: const EdgeInsets.only(top: 48),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -207,16 +207,11 @@ class _NewHomeViewState extends State<NewHomeView> {
                 ),
               ],
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.016,
-              ),
-              child: const BodyFooter(),
-            ),
           ],
         ),
       ),
-      // bottomNavigationBar: const CustomBottomAppBar(),
+      bottomNavigationBar: const CustomBottomAppBar(),
+
       // floatingActionButton: FloatingActionButton(
       //   shape: RoundedRectangleBorder(
       //     borderRadius: BorderRadius.circular(100),

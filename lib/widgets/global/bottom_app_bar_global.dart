@@ -10,7 +10,7 @@ class CustomBottomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return const BottomAppBar(
       color: footerColor,
-      height: 85,
+      height: 70,
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: 40,

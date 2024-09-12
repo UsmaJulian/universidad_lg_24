@@ -49,7 +49,7 @@ class _TriviaCardBasicoState extends State<TriviaCardBasico> {
         pager: _pager++,
       );
       _streamController.add(juegos);
-      _refreshController.refreshCompleted();
+      _refreshController.loadComplete();
     } catch (e) {
       _streamController.addError(e);
     }
@@ -82,11 +82,12 @@ class _TriviaCardBasicoState extends State<TriviaCardBasico> {
           // Aquí puedes construir tu UI con los datos de juegos
           myLongPrint('Juegos básicos: ${juegos!.body!.toSet().toList()}');
           return SmartRefresher(
-            // enablePullUp: true,
+            enablePullDown: false,
+            enablePullUp: true,
             header: const WaterDropHeader(),
             controller: _refreshController,
-            onRefresh: _refreshData,
-
+            // onRefresh: _refreshData,
+            onLoading: _refreshData,
             child: ListView.builder(
               itemCount: juegos.body!.toSet().toList().length,
               itemBuilder: (BuildContext context, int index) => Column(

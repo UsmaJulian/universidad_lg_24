@@ -21,6 +21,106 @@ class _ReelsViewState extends State<ReelsView> {
     {
       'likes': 2,
       'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/lavaseca_-_vivencial.mp4',
+      'tags': ['#LAVASECA CON AI DD'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/harold_lavaseca_viven-opt.png',
+      'title': 'LAVASECA CON AI DD',
+      'type': 'video',
+    },
+    {
+      'likes': 2,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/qned_80.mp4',
+      'tags': ['#3 BENEFICIOS - QNED80'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/esther_qned80-opt.png',
+      'title': '3 BENEFICIOS - QNED80',
+      'type': 'video',
+    },
+    {
+      'likes': 2,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/xg2-beneficios.mp4',
+      'tags': ['#3 BENEFICIOS - XG2T'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/franco_xboom_func-opt.png',
+      'title': '3 BENEFICIOS - XG2T',
+      'type': 'video',
+    },
+    {
+      'likes': 2,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/xl7.mp4',
+      'tags': ['#LG XBOOM - XL7S'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/patty_xl7-opt.png',
+      'title': 'LG XBOOM - XL7S',
+      'type': 'video',
+    },
+    {
+      'likes': 2,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/reel_agosto_-_switcher.mp4',
+      'tags': ['#DEMO SWITCHER'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/demo_switcher_danny-opt.png',
+      'title': 'DEMO SWITCHER',
+      'type': 'video',
+    },
+    {
+      'likes': 2,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/reel_2.mp4',
+      'tags': ['#REFRIGERADORAS APLICATIVO THIN Q'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/thinq_nykol-opt.png',
+      'title': 'REFRIGERADORAS APLICATIVO THIN Q',
+      'type': 'video',
+    },
+    {
+      'likes': 2,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/reel_xg2t_agosto.mp4',
+      'tags': ['#XG2'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/mic_integrado_diego-opt.png',
+      'title': 'XG2',
+      'type': 'video',
+    },
+    {
+      'likes': 2,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/reel_agosto.mp4',
+      'tags': ['#OLED BENEFICIOS'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/oled_diego-opt.png',
+      'title': 'OLED BENEFICIOS',
+      'type': 'video',
+    },
+    {
+      'likes': 2,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/reel_1.mp4',
+      'tags': ['#WASHTOWER'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/washtower_nykol-opt.png',
+      'title': 'WASHTOWER',
+      'type': 'video',
+    },
+    {
+      'likes': 2,
+      'resource':
+          'https://www.universidadlg.com.pe/sites/default/files/reels/objet_collection_estilo_1.mp4',
+      'tags': ['#OBJECT COLLECTION COLOR'],
+      'thumbnail':
+          'https://www.universidadlg.com.pe/sites/default/files/lg-obeject-top-freezer.png',
+      'title': 'OBJECT COLLECTION COLOR',
+      'type': 'video',
+    },
+    {
+      'likes': 2,
+      'resource':
           'https://www.universidadlg.com.pe/sites/default/files/reels/loco_cine_2.0.mp4',
       'tags': ['#MATCH-PERFECTO'],
       'thumbnail':
@@ -186,7 +286,7 @@ class _ReelsViewState extends State<ReelsView> {
                                           ],
                                         ),
                                       ),
-                                      Row(
+                                      /* Row(
                                         children: [
                                           const Icon(
                                             Icons.favorite_border_outlined,
@@ -202,6 +302,9 @@ class _ReelsViewState extends State<ReelsView> {
                                             ),
                                           ),
                                         ],
+                                      ), */
+                                      const SizedBox(
+                                        height: 15,
                                       ),
                                       Container(
                                         height: 1,
