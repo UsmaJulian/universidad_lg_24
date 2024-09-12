@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Juegos/models/juegos_content_model.dart';
 import 'package:universidad_lg_24/Juegos/services/juegos_services.dart';
@@ -196,7 +197,8 @@ class _TriviaViewState extends State<TriviaView> {
                     Padding(
                       padding:
                           const EdgeInsets.only(top: 6, left: 38, right: 38),
-                      child: Text(
+                      child: AutoSizeText(
+                        maxLines: 4,
                         _trivias[_currentTrivia].question.toString(),
                         textAlign: TextAlign.center,
                         style: const TextStyle(
@@ -220,8 +222,9 @@ class _TriviaViewState extends State<TriviaView> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
+                              const AutoSizeText(
                                 'a',
+                                maxLines: 4,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
@@ -258,10 +261,16 @@ class _TriviaViewState extends State<TriviaView> {
                                     ),
                                   ),
                                 ),
-                                child: Text(
-                                  _trivias[_currentTrivia].anwers[0].toString(),
-                                  style: const TextStyle(
-                                    color: Colors.black,
+                                child: SizedBox(
+                                  width: 270,
+                                  child: AutoSizeText(
+                                    _trivias[_currentTrivia]
+                                        .anwers[0]
+                                        .toString(),
+                                    maxLines: 4,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -310,12 +319,16 @@ class _TriviaViewState extends State<TriviaView> {
                                         ),
                                       ),
                                     ),
-                                    child: Text(
-                                      _trivias[_currentTrivia]
-                                          .anwers[1]
-                                          .toString(),
-                                      style: const TextStyle(
-                                        color: Colors.black,
+                                    child: SizedBox(
+                                      width: 270,
+                                      child: AutoSizeText(
+                                        maxLines: 4,
+                                        _trivias[_currentTrivia]
+                                            .anwers[1]
+                                            .toString(),
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -363,10 +376,16 @@ class _TriviaViewState extends State<TriviaView> {
                                     ),
                                   ),
                                 ),
-                                child: Text(
-                                  _trivias[_currentTrivia].anwers[2].toString(),
-                                  style: const TextStyle(
-                                    color: Colors.black,
+                                child: SizedBox(
+                                  width: 270,
+                                  child: AutoSizeText(
+                                    maxLines: 4,
+                                    _trivias[_currentTrivia]
+                                        .anwers[2]
+                                        .toString(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -412,10 +431,16 @@ class _TriviaViewState extends State<TriviaView> {
                                     ),
                                   ),
                                 ),
-                                child: Text(
-                                  _trivias[_currentTrivia].anwers[3].toString(),
-                                  style: const TextStyle(
-                                    color: Colors.black,
+                                child: SizedBox(
+                                  width: 270,
+                                  child: AutoSizeText(
+                                    maxLines: 4,
+                                    _trivias[_currentTrivia]
+                                        .anwers[3]
+                                        .toString(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
                               ),
