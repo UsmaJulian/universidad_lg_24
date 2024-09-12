@@ -100,7 +100,7 @@ class _JuegosViewState extends State<JuegosView>
                     ),
                   ),
                   SizedBox(
-                    height: 500,
+                    height: 480,
                     child: TabBarView(
                       controller: _tabController,
                       children: [

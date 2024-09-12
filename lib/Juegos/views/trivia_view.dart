@@ -235,15 +235,15 @@ class _TriviaViewState extends State<TriviaView> {
                               ElevatedButton(
                                 onPressed: () {
                                   if (_currentTrivia == 0) {
-                                    _currentAnswer[0] = '0';
+                                    _currentAnswer[0] = '1';
                                   } else if (_currentTrivia == 1) {
-                                    _currentAnswer[1] = '0';
+                                    _currentAnswer[1] = '1';
                                   } else if (_currentTrivia == 2) {
-                                    _currentAnswer[2] = '0';
+                                    _currentAnswer[2] = '1';
                                   } else if (_currentTrivia == 3) {
-                                    _currentAnswer[3] = '0';
+                                    _currentAnswer[3] = '1';
                                   } else if (_currentTrivia == 4) {
-                                    _currentAnswer[4] = '0';
+                                    _currentAnswer[4] = '1';
                                   }
                                   setState(() {
                                     if (_currentTrivia < _trivias.length - 1) {
@@ -262,7 +262,7 @@ class _TriviaViewState extends State<TriviaView> {
                                   ),
                                 ),
                                 child: SizedBox(
-                                  width: 270,
+                                  width: 235,
                                   child: AutoSizeText(
                                     _trivias[_currentTrivia]
                                         .anwers[0]
@@ -275,6 +275,9 @@ class _TriviaViewState extends State<TriviaView> {
                                 ),
                               ),
                             ],
+                          ),
+                          const SizedBox(
+                            height: 10,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -292,23 +295,23 @@ class _TriviaViewState extends State<TriviaView> {
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {
+                                      if (_currentTrivia == 0) {
+                                        _currentAnswer[0] = '2';
+                                      } else if (_currentTrivia == 1) {
+                                        _currentAnswer[1] = '2';
+                                      } else if (_currentTrivia == 2) {
+                                        _currentAnswer[2] = '2';
+                                      } else if (_currentTrivia == 3) {
+                                        _currentAnswer[3] = '2';
+                                      } else if (_currentTrivia == 4) {
+                                        _currentAnswer[4] = '2';
+                                      }
                                       setState(() {
                                         if (_currentTrivia <
                                             _trivias.length - 1) {
                                           _currentTrivia++;
                                         }
                                       });
-                                      if (_currentTrivia == 0) {
-                                        _currentAnswer[0] = '1';
-                                      } else if (_currentTrivia == 1) {
-                                        _currentAnswer[1] = '1';
-                                      } else if (_currentTrivia == 2) {
-                                        _currentAnswer[2] = '1';
-                                      } else if (_currentTrivia == 3) {
-                                        _currentAnswer[3] = '1';
-                                      } else if (_currentTrivia == 4) {
-                                        _currentAnswer[4] = '1';
-                                      }
                                     },
                                     style: ElevatedButton.styleFrom(
                                       minimumSize: const Size(129, 41),
@@ -320,7 +323,7 @@ class _TriviaViewState extends State<TriviaView> {
                                       ),
                                     ),
                                     child: SizedBox(
-                                      width: 270,
+                                      width: 235,
                                       child: AutoSizeText(
                                         maxLines: 4,
                                         _trivias[_currentTrivia]
@@ -336,6 +339,9 @@ class _TriviaViewState extends State<TriviaView> {
                               ),
                             ],
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -350,22 +356,22 @@ class _TriviaViewState extends State<TriviaView> {
                               const SizedBox(width: 8),
                               ElevatedButton(
                                 onPressed: () {
+                                  if (_currentTrivia == 0) {
+                                    _currentAnswer[0] = '3';
+                                  } else if (_currentTrivia == 1) {
+                                    _currentAnswer[1] = '3';
+                                  } else if (_currentTrivia == 2) {
+                                    _currentAnswer[2] = '3';
+                                  } else if (_currentTrivia == 3) {
+                                    _currentAnswer[3] = '3';
+                                  } else if (_currentTrivia == 4) {
+                                    _currentAnswer[4] = '3';
+                                  }
                                   setState(() {
                                     if (_currentTrivia < _trivias.length - 1) {
                                       _currentTrivia++;
                                     }
                                   });
-                                  if (_currentTrivia == 0) {
-                                    _currentAnswer[0] = '2';
-                                  } else if (_currentTrivia == 1) {
-                                    _currentAnswer[1] = '2';
-                                  } else if (_currentTrivia == 2) {
-                                    _currentAnswer[2] = '2';
-                                  } else if (_currentTrivia == 3) {
-                                    _currentAnswer[3] = '2';
-                                  } else if (_currentTrivia == 4) {
-                                    _currentAnswer[4] = '2';
-                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   minimumSize: const Size(129, 41),
@@ -377,7 +383,7 @@ class _TriviaViewState extends State<TriviaView> {
                                   ),
                                 ),
                                 child: SizedBox(
-                                  width: 270,
+                                  width: 235,
                                   child: AutoSizeText(
                                     maxLines: 4,
                                     _trivias[_currentTrivia]
@@ -390,6 +396,9 @@ class _TriviaViewState extends State<TriviaView> {
                                 ),
                               ),
                             ],
+                          ),
+                          const SizedBox(
+                            height: 10,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -405,22 +414,22 @@ class _TriviaViewState extends State<TriviaView> {
                               const SizedBox(width: 8),
                               ElevatedButton(
                                 onPressed: () {
+                                  if (_currentTrivia == 0) {
+                                    _currentAnswer[0] = '4';
+                                  } else if (_currentTrivia == 1) {
+                                    _currentAnswer[1] = '4';
+                                  } else if (_currentTrivia == 2) {
+                                    _currentAnswer[2] = '4';
+                                  } else if (_currentTrivia == 3) {
+                                    _currentAnswer[3] = '4';
+                                  } else if (_currentTrivia == 4) {
+                                    _currentAnswer[4] = '4';
+                                  }
                                   setState(() {
                                     if (_currentTrivia < _trivias.length - 1) {
                                       _currentTrivia++;
                                     }
                                   });
-                                  if (_currentTrivia == 0) {
-                                    _currentAnswer[0] = '3';
-                                  } else if (_currentTrivia == 1) {
-                                    _currentAnswer[1] = '3';
-                                  } else if (_currentTrivia == 2) {
-                                    _currentAnswer[2] = '3';
-                                  } else if (_currentTrivia == 3) {
-                                    _currentAnswer[3] = '3';
-                                  } else if (_currentTrivia == 4) {
-                                    _currentAnswer[4] = '3';
-                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   minimumSize: const Size(129, 41),
@@ -432,7 +441,7 @@ class _TriviaViewState extends State<TriviaView> {
                                   ),
                                 ),
                                 child: SizedBox(
-                                  width: 270,
+                                  width: 235,
                                   child: AutoSizeText(
                                     maxLines: 4,
                                     _trivias[_currentTrivia]
@@ -460,9 +469,13 @@ class _TriviaViewState extends State<TriviaView> {
                                   } else if (_currentTrivia ==
                                       _trivias.length - 1) {}
                                 });
-                                if (_currentTrivia == 4) {
-                                  debugPrint(_currentAnswer.toString());
-
+                                debugPrint(_currentAnswer.toString());
+                                if (_currentTrivia == 4 &&
+                                    _currentAnswer[0].isNotEmpty &&
+                                    _currentAnswer[1].isNotEmpty &&
+                                    _currentAnswer[2].isNotEmpty &&
+                                    _currentAnswer[3].isNotEmpty &&
+                                    _currentAnswer[4].isNotEmpty) {
                                   final response = await IsJuegosServices()
                                       .saveJuegosAnswers(
                                     user: widget.user.userId,
