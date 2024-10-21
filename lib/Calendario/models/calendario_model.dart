@@ -2,6 +2,8 @@
 //
 //     final calendarioModel = calendarioModelFromJson(jsonString);
 
+// ignore_for_file: inference_failure_on_untyped_parameter, avoid_dynamic_calls
+
 import 'dart:convert';
 
 CalendarioModel calendarioModelFromJson(String str) =>

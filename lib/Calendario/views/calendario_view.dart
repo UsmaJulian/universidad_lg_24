@@ -8,8 +8,7 @@ import 'package:universidad_lg_24/Calendario/services/calendario_services.dart';
 import 'package:universidad_lg_24/Cursos/views/new_cursos_view.dart';
 import 'package:universidad_lg_24/Noticias/views/noticias_view.dart';
 import 'package:universidad_lg_24/Reels/views/reels_view.dart';
-import 'package:universidad_lg_24/constants.dart';
-import 'package:universidad_lg_24/helpers/my_long_print.dart';
+
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
