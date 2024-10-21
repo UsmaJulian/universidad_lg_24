@@ -26,6 +26,10 @@ class CategoriaCursosView extends StatefulWidget {
 }
 
 class _CategoriaCursosViewState extends State<CategoriaCursosView> {
+  TextEditingController searchController = TextEditingController();
+
+  String searchTerm = '';
+
   Map<dynamic, dynamic>? cursosData;
   @override
   void initState() {
@@ -63,19 +67,84 @@ class _CategoriaCursosViewState extends State<CategoriaCursosView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              searchInput(),
+              Row(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+                    child: OutlinedButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text(
+                        'Volver',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               if (cursosData != null)
                 for (final curso in cursosData!.values)
-                  CursoCard(
-                    curso: curso as Map<dynamic, dynamic>,
-                    user: widget.user,
-                    title: widget.title,
-                  ),
+                  if (curso['title']
+                      .toString()
+                      .toLowerCase()
+                      .contains(searchTerm.toLowerCase()))
+                    CursoCard(
+                      curso: curso as Map<dynamic, dynamic>,
+                      user: widget.user,
+                      title: widget.title,
+                    ),
             ],
           ),
         ),
       ),
       bottomNavigationBar: const CustomBottomAppBar(),
     );
+  }
+
+  Widget searchInput() {
+    return Container(
+      margin: EdgeInsets.zero,
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+        color: Color(0xffE6E1D6),
+      ),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: TextField(
+              controller: searchController,
+              textAlign: TextAlign.center,
+              onChanged: (String value) async {
+                search(value);
+              },
+              decoration: const InputDecoration(
+                hintText: 'Buscar',
+                hintStyle: TextStyle(fontSize: 16, color: Color(0xff716F6A)),
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              search(searchController.text);
+              // print(searchController.text);
+            },
+            child: const SizedBox(
+              child: Icon(Icons.search, color: Color(0xff716F6A)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void search(String value) {
+    setState(() {
+      searchTerm = value;
+    });
   }
 }
 

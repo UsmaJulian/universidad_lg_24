@@ -1,0 +1,137 @@
+// To parse this JSON data, do
+//
+//     final calendarioModel = calendarioModelFromJson(jsonString);
+
+import 'dart:convert';
+
+CalendarioModel calendarioModelFromJson(String str) =>
+    CalendarioModel.fromJson(json.decode(str) as Map<String, dynamic>);
+
+String calendarioModelToJson(CalendarioModel data) =>
+    json.encode(data.toJson());
+
+class CalendarioModel {
+  CalendarioModel({
+    required this.response,
+    required this.body,
+  });
+
+  factory CalendarioModel.fromJson(Map<String, dynamic> json) =>
+      CalendarioModel(
+        response: Response.fromJson(json['response'] as Map<String, dynamic>),
+        body: Body.fromJson(json['body'] as Map<String, dynamic>),
+      );
+  Response response;
+  Body body;
+
+  Map<String, dynamic> toJson() => {
+        'response': response.toJson(),
+        'body': body.toJson(),
+      };
+}
+
+class Body {
+  Body({
+    required this.events,
+  });
+
+  factory Body.fromJson(Map<String, dynamic> json) => Body(
+        events: List<Event>.from(
+          json['events'].map((x) => Event.fromJson(x as Map<String, dynamic>))
+              as Iterable,
+        ),
+      );
+  List<Event> events;
+
+  Map<String, dynamic> toJson() => {
+        'events': List<dynamic>.from(events.map((x) => x.toJson())),
+      };
+}
+
+class Event {
+  Event({
+    required this.dateTimeRange,
+    required this.eventData,
+  });
+
+  factory Event.fromJson(Map<String, dynamic> json) => Event(
+        dateTimeRange: DateTimeRangeCalendar.fromJson(
+          json['dateTimeRange'] as Map<String, dynamic>,
+        ),
+        eventData:
+            EventData.fromJson(json['eventData'] as Map<String, dynamic>),
+      );
+  DateTimeRangeCalendar dateTimeRange;
+  EventData eventData;
+
+  Map<String, dynamic> toJson() => {
+        'dateTimeRange': dateTimeRange.toJson(),
+        'eventData': eventData.toJson(),
+      };
+}
+
+class DateTimeRangeCalendar {
+  DateTimeRangeCalendar({
+    required this.start,
+    required this.end,
+  });
+
+  factory DateTimeRangeCalendar.fromJson(Map<String, dynamic> json) =>
+      DateTimeRangeCalendar(
+        start: json['start'].toString(),
+        end: json['end'].toString(),
+      );
+  String start;
+  String end;
+
+  Map<String, dynamic> toJson() => {
+        'start': start,
+        'end': end,
+      };
+}
+
+class EventData {
+  EventData({
+    required this.title,
+    required this.color,
+    required this.description,
+  });
+
+  factory EventData.fromJson(Map<String, dynamic> json) => EventData(
+        title: json['title'].toString(),
+        color: json['color'].toString(),
+        description: json['description'].toString(),
+      );
+  String title;
+  String color;
+  String description;
+
+  Map<String, dynamic> toJson() => {
+        'title': title,
+        'color': color,
+        'description': description,
+      };
+}
+
+class Response {
+  Response({
+    required this.type,
+    required this.code,
+    required this.message,
+  });
+
+  factory Response.fromJson(Map<String, dynamic> json) => Response(
+        type: json['type'].toString(),
+        code: int.parse(json['code'].toString()),
+        message: json['message'].toString(),
+      );
+  String type;
+  int code;
+  String message;
+
+  Map<String, dynamic> toJson() => {
+        'type': type,
+        'code': code,
+        'message': message,
+      };
+}

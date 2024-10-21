@@ -169,4 +169,6 @@ class UserSecureStorage {
 
   // Limpiar el estado de inicio de sesión del almacenamiento seguro
   static Future<void> clearIsLogin() async => _storage.delete(key: _keyIsLogin);
+
+  ///Metodos para almacenar la información de las trivias en el dispositivo
 }

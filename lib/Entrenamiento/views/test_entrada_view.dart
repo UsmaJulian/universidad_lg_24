@@ -57,28 +57,33 @@ class _TestEntradaViewState extends State<TestEntradaView> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 128),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
-              child: OutlinedButton(
-                onPressed: _onBackPressed,
-                child: const Text(
-                  'Volver',
-                  style: TextStyle(color: Colors.black),
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.9,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+                  child: OutlinedButton(
+                    onPressed: _onBackPressed,
+                    child: const Text(
+                      'Volver',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
                 ),
-              ),
+                Expanded(
+                  child: _TestEntradaContent(
+                    user: widget.user,
+                    curso: widget.curso,
+                    leccion: widget.leccion,
+                    parent: widget.parent,
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              child: _TestEntradaContent(
-                user: widget.user,
-                curso: widget.curso,
-                leccion: widget.leccion,
-                parent: widget.parent,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
 
