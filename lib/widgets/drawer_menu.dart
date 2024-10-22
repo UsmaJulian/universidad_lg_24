@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:universidad_lg_24/Ayuda/views/ayuda_view.dart';
@@ -13,7 +15,6 @@ import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
-import 'package:universidad_lg_24/users/views/login/login_view.dart';
 
 import 'package:universidad_lg_24/users/views/profile/perfil_view.dart';
 
