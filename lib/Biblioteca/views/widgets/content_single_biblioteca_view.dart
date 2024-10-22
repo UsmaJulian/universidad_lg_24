@@ -17,6 +17,10 @@ class _ContentSingleBibliotecaViewState
     extends State<ContentSingleBibliotecaView> {
   @override
   Widget build(BuildContext context) {
+    print(
+      'src="https://docs.google.com/gview?url=${widget.data!.recurso}&embedded=true',
+    );
+    print('url:${widget.data!.recurso} ');
     return LayoutBuilder(
       builder: (context, constraints) {
         return Column(
@@ -39,8 +43,10 @@ class _ContentSingleBibliotecaViewState
               ),
             ),
             Expanded(
-              child: widget.data!.fieldRecursosTipoValue.toString() ==
-                      'FieldRecursosTipoValue.VIDEO'
+              child: (widget.data!.fieldRecursosTipoValue.toString() ==
+                          'FieldRecursosTipoValue.VIDEO' &&
+                      widget.data!.recurso != null &&
+                      widget.data!.recurso!.isNotEmpty)
                   ? SingleChildScrollView(
                       child: HtmlWidget(
                         widget.data!.recurso.toString(),
@@ -55,22 +61,55 @@ class _ContentSingleBibliotecaViewState
                         },
                       ),
                     )
-                  : Expanded(
-                      child: SingleChildScrollView(
-                        child: HtmlWidget(
-                          '<iframe height="${MediaQuery.of(context).size.height * 8}" width="${MediaQuery.of(context).size.width}" src="https://docs.google.com/gview?url=${widget.data!.recurso}&embedded=true" frameborder="0"></iframe>',
-                          customStylesBuilder: (element) {
-                            if (element.classes.contains('iframe')) {
-                              return {
-                                'margin': '20px',
-                                'padding': '20px',
-                              };
-                            }
-                            return null;
-                          },
+                  //       : Expanded(
+                  //           child: SingleChildScrollView(
+                  //             child: HtmlWidget(
+                  //               '<iframe height="${MediaQuery.of(context).size.height * 8}" width="${MediaQuery.of(context).size.width}" src="https://docs.google.com/gview?url=${widget.data!.recurso}&embedded=true" frameborder="0"></iframe>',
+                  //               customStylesBuilder: (element) {
+                  //                 if (element.classes.contains('iframe')) {
+                  //                   return {
+                  //                     'margin': '20px',
+                  //                     'padding': '20px',
+                  //                   };
+                  //                 }
+                  //                 return null;
+                  //               },
+                  //             ),
+                  //           ),
+                  //         ),
+                  // ),
+                  : (widget.data!.recurso != null &&
+                          widget.data!.recurso!.isNotEmpty &&
+                          !widget.data!.recurso!.contains('null'))
+                      ? CustomScrollView(
+                          slivers: [
+                            SliverList(
+                              delegate: SliverChildListDelegate(
+                                [
+                                  Padding(
+                                    padding: const EdgeInsets.all(16),
+                                    child: HtmlWidget(
+                                      '<iframe height="${MediaQuery.of(context).size.height * 8}" width="${MediaQuery.of(context).size.width}" src="https://docs.google.com/gview?url=${widget.data!.recurso}&embedded=true" frameborder="0"></iframe>',
+                                      customStylesBuilder: (element) {
+                                        if (element.classes
+                                            .contains('iframe')) {
+                                          return {
+                                            'margin': '20px',
+                                            'padding': '20px',
+                                          };
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      : const Center(
+                          child: Text('No hay contenido disponible'),
                         ),
-                      ),
-                    ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 20),

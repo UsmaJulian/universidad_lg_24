@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:universidad_lg_24/Biblioteca/bloc/biblioteca/biblioteca_bloc.dart';
 import 'package:universidad_lg_24/Biblioteca/services/biblioteca_services.dart';
 import 'package:universidad_lg_24/Biblioteca/views/widgets/widgets.dart';
-
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
@@ -13,6 +12,7 @@ class BibliotecaView extends StatelessWidget {
   final User? user;
   @override
   Widget build(BuildContext context) {
+    print('actual view: ${ModalRoute.of(context)?.settings.name}');
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,

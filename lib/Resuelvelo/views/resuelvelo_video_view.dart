@@ -32,6 +32,13 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
   }
 
   @override
+  void dispose() {
+    _controller.close();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,

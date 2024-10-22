@@ -3,10 +3,8 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:universidad_lg_24/Resuelvelo/models/resuelvelo_model.dart';
 import 'package:universidad_lg_24/Resuelvelo/services/resuelvelo_services.dart';
 import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_video_view.dart';
-
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/body_footer_global.dart';
-
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
 
@@ -161,11 +159,12 @@ class _ResuelveloViewState extends State<ResuelveloView> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.08,
-                child: Expanded(child: Container()),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.08,
+                ),
+                child: const BodyFooter(),
               ),
-              const BodyFooter(),
             ],
           ),
         ),

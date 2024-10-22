@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:universidad_lg_24/Home/views/new_home_view.dart';
 import 'package:universidad_lg_24/constants.dart';
-
 import 'package:universidad_lg_24/home/views/globals.dart' as globals;
-
 import 'package:universidad_lg_24/l10n/l10n.dart';
-
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 import 'package:universidad_lg_24/users/views/login/login_view.dart';
 
@@ -30,6 +27,7 @@ class App extends StatelessWidget {
         ),
         useMaterial3: true, // Habilita el uso de Material Design 3
       ),
+
       localizationsDelegates:
           AppLocalizations.localizationsDelegates, // Delegados de localización
       supportedLocales: AppLocalizations.supportedLocales, // Locales soportados
