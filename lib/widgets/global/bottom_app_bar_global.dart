@@ -8,10 +8,10 @@ class CustomBottomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const BottomAppBar(
+    return BottomAppBar(
       color: footerColor,
-      height: 70,
-      child: Padding(
+      height: MediaQuery.of(context).size.height * 0.08,
+      child: const Padding(
         padding: EdgeInsets.symmetric(
           horizontal: 40,
         ),

@@ -17,7 +17,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      toolbarHeight: 93,
+      toolbarHeight: MediaQuery.of(context).size.height * 0.15,
       backgroundColor: bgColor,
       leading: Padding(
         padding: const EdgeInsets.only(left: 21),

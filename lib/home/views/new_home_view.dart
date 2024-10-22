@@ -114,46 +114,95 @@ class _NewHomeViewState extends State<NewHomeView> {
           children: [
             SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.57,
+              height: MediaQuery.of(context).size.height * 0.51,
               child: CarouselSlider.builder(
-                itemCount: 2,
+                itemCount: 3,
                 options: CarouselOptions(
                   autoPlay: true,
                   aspectRatio: 0.1,
                   enlargeCenterPage: true,
-                  enlargeFactor: 0.2,
+                  enlargeFactor: 0.15,
+                  viewportFraction: 0.6,
                 ),
                 itemBuilder:
                     (BuildContext context, int index, int pageViewIndex) {
-                  return MouseRegion(
-                    cursor: SystemMouseCursors.move,
-                    child: GestureDetector(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(
-                          index == 0
-                              ? 'assets/images/Home.png'
-                              : 'assets/images/IMG_3802.PNG',
-                          fit: BoxFit.cover,
-                          width: MediaQuery.of(context).size.width,
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (context) => index == 0
-                                ? ReelsView(
-                                    user: widget.user,
-                                  )
-                                : ResuelveloView(
-                                    user: widget.user,
-                                  ),
+                  switch (index) {
+                    case 0:
+                      return MouseRegion(
+                        cursor: SystemMouseCursors.move,
+                        child: GestureDetector(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.asset(
+                              'assets/images/Home.png',
+                              fit: BoxFit.cover,
+                              width: MediaQuery.of(context).size.width,
+                            ),
                           ),
-                        );
-                      },
-                    ),
-                  );
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (context) => ReelsView(
+                                  user: widget.user,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    case 1:
+                      return MouseRegion(
+                        cursor: SystemMouseCursors.move,
+                        child: GestureDetector(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.asset(
+                              'assets/images/IMG_3802.PNG',
+                              fit: BoxFit.cover,
+                              width: MediaQuery.of(context).size.width,
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (context) => NewCursosView(
+                                  user: widget.user,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    case 2:
+                      return MouseRegion(
+                        cursor: SystemMouseCursors.move,
+                        child: GestureDetector(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.asset(
+                              'assets/images/IMG_4063.PNG',
+                              fit: BoxFit.cover,
+                              width: MediaQuery.of(context).size.width,
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (context) => ResuelveloView(
+                                  user: widget.user,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+
+                    default:
+                      return Container();
+                  }
                 },
               ),
             ),

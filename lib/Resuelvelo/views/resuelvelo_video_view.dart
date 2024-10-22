@@ -52,17 +52,22 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
               YoutubePlayer(
                 controller: _controller,
               ),
-              const SizedBox(height: 20),
-              Text(
-                widget.resuelveloData.title,
-                style: const TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 15),
+              // const SizedBox(height: 20),
+              // Text(
+              //   widget.resuelveloData.title,
+              //   style: const TextStyle(
+              //     fontSize: 25,
+              //     fontWeight: FontWeight.w700,
+              //   ),
+              // ),
+
               HtmlWidget(
                 widget.resuelveloData.content,
+                enableCaching: true,
+                textStyle: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
 
               /// Espacio para Likes

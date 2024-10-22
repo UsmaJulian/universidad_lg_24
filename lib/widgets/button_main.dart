@@ -41,9 +41,12 @@ class ButtonMain extends StatelessWidget {
               );
             }
           : null,
-      child: (onPress != null)
+      child: (onPress != null && text != null)
           ? Text(text!, style: TextStyle(color: textColor))
-          : const Text('Próximamente', style: TextStyle(color: mainColor)),
+          : Text(
+              text ?? 'Proximamente',
+              style: const TextStyle(color: mainColor),
+            ),
     );
   }
 }

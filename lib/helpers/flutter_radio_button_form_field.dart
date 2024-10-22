@@ -26,45 +26,49 @@ class FlutterRadioButtonFormField extends FormField<dynamic> {
     this.titleStyle,
   }) : super(
           builder: (FormFieldState<dynamic> state) {
-            return ListView.builder(
-              padding: padding,
-              shrinkWrap: true,
-              itemCount: data.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Radio(
-                    value: data[index][value],
-                    groupValue: state.value,
-                    activeColor: activeColor,
-                    autofocus: autoFocus!,
-                    focusColor: focusColor,
-                    focusNode: focusNode,
-                    hoverColor: hoverColor,
-                    materialTapTargetSize: materialTapTargetSize,
-                    mouseCursor: mouseCursor,
-                    onChanged: (value) {
-                      state.didChange(value);
-                    },
-                    toggleable: toggleable!,
-                    visualDensity: visualDensity,
-                  ),
-                  title: Text(
-                    data[index][display].toString(),
-                    style: titleStyle ?? const TextStyle(color: Colors.black),
-                  ),
-                  onTap: () {
-                    if (toggleable == true) {
-                      if (state.value != data[index][value]) {
-                        state.didChange(data[index][value]);
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: ListView.builder(
+                padding: padding,
+                shrinkWrap: true,
+                itemCount: data.length,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: Radio(
+                      value: data[index][value],
+                      groupValue: state.value,
+                      activeColor: activeColor,
+                      autofocus: autoFocus!,
+                      focusColor: focusColor,
+                      focusNode: focusNode,
+                      hoverColor: hoverColor,
+                      materialTapTargetSize: materialTapTargetSize,
+                      mouseCursor: mouseCursor,
+                      onChanged: (value) {
+                        state.didChange(value);
+                      },
+                      toggleable: toggleable!,
+                      visualDensity: visualDensity,
+                    ),
+                    title: Text(
+                      data[index][display].toString(),
+                      style: titleStyle ?? const TextStyle(color: Colors.black),
+                    ),
+                    onTap: () {
+                      if (toggleable == true) {
+                        if (state.value != data[index][value]) {
+                          state.didChange(data[index][value]);
+                        } else {
+                          state.didChange(null);
+                        }
                       } else {
-                        state.didChange(null);
+                        state.didChange(data[index][value]);
                       }
-                    } else {
-                      state.didChange(data[index][value]);
-                    }
-                  },
-                );
-              },
+                    },
+                  );
+                },
+              ),
             );
           },
         );

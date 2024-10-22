@@ -47,7 +47,10 @@ class _CalendarioViewState extends State<CalendarioView> {
     // ),
 
     // WeekConfiguration(),
-    // WorkWeekConfiguration(),
+    // WorkWeekConfiguration(
+    //   startHour: 6,
+    //   endHour: 18,
+    // ),
     MonthConfiguration(),
     // ScheduleConfiguration(),
     MultiWeekConfiguration(
@@ -105,7 +108,7 @@ class _CalendarioViewState extends State<CalendarioView> {
     )
         .then((value) {
       data = value;
-      for (var i = 0; i < data!.body.events.length; i++) {
+      for (var i = 0; i < num.parse(data!.body.events.length.toString()); i++) {
         final startYear = data!.body.events[i].dateTimeRange.start.substring(
           0,
           data!.body.events[i].dateTimeRange.start.indexOf(','),
@@ -132,20 +135,23 @@ class _CalendarioViewState extends State<CalendarioView> {
           CalendarEvent(
             dateTimeRange: DateTimeRange(
               start: DateTime(
-                int.parse(startYear),
-                int.parse(startMonth),
-                int.parse(startDay),
+                int.parse(startYear.toString()),
+                int.parse(startMonth.toString()),
+                int.parse(startDay.toString()),
               ),
               end: DateTime(
-                int.parse(endYear),
-                int.parse(endMonth),
-                int.parse(endDay) + 1,
+                int.parse(endYear.toString()),
+                int.parse(endMonth.toString()),
+                int.parse(endDay.toString()) + 8,
               ),
             ),
             eventData: Event(
-              title: data!.body.events[i].eventData.title,
-              color: Colors.red,
-              description: data!.body.events[i].eventData.description,
+              title: data!.body.events[i].eventData.title.toString(),
+              color: Color(
+                int.parse(data!.body.events[i].eventData.color.toString()),
+              ),
+              description:
+                  data!.body.events[i].eventData.description.toString(),
             ),
           ),
         );
@@ -302,7 +308,7 @@ class _CalendarioViewState extends State<CalendarioView> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
-      margin: EdgeInsets.zero,
+      margin: const EdgeInsets.only(top: 1, left: 1, right: 1, bottom: 1),
       elevation: configuration.tileType == TileType.ghost ? 0 : 8,
       color: configuration.tileType != TileType.ghost
           ? color
@@ -310,7 +316,7 @@ class _CalendarioViewState extends State<CalendarioView> {
       child: Center(
         child: configuration.tileType != TileType.ghost
             ? Padding(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(6),
                 child: Text(
                   event.eventData?.title ?? 'New Event',
                   style: const TextStyle(color: Colors.white),

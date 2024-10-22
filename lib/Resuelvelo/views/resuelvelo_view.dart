@@ -161,6 +161,10 @@ class _ResuelveloViewState extends State<ResuelveloView> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.08,
+                child: Expanded(child: Container()),
+              ),
               const BodyFooter(),
             ],
           ),

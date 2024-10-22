@@ -50,26 +50,31 @@ class _SingleEvaluacionViewState extends State<SingleEvaluacionView> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 120),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 10, top: 20),
-              child: OutlinedButton(
-                onPressed: _onBackPressed,
-                child: const Text(
-                  'Volver',
-                  style: TextStyle(color: Colors.black),
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.9,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, bottom: 10, top: 20),
+                  child: OutlinedButton(
+                    onPressed: _onBackPressed,
+                    child: const Text(
+                      'Volver',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
                 ),
-              ),
+                Expanded(
+                  child: _SingleEvaluacionContent(
+                    user: widget.user,
+                    nid: widget.nid,
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              child: _SingleEvaluacionContent(
-                user: widget.user,
-                nid: widget.nid,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -186,7 +191,6 @@ class __SingleEvaluacionContentState extends State<_SingleEvaluacionContent> {
     // TODO: implement build
     if (load) {
       return SizedBox(
-        // padding: EdgeInsets.all(0),
         child: _ContentSingleEvaluacion(
           evaluacionInfo: evaluacionInfo,
           time: int.parse(
@@ -295,10 +299,11 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(8),
+                padding:
+                    const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
                 child: CoolStepper(
                   onCompleted: _onFinish,
-                  contentPadding: const EdgeInsets.all(10),
+                  contentPadding: const EdgeInsets.only(top: 10, bottom: 10),
                   steps: steps,
                   config: CoolStepperConfig(
                     backText: 'ANTERIOR',
@@ -693,25 +698,25 @@ _result({EvaluacionRest? res, User? user, BuildContext? context, String? id}) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) => ResultadoView(
-                        user: user,
-                        evaluacion: id,
-                      ),
-                    ),
-                  );
-                },
-                child: const Text(
-                  'VER RESPUESTAS',
-                  style: TextStyle(
-                    color: mainColor,
-                  ),
-                ),
-              ),
+              // TextButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute<void>(
+              //         builder: (context) => ResultadoView(
+              //           user: user,
+              //           evaluacion: id,
+              //         ),
+              //       ),
+              //     );
+              //   },
+              //   child: const Text(
+              //     'VER RESPUESTAS',
+              //     style: TextStyle(
+              //       color: mainColor,
+              //     ),
+              //   ),
+              // ),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);

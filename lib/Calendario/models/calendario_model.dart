@@ -37,16 +37,15 @@ class Body {
     required this.events,
   });
 
-  factory Body.fromJson(Map<String, dynamic> json) => Body(
-        events: List<Event>.from(
-          json['events'].map((x) => Event.fromJson(x as Map<String, dynamic>))
-              as Iterable,
+  factory Body.fromJson(dynamic json) => Body(
+        events: List<dynamic>.from(
+          json['events'].map((x) => Event.fromJson(x as dynamic)) as Iterable,
         ),
       );
-  List<Event> events;
+  dynamic events;
 
   Map<String, dynamic> toJson() => {
-        'events': List<dynamic>.from(events.map((x) => x.toJson())),
+        'events': List<dynamic>.from(events.map((x) => x.toJson()) as Iterable),
       };
 }
 
@@ -56,17 +55,16 @@ class Event {
     required this.eventData,
   });
 
-  factory Event.fromJson(Map<String, dynamic> json) => Event(
+  factory Event.fromJson(dynamic json) => Event(
         dateTimeRange: DateTimeRangeCalendar.fromJson(
-          json['dateTimeRange'] as Map<String, dynamic>,
+          json['dateTimeRange'] as dynamic,
         ),
-        eventData:
-            EventData.fromJson(json['eventData'] as Map<String, dynamic>),
+        eventData: EventData.fromJson(json['eventData'] as dynamic),
       );
   DateTimeRangeCalendar dateTimeRange;
   EventData eventData;
 
-  Map<String, dynamic> toJson() => {
+  dynamic toJson() => {
         'dateTimeRange': dateTimeRange.toJson(),
         'eventData': eventData.toJson(),
       };
@@ -78,15 +76,14 @@ class DateTimeRangeCalendar {
     required this.end,
   });
 
-  factory DateTimeRangeCalendar.fromJson(Map<String, dynamic> json) =>
-      DateTimeRangeCalendar(
+  factory DateTimeRangeCalendar.fromJson(dynamic json) => DateTimeRangeCalendar(
         start: json['start'].toString(),
         end: json['end'].toString(),
       );
   String start;
   String end;
 
-  Map<String, dynamic> toJson() => {
+  dynamic toJson() => {
         'start': start,
         'end': end,
       };
@@ -99,7 +96,7 @@ class EventData {
     required this.description,
   });
 
-  factory EventData.fromJson(Map<String, dynamic> json) => EventData(
+  factory EventData.fromJson(dynamic json) => EventData(
         title: json['title'].toString(),
         color: json['color'].toString(),
         description: json['description'].toString(),
@@ -108,7 +105,7 @@ class EventData {
   String color;
   String description;
 
-  Map<String, dynamic> toJson() => {
+  dynamic toJson() => {
         'title': title,
         'color': color,
         'description': description,
@@ -122,7 +119,7 @@ class Response {
     required this.message,
   });
 
-  factory Response.fromJson(Map<String, dynamic> json) => Response(
+  factory Response.fromJson(dynamic json) => Response(
         type: json['type'].toString(),
         code: int.parse(json['code'].toString()),
         message: json['message'].toString(),
@@ -131,7 +128,7 @@ class Response {
   int code;
   String message;
 
-  Map<String, dynamic> toJson() => {
+  dynamic toJson() => {
         'type': type,
         'code': code,
         'message': message,

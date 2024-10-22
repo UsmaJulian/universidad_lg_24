@@ -1,10 +1,10 @@
 // ignore_for_file: inference_failure_on_collection_literal, strict_raw_type
 
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:universidad_lg_24/Entrenamiento/models/active_test_salida_model.dart';
 import 'package:universidad_lg_24/Entrenamiento/models/leccion_model.dart';
-
 import 'package:universidad_lg_24/Entrenamiento/models/models.dart';
 import 'package:universidad_lg_24/Entrenamiento/models/respuestas_test_salida_model.dart';
 import 'package:universidad_lg_24/Entrenamiento/models/send_test_entrada_model.dart';
@@ -12,6 +12,7 @@ import 'package:universidad_lg_24/Entrenamiento/models/send_test_salida_model.da
 import 'package:universidad_lg_24/Entrenamiento/models/test_entrada_model.dart';
 import 'package:universidad_lg_24/Entrenamiento/models/test_salida_model.dart';
 import 'package:universidad_lg_24/constants.dart';
+import 'package:universidad_lg_24/helpers/my_long_print.dart';
 
 class EntrenamientoService {
   Future<EntrenamientoModel?> servicegetEntrenamientoContent(
@@ -131,33 +132,41 @@ class EntrenamientoService {
     String leccion,
     Map data,
   ) async {
-    final response = await http.post(
-      Uri.https(baseUrl, 'app/entrenamiento/curso/test-entrada/save'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, dynamic>{
-        'userId': userid,
-        'token': token,
-        'curso': curso,
-        'leccion_id': leccion,
-        'userAnswers': data,
-      }),
+    myLongPrint(
+      'datos:{"userId": $userid,"token": $token,"curso": $curso,"leccion_id": $leccion,        "userAnswers": $data,',
     );
+    try {
+      final response = await http.post(
+        Uri.https(baseUrl, 'app/entrenamiento/curso/test-entrada/save'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'userId': userid,
+          'token': token,
+          'curso': curso,
+          'leccion_id': leccion,
+          'userAnswers': data,
+        }),
+      );
 
-    if (response.statusCode == 200) {
-      final request = json.decode(response.body);
-      if (request['status']['type'] != 'error') {
-        final sendTestEntradaJson = SendTestEntrada.fromJson(
-          json.decode(response.body) as Map<String, dynamic>,
-        );
+      if (response.statusCode == 200) {
+        final request = json.decode(response.body);
+        if (request['status']['type'] != 'error') {
+          final sendTestEntradaJson = SendTestEntrada.fromJson(
+            json.decode(response.body) as Map<String, dynamic>,
+          );
 
-        return sendTestEntradaJson;
+          return sendTestEntradaJson;
+        } else {
+          throw request['status']['message'].toString();
+        }
+        // throw AuthenticationException(message: 'Wrong username or password');
       } else {
-        throw request['status']['message'].toString();
+        throw 'error';
       }
-      // throw AuthenticationException(message: 'Wrong username or password');
-    } else {
+    } on Exception catch (e) {
+      myLongPrint('error en serviceSendTestEntrada: $e');
       throw 'error';
     }
   }
@@ -313,7 +322,7 @@ class EntrenamientoService {
       }
       // throw AuthenticationException(message: 'Wrong username or password');
     } else {
-      throw 'error';
+      throw 'error ${response.statusCode}';
     }
   }
 

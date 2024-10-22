@@ -5,7 +5,6 @@ import 'package:universidad_lg_24/Cursos/services/cursos_services.dart';
 import 'package:universidad_lg_24/Entrenamiento/models/models.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/test_entrada_view.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/test_salida_view.dart';
-
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
@@ -143,21 +142,28 @@ class _NewCursoSingleViewState extends State<NewCursoSingleView> {
                     if (cursoData != null)
                       ButtonMain(
                         text: 'Test de entrada',
-                        onPress: TestEntradaView(
-                          user: widget.user,
-                          curso: cursoData!.status!.data!.curso!.nid,
-                          leccion: cursoData!.status!.data!.leccionId,
-                        ),
+                        onPress: (cursoData!.status!.data!.testEntrada == 0)
+                            ? TestEntradaView(
+                                user: widget.user,
+                                curso: cursoData!.status!.data!.curso!.nid,
+                                leccion: cursoData!.status!.data!.leccionId,
+                              )
+                            : null,
                       ),
                     if (cursoData != null)
                       ButtonMain(
-                        text: 'Test de salida',
-                        onPress: TestSalidaView(
-                          user: widget.user,
-                          curso: cursoData!.status!.data!.curso!.nid.toString(),
-                          leccion:
-                              cursoData!.status!.data!.leccionId.toString(),
-                        ),
+                        text: (cursoData!.status!.data!.testSalida == 0)
+                            ? 'Test de salida'
+                            : 'Test Realizado',
+                        onPress: (cursoData!.status!.data!.testSalida == 0)
+                            ? TestSalidaView(
+                                user: widget.user,
+                                curso: cursoData!.status!.data!.curso!.nid
+                                    .toString(),
+                                leccion: cursoData!.status!.data!.leccionId
+                                    .toString(),
+                              )
+                            : null,
                       ),
                   ],
                 ),

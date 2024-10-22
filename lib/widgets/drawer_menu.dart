@@ -477,22 +477,22 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     return;
                   },
                 ),
-                ListTile(
-                  title: const Center(child: Text('Cerrar sesión')),
-                  tileColor: Colors.white,
-                  onTap: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (_) {
-                          authBloc.add(UserLoggedOut());
-                          return const LoginView();
-                        },
-                      ),
-                      (route) => false,
-                    );
-                  },
-                ),
+                // ListTile(
+                //   title: const Center(child: Text('Cerrar sesión')),
+                //   tileColor: Colors.white,
+                //   onTap: () {
+                //     Navigator.pushAndRemoveUntil(
+                //       context,
+                //       MaterialPageRoute<void>(
+                //         builder: (_) {
+                //           authBloc.add(UserLoggedOut());
+                //           return const LoginView();
+                //         },
+                //       ),
+                //       (route) => false,
+                //     );
+                //   },
+                // ),
               ],
             )
           else

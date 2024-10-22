@@ -6,11 +6,10 @@ import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:rainbow_color/rainbow_color.dart';
+import 'package:universidad_lg_24/Cursos/views/new_cursos_view.dart';
 import 'package:universidad_lg_24/Entrenamiento/entrenamiento/entrenamiento_bloc.dart';
 import 'package:universidad_lg_24/Entrenamiento/models/send_test_salida_model.dart';
 import 'package:universidad_lg_24/Entrenamiento/models/test_salida_model.dart';
-import 'package:universidad_lg_24/Entrenamiento/views/entrenamiento_view.dart';
-import 'package:universidad_lg_24/Entrenamiento/views/respuestas_test_salida_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/helpers/flutter_radio_button_form_field.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -704,7 +703,7 @@ _result({DataTest? res, User? user, BuildContext? context, String? id}) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(
+              /*TextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -722,7 +721,7 @@ _result({DataTest? res, User? user, BuildContext? context, String? id}) {
                     color: mainColor,
                   ),
                 ),
-              ),
+              ),*/
               TextButton(
                 onPressed: () {
                   // Navigator.pop(context);
@@ -734,7 +733,7 @@ _result({DataTest? res, User? user, BuildContext? context, String? id}) {
                     context,
                     MaterialPageRoute<void>(
                       builder: (BuildContext context) =>
-                          EntrenamientoView(user: user),
+                          NewCursosView(user: user),
                     ),
                   );
                 },

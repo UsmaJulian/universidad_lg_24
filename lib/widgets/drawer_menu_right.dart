@@ -160,22 +160,22 @@ class DrawerMenuRight extends StatelessWidget {
               return;
             },
           ), */
-          ListTile(
-            onTap: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (_) {
-                    authBloc.add(UserLoggedOut());
-                    return const LoginView();
-                  },
-                ),
-                (route) => false,
-              );
-            },
-            leading: const Icon(Icons.logout),
-            title: const Text('Cerrar sesión'),
-          ),
+          // ListTile(
+          //   onTap: () {
+          //     Navigator.pushAndRemoveUntil(
+          //       context,
+          //       MaterialPageRoute<void>(
+          //         builder: (_) {
+          // authBloc.add(UserLoggedOut());
+          //           return const LoginView();
+          //         },
+          //       ),
+          //       (route) => false,
+          //     );
+          //   },
+          //   leading: const Icon(Icons.logout),
+          //   title: const Text('Cerrar sesión'),
+          // ),
         ],
       ),
     );

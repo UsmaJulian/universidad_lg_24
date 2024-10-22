@@ -19,19 +19,22 @@ class _NewCursosViewState extends State<NewCursosView> {
     {
       'image': 'assets/static/basico.png',
       'title': 'Básico',
-      'description': '',
+      'description':
+          'Aprende los fundamentos de LG y sus productos. Este curso cubre la historia de la marca, características básicas de los productos y técnicas iniciales de venta. Ideal para comenzar a interactuar con clientes de manera efectiva.',
       'query': 'basico',
     },
     {
       'image': 'assets/static/medio.jpg',
       'title': 'Intermedio',
-      'description': '',
+      'description':
+          'Desarrolla habilidades más avanzadas con detalles técnicos de los productos y técnicas de venta sofisticadas. Incluye estrategias de presentación, manejo de objeciones y servicio al cliente para mejorar la efectividad en el cierre de ventas.',
       'query': 'intermedio',
     },
     {
       'image': 'assets/static/avanzado.jpg',
       'title': 'Avanzado',
-      'description': '',
+      'description':
+          'Perfecciona tus habilidades con las últimas innovaciones y estrategias avanzadas. Enfocado en liderazgo, coaching, y análisis del rendimiento para optimizar las ventas y guiar a otros promotores.',
       'query': 'avanzado',
     }
   ];
@@ -118,10 +121,11 @@ class CursoCard extends StatelessWidget {
         const SizedBox(height: 20),
         Text(
           description,
+          textAlign: TextAlign.justify,
           style: const TextStyle(
             color: Colors.black,
             fontSize: 16,
-            fontWeight: FontWeight.w200,
+            fontWeight: FontWeight.w400,
           ),
         ),
         const SizedBox(height: 10),

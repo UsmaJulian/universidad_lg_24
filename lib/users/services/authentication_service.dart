@@ -120,6 +120,7 @@ class IsAuthenticationService extends AuthenticationService {
   @override
   Future<dynamic> signOut() async {
     final token = await UserSecureStorage.getLoginToken();
+
     if (token != null) {
       final userStorage = UserStorage();
       return userStorage.destroyUserStorage();

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:universidad_lg_24/Reels/models/reels_model.dart';
 import 'package:universidad_lg_24/Reels/services/reels_services.dart';
 import 'package:universidad_lg_24/constants.dart';
@@ -20,6 +23,8 @@ class ReelsView extends StatefulWidget {
 
 class _ReelsViewState extends State<ReelsView> {
   ReelsModel? data;
+  final StreamController<ReelsModel> _streamController =
+      StreamController<ReelsModel>();
   final reels = <Map<String, Object>>[
     // {
     //   'likes': 2,
@@ -212,8 +217,9 @@ class _ReelsViewState extends State<ReelsView> {
     //   'type': 'video',
     // },
   ];
-
+  int _pager = 1;
   TextEditingController searchController = TextEditingController();
+  final RefreshController _refreshController = RefreshController();
 
   String searchTerm = '';
   @override
@@ -245,6 +251,21 @@ class _ReelsViewState extends State<ReelsView> {
         }
       });
     });
+  }
+
+  Future<void> _refreshData() async {
+    try {
+      debugPrint('refrescando');
+      final juegos = await IsReelsService().getReelsService(
+        uid: widget.user.userId,
+        token: widget.user.token,
+        pager: _pager++,
+      );
+      _streamController.add(juegos);
+      _refreshController.loadComplete();
+    } catch (e) {
+      _streamController.addError(e);
+    }
   }
 
   @override
@@ -417,153 +438,116 @@ class _ReelsViewState extends State<ReelsView> {
 
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.65,
-                    child: ListView.builder(
-                      itemCount: reels.length,
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (BuildContext context, int index) {
-                        final reel = reels[index];
-                        if (reel['tags'].toString().contains(searchTerm) &&
-                            reel['type'] == 'video') {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Image.network(
-                                        reel['thumbnail'].toString(),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Center(
-                                        child: IconButton(
-                                          onPressed: () {
-                                            dialogo(
-                                              context,
-                                              reel,
-                                            );
-                                          },
-                                          icon: const Icon(
-                                            Icons.play_circle_fill_outlined,
-                                            color: mainColor,
-                                            size: 90,
+                    child: SmartRefresher(
+                      enablePullDown: false,
+                      enablePullUp: true,
+                      header: const WaterDropHeader(),
+                      controller: _refreshController,
+                      onLoading: _refreshData,
+                      child: ListView.builder(
+                        itemCount: reels.length,
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (BuildContext context, int index) {
+                          final reel = reels[index];
+
+                          if (reel['tags']
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(searchTerm.toLowerCase()) &&
+                              reel['type'] == 'video') {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(30),
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Image.network(
+                                          reel['thumbnail'].toString(),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        Center(
+                                          child: IconButton(
+                                            onPressed: () {
+                                              dialogo(
+                                                context,
+                                                reel,
+                                              );
+                                            },
+                                            icon: const Icon(
+                                              Icons.play_circle_fill_outlined,
+                                              color: mainColor,
+                                              size: 90,
+                                            ),
+                                            iconSize: 50,
                                           ),
-                                          iconSize: 50,
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                GestureDetector(
-                                  child: Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.favorite_border_outlined,
-                                        size: 40,
-                                      ),
-                                      const SizedBox(width: 5),
-                                      Text(
-                                        reel['likes'].toString(),
-                                        style: const TextStyle(
-                                          fontSize: 44,
-                                          fontWeight: FontWeight.bold,
-                                          color: mainColor,
+                                  GestureDetector(
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.favorite_border_outlined,
+                                          size: 40,
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  onTap: () async {
-                                    final response = await IsReelsService()
-                                        .getReelsAddLikeService(
-                                      uid: widget.user.userId,
-                                      token: widget.user.token,
-                                      nid: reel['nid'].toString(),
-                                    );
-                                    if (response.response.type == 'success') {
-                                      reel['likes'] = response.body.likes;
-                                    }
-                                    setState(() {});
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Container(
-                                  height: 1,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xff707070),
-                                  ),
-                                ),
-                                Text(
-                                  reel['tags'].toString().replaceAll(
-                                        RegExp(r'[^\#\w\s]+'),
-                                        '',
-                                      ),
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 25),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: Image.asset(
-                                    reel['resource'].toString(),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.favorite_border_outlined,
-                                      size: 40,
+                                        const SizedBox(width: 5),
+                                        Text(
+                                          reel['likes'].toString(),
+                                          style: const TextStyle(
+                                            fontSize: 44,
+                                            fontWeight: FontWeight.bold,
+                                            color: mainColor,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(width: 5),
-                                    Text(
-                                      reel['likes'].toString(),
-                                      style: const TextStyle(
-                                        fontSize: 44,
-                                        fontWeight: FontWeight.bold,
-                                        color: mainColor,
-                                      ),
+                                    onTap: () async {
+                                      final response = await IsReelsService()
+                                          .getReelsAddLikeService(
+                                        uid: widget.user.userId,
+                                        token: widget.user.token,
+                                        nid: reel['nid'].toString(),
+                                      );
+                                      if (response.response.type == 'success') {
+                                        reel['likes'] = response.body.likes;
+                                      }
+                                      setState(() {});
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 15,
+                                  ),
+                                  Container(
+                                    height: 1,
+                                    decoration: const BoxDecoration(
+                                      color: Color(0xff707070),
                                     ),
-                                  ],
-                                ),
-                                Container(
-                                  height: 1,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xff707070),
                                   ),
-                                ),
-                                Text(
-                                  reel['tags'].toString().replaceAll(
-                                        RegExp(r'[^\#\w\s]+'),
-                                        '',
-                                      ),
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
+                                  Text(
+                                    reel['tags'].toString().replaceAll(
+                                          RegExp(r'[^\#\w\s]+'),
+                                          '',
+                                        ),
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                      },
+                                ],
+                              ),
+                            );
+                          } else {
+                            return Container();
+                          }
+                        },
+                      ),
                     ),
                   ),
                 ],

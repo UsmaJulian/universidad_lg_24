@@ -2,20 +2,18 @@
 
 import 'package:cool_stepper_reloaded/cool_stepper_reloaded.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:rainbow_color/rainbow_color.dart';
+import 'package:universidad_lg_24/Cursos/views/new_cursos_view.dart';
 import 'package:universidad_lg_24/Entrenamiento/entrenamiento/entrenamiento_bloc.dart';
 import 'package:universidad_lg_24/Entrenamiento/models/send_test_entrada_model.dart';
 import 'package:universidad_lg_24/Entrenamiento/models/test_entrada_model.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/curso_preview_view.dart';
-
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/helpers/flutter_radio_button_form_field.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
-
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
 
@@ -43,9 +41,15 @@ class TestEntradaView extends StatefulWidget {
 class _TestEntradaViewState extends State<TestEntradaView> {
   EntrenamientoBloc testEntradaBloc = EntrenamientoBloc();
   @override
+  void dispose() {
+    _scaffoldKey.currentState?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
+      // key: _scaffoldKey,
       extendBodyBehindAppBar: true,
       extendBody: true,
       backgroundColor: secondColor,
@@ -59,7 +63,7 @@ class _TestEntradaViewState extends State<TestEntradaView> {
         padding: const EdgeInsets.only(top: 128),
         child: SingleChildScrollView(
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.9,
+            height: 750,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -736,13 +740,22 @@ _result({
                   // Navigator.pop(context);
 
                   // debe haber un forma de retocedder el nav hasta un  punto
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) =>
-                          CursoPreviewPage(user: user, nid: parent!),
-                    ),
-                  );
+                  (parent != null)
+                      ? Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                CursoPreviewPage(user: user, nid: parent),
+                          ),
+                        )
+                      : Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => NewCursosView(
+                              user: user,
+                            ),
+                          ),
+                        );
                 },
                 child: const Text(
                   'CONTINUAR',
