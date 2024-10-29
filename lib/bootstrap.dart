@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
-
-import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:universidad_lg_24/home/views/globals.dart' as globals;
+import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
+import 'package:universidad_lg_24/users/services/services.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -29,5 +32,22 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   // Add cross-flavor configuration here
 
-  runApp(await builder());
+  runApp(
+    // Injects the Authentication service
+    RepositoryProvider<AuthenticationService>(
+      create: (context) {
+        return IsAuthenticationService();
+      },
+      // Injects the Authentication BLoC
+      child: BlocProvider<AuthenticationBloc>(
+        create: (context) {
+          globals.appNavigator = GlobalKey<NavigatorState>();
+          final authService =
+              RepositoryProvider.of<AuthenticationService>(context);
+          return AuthenticationBloc(authService)..add(AppLoadedEvent());
+        },
+        child: await builder(),
+      ),
+    ),
+  );
 }

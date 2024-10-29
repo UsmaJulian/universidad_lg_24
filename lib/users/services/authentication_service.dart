@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:universidad_lg_24/constants.dart';
+import 'package:universidad_lg_24/helpers/my_long_print.dart';
 import 'package:universidad_lg_24/users/exceptions/exceptions.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -11,7 +12,10 @@ import 'package:universidad_lg_24/users/services/services.dart';
 
 sealed class AuthenticationService {
   Future<User?> getCurrentUser();
-  Future<User?> signInWithEmailAndPassword(String email, String password);
+  Future<User?> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  });
   Future<void> signOut();
 }
 
@@ -65,10 +69,10 @@ class IsAuthenticationService extends AuthenticationService {
   }
 
   @override
-  Future<User?> signInWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
+  Future<User?> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     final response = await http.post(
       Uri.https(baseUrl, 'app/login'),
       headers: <String, String>{
@@ -82,10 +86,22 @@ class IsAuthenticationService extends AuthenticationService {
 
     if (response.statusCode == 200) {
       final request = json.decode(response.body);
-
+      myLongPrint('request: $request');
       if (request['status']['type'] != 'error') {
-        final user =
-            User.fromJson(json.decode(response.body) as Map<String, dynamic>);
+        final user = User(
+          userId: request['status']['dataUser']['userId'].toString(),
+          token: request['status']['dataUser']['token'].toString(),
+          codigo: int.parse(request['status']['dataUser']['codigo'].toString()),
+          email: request['status']['dataUser']['email'].toString(),
+          username: request['status']['dataUser']['username'].toString(),
+          name: request['status']['dataUser']['nombre'].toString(),
+          documento: request['status']['dataUser']['documento'].toString(),
+          celular: request['status']['dataUser']['celular'].toString(),
+          empresa: request['status']['dataUser']['empresa'].toString(),
+          cargo: request['status']['dataUser']['cargo'].toString(),
+          mensaje: request['status']['dataUser']['mensaje'].toString(),
+        );
+
         final userStorage = UserStorage(user: user);
         await userStorage.createUserStorage();
         return user;
@@ -104,6 +120,7 @@ class IsAuthenticationService extends AuthenticationService {
   @override
   Future<dynamic> signOut() async {
     final token = await UserSecureStorage.getLoginToken();
+
     if (token != null) {
       final userStorage = UserStorage();
       return userStorage.destroyUserStorage();
