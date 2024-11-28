@@ -10,9 +10,11 @@ class ButtonMain extends StatelessWidget {
     this.text,
     this.bgColor = mainColor,
     this.textColor = Colors.white,
+    this.routeName,
   });
   final String? text;
   Widget? onPress;
+  final String? routeName;
   Color bgColor;
   Color textColor;
 
@@ -29,7 +31,7 @@ class ButtonMain extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: (onPress != null)
+      onPressed: (onPress != null && routeName != null)
           ? () {
               Navigator.push(
                 context,
@@ -37,6 +39,7 @@ class ButtonMain extends StatelessWidget {
                   builder: (context) {
                     return onPress!;
                   },
+                  settings: RouteSettings(name: routeName),
                 ),
               );
             }

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:universidad_lg_24/Cursos/services/cursos_services.dart';
 import 'package:universidad_lg_24/Cursos/views/new_curso_single_view.dart';
-
 import 'package:universidad_lg_24/helpers/my_long_print.dart';
-
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
@@ -54,15 +52,19 @@ class _CategoriaCursosViewState extends State<CategoriaCursosView> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       backgroundColor: const Color(0xffF6F3EB),
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(user: widget.user),
       endDrawer: DrawerMenu(
         user: widget.user,
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando
         // en la pantalla de inicio.
       ),
       body: Padding(
-        padding:
-            const EdgeInsets.only(top: 148, right: 25, left: 25, bottom: 106),
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.17,
+          right: 25,
+          left: 25,
+          bottom: 106,
+        ),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,7 +163,7 @@ class CursoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    myLongPrint('cursosData: $curso');
+    // myLongPrint('cursosData: $curso');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -218,6 +220,7 @@ class CursoCard extends StatelessWidget {
         ButtonMain(
           text: 'Ver Curso',
           onPress: NewCursoSingleView(user: user, nid: curso['nid'].toString()),
+          routeName: '/singleCourse/nivel/$title',
         ),
         const SizedBox(height: 20),
         Divider(

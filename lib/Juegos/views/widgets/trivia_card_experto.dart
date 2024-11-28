@@ -169,6 +169,10 @@ class _TriviaCardExpertoState extends State<TriviaCardExperto> {
                                                     content: response,
                                                   );
                                                 },
+                                                settings: RouteSettings(
+                                                  name:
+                                                      '/games/avanzado/${response.body?.title}',
+                                                ),
                                               ),
                                             ),
                                           );

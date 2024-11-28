@@ -7,6 +7,8 @@ import 'package:universidad_lg_24/l10n/l10n.dart';
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 import 'package:universidad_lg_24/users/views/login/login_view.dart';
 
+import 'package:universidad_lg_24/widgets/global/my_navigator_observer.dart';
+
 /// La clase [App] representa la aplicación principal.
 /// Extiende [StatelessWidget] ya que no mantiene ningún estado interno.
 class App extends StatelessWidget {
@@ -31,7 +33,9 @@ class App extends StatelessWidget {
       localizationsDelegates:
           AppLocalizations.localizationsDelegates, // Delegados de localización
       supportedLocales: AppLocalizations.supportedLocales, // Locales soportados
-      navigatorKey: globals.appNavigator, // Clave del navegador global
+      navigatorKey: globals.appNavigator,
+
+      navigatorObservers: [MyNavigatorObserver()], // Clave del navegador global
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthenticationAuthenticatedState) {

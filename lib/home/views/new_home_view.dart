@@ -1,12 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Cursos/views/new_cursos_view.dart';
-
 import 'package:universidad_lg_24/Juegos/views/Juegos_view.dart';
 import 'package:universidad_lg_24/Noticias/views/noticias_view.dart';
 import 'package:universidad_lg_24/Reels/views/reels_view.dart';
 import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_view.dart';
-
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
@@ -43,7 +41,9 @@ class _NewHomeViewState extends State<NewHomeView> {
       extendBody: true,
 
       backgroundColor: const Color(0xffF6F3EB),
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(
+        user: widget.user,
+      ),
       endDrawer: DrawerMenu(
         user: widget.user,
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando
@@ -219,6 +219,7 @@ class _NewHomeViewState extends State<NewHomeView> {
                       onPress: NewCursosView(
                         user: widget.user,
                       ),
+                      routeName: '/courses',
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 15, right: 15),
@@ -229,6 +230,7 @@ class _NewHomeViewState extends State<NewHomeView> {
                     ButtonMain(
                       text: 'Noticias',
                       onPress: NoticiasView(user: widget.user),
+                      routeName: '/news',
                     ),
                   ],
                 ),
@@ -241,6 +243,7 @@ class _NewHomeViewState extends State<NewHomeView> {
                     ButtonMain(
                       text: 'Reels',
                       onPress: ReelsView(user: widget.user),
+                      routeName: '/reels',
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 15, right: 15),
@@ -251,6 +254,7 @@ class _NewHomeViewState extends State<NewHomeView> {
                     ButtonMain(
                       text: 'Juegos',
                       onPress: JuegosView(user: widget.user),
+                      routeName: '/games',
                     ),
                   ],
                 ),

@@ -165,6 +165,7 @@ class _ItemNoticias extends StatelessWidget {
                     user: user,
                     nid: item!.nid,
                   ),
+                  routeName: '/noticiaSinglePage/${item!.title}',
                 ),
               ],
             ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:universidad_lg_24/users/blocs/perfil/perfil_bloc.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/users/services/services.dart';
@@ -17,7 +16,7 @@ class PerfilView extends StatelessWidget {
       extendBodyBehindAppBar: true,
       extendBody: true,
       backgroundColor: const Color(0xffF6F3EB),
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(user: user),
       endDrawer: DrawerMenu(
         user: user,
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando

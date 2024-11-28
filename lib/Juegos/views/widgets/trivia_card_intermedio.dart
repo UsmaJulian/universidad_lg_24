@@ -169,6 +169,10 @@ class _TriviaCardIntermedioState extends State<TriviaCardIntermedio> {
                                                     content: response,
                                                   );
                                                 },
+                                                settings: RouteSettings(
+                                                  name:
+                                                      '/games/intermedio/${response.body?.title}',
+                                                ),
                                               ),
                                             ),
                                           );

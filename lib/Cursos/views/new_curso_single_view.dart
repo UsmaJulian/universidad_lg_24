@@ -45,15 +45,19 @@ class _NewCursoSingleViewState extends State<NewCursoSingleView> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       backgroundColor: const Color(0xffF6F3EB),
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(user: widget.user),
       endDrawer: DrawerMenu(
         user: widget.user,
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando
         // en la pantalla de inicio.
       ),
       body: Padding(
-        padding:
-            const EdgeInsets.only(top: 148, right: 25, left: 25, bottom: 106),
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.15,
+          right: 25,
+          left: 25,
+          bottom: 106,
+        ),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,7 +145,9 @@ class _NewCursoSingleViewState extends State<NewCursoSingleView> {
                   children: [
                     if (cursoData != null)
                       ButtonMain(
-                        text: 'Test de entrada',
+                        text: (cursoData!.status!.data!.testEntrada == 0)
+                            ? 'Test de entrada'
+                            : 'Test Realizado',
                         onPress: (cursoData!.status!.data!.testEntrada == 0)
                             ? TestEntradaView(
                                 user: widget.user,
@@ -149,6 +155,8 @@ class _NewCursoSingleViewState extends State<NewCursoSingleView> {
                                 leccion: cursoData!.status!.data!.leccionId,
                               )
                             : null,
+                        routeName:
+                            '/singleCourse/nivel/${cursoData!.status!.data!.curso!.title}/testEntrada',
                       ),
                     if (cursoData != null)
                       ButtonMain(
@@ -164,6 +172,8 @@ class _NewCursoSingleViewState extends State<NewCursoSingleView> {
                                     .toString(),
                               )
                             : null,
+                        routeName:
+                            '/singleCourse/nivel/${cursoData!.status!.data!.curso!.title}/testSalida',
                       ),
                   ],
                 ),

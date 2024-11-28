@@ -9,7 +9,6 @@ import 'package:rainbow_color/rainbow_color.dart';
 import 'package:universidad_lg_24/Evaluaciones/bloc/evaluacion_bloc.dart';
 import 'package:universidad_lg_24/Evaluaciones/models/models.dart';
 import 'package:universidad_lg_24/Evaluaciones/views/evaluacion_view.dart';
-
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/helpers/flutter_radio_button_form_field.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -24,10 +23,12 @@ class SingleEvaluacionView extends StatefulWidget {
   const SingleEvaluacionView({
     required this.user,
     required this.nid,
+    required this.singleRoute,
     super.key,
   });
   final User? user;
   final String nid;
+  final String singleRoute;
 
   @override
   _SingleEvaluacionViewState createState() => _SingleEvaluacionViewState();
@@ -35,6 +36,7 @@ class SingleEvaluacionView extends StatefulWidget {
 
 class _SingleEvaluacionViewState extends State<SingleEvaluacionView> {
   EvaluacionBloc evalacionBloc = EvaluacionBloc();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,14 +44,16 @@ class _SingleEvaluacionViewState extends State<SingleEvaluacionView> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       backgroundColor: secondColor,
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(user: widget.user),
       endDrawer: DrawerMenu(
         user: widget.user,
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando
         // en la pantalla de inicio.
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 120),
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.15,
+        ),
         child: SingleChildScrollView(
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.9,
@@ -70,6 +74,7 @@ class _SingleEvaluacionViewState extends State<SingleEvaluacionView> {
                   child: _SingleEvaluacionContent(
                     user: widget.user,
                     nid: widget.nid,
+                    singleRoute: widget.singleRoute,
                   ),
                 ),
               ],
@@ -145,9 +150,10 @@ class _SingleEvaluacionViewState extends State<SingleEvaluacionView> {
 }
 
 class _SingleEvaluacionContent extends StatefulWidget {
-  _SingleEvaluacionContent({this.user, this.nid});
+  _SingleEvaluacionContent({required this.singleRoute, this.user, this.nid});
   User? user;
   String? nid;
+  final String singleRoute;
   @override
   __SingleEvaluacionContentState createState() =>
       __SingleEvaluacionContentState();
@@ -187,8 +193,13 @@ class __SingleEvaluacionContentState extends State<_SingleEvaluacionContent> {
   }
 
   @override
+  void dispose() {
+    print('dispose 2 called');
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     if (load) {
       return SizedBox(
         child: _ContentSingleEvaluacion(
@@ -198,6 +209,7 @@ class __SingleEvaluacionContentState extends State<_SingleEvaluacionContent> {
           ),
           nid: widget.nid,
           user: widget.user,
+          singleRoute: widget.singleRoute,
         ),
       );
     }
@@ -212,6 +224,7 @@ class __SingleEvaluacionContentState extends State<_SingleEvaluacionContent> {
 
 class _ContentSingleEvaluacion extends StatefulWidget {
   const _ContentSingleEvaluacion({
+    required this.singleRoute,
     super.key,
     this.evaluacionInfo,
     this.time,
@@ -222,6 +235,7 @@ class _ContentSingleEvaluacion extends StatefulWidget {
   final int? time;
   final User? user;
   final String? nid;
+  final String singleRoute;
 
   @override
   __ContentSingleEvaluacionState createState() =>
@@ -229,7 +243,7 @@ class _ContentSingleEvaluacion extends StatefulWidget {
 }
 
 class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   EvaluacionBloc evalacionBloc = EvaluacionBloc();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
@@ -246,6 +260,9 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addObserver(this);
+
     //crear los steps/////
     listSteps();
 
@@ -283,9 +300,35 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    print('dispose 3 called');
+
+    controllerTime?.disposeTimer();
+
     // detroy de la animacion
     controllerAnimation?.dispose();
     super.dispose();
+  }
+
+  void startTimer() {
+    controllerTime?.start();
+  }
+
+  void pauseTimer() {
+    print('pauseController');
+    controllerTime?.disposeTimer();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('stateUI: $state');
+    if (state == AppLifecycleState.paused) {
+      print('paused');
+      pauseTimer();
+    } else if (state == AppLifecycleState.resumed) {
+      print('Started');
+      startTimer();
+    }
   }
 
   @override

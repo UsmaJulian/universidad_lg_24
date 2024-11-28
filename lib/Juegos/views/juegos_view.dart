@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:universidad_lg_24/Juegos/views/widgets/trivia_card_basico.dart';
 import 'package:universidad_lg_24/Juegos/views/widgets/trivia_card_experto.dart';
 import 'package:universidad_lg_24/Juegos/views/widgets/trivia_card_intermedio.dart';
-
 import 'package:universidad_lg_24/users/models/models.dart';
-
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
@@ -45,7 +42,7 @@ class _JuegosViewState extends State<JuegosView>
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(user: widget.user),
       endDrawer: DrawerMenu(
         user: widget.user,
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando
@@ -63,8 +60,8 @@ class _JuegosViewState extends State<JuegosView>
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
-              padding: const EdgeInsets.only(
-                top: 158,
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.2,
               ),
               child: Column(
                 children: [
@@ -100,7 +97,7 @@ class _JuegosViewState extends State<JuegosView>
                     ),
                   ),
                   SizedBox(
-                    height: 480,
+                    height: MediaQuery.of(context).size.height * 0.6,
                     child: TabBarView(
                       controller: _tabController,
                       children: [

@@ -53,7 +53,7 @@ class _TestEntradaViewState extends State<TestEntradaView> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       backgroundColor: secondColor,
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(user: widget.user),
       endDrawer: DrawerMenu(
         user: widget.user,
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando
@@ -252,7 +252,7 @@ class _ContentTestEntrada extends StatefulWidget {
 }
 
 class __ContentTestEntradaState extends State<_ContentTestEntrada>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   // EvaluacionBloc evalacionBloc = EvaluacionBloc();
   EntrenamientoBloc testEntradaBloc = EntrenamientoBloc();
 
@@ -281,6 +281,8 @@ class __ContentTestEntradaState extends State<_ContentTestEntrada>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+
     //crear los steps/////
     listSteps();
 
@@ -306,6 +308,39 @@ class __ContentTestEntradaState extends State<_ContentTestEntrada>
     controllerAnimation?.repeat(max: 1);
     controllerAnimation?.forward();
     _anim = bgValue.animate(controllerAnimation!);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    print('dispose 3 called');
+
+    controllerTime?.disposeTimer();
+
+    // detroy de la animacion
+    controllerAnimation?.dispose();
+    super.dispose();
+  }
+
+  void startTimer() {
+    controllerTime?.start();
+  }
+
+  void pauseTimer() {
+    print('pauseController');
+    controllerTime?.disposeTimer();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('stateUI: $state');
+    if (state == AppLifecycleState.paused) {
+      print('paused');
+      pauseTimer();
+    } else if (state == AppLifecycleState.resumed) {
+      print('Started');
+      startTimer();
+    }
   }
 
   @override
@@ -642,13 +677,6 @@ class __ContentTestEntradaState extends State<_ContentTestEntrada>
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    // detroy de la animacion
-    controllerAnimation?.dispose();
-    super.dispose();
   }
 }
 

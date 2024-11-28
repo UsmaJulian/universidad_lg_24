@@ -16,7 +16,7 @@ class LogrosView extends StatelessWidget {
       extendBodyBehindAppBar: true,
       extendBody: true,
       backgroundColor: const Color(0xffF6F3EB),
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(user: user),
       endDrawer: DrawerMenu(
         user: user,
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando

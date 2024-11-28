@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:universidad_lg_24/Ayuda/views/ayuda_view.dart';
 import 'package:universidad_lg_24/Biblioteca/views/biblioteca_view.dart';
 import 'package:universidad_lg_24/Calendario/views/calendario_view.dart';
-
 import 'package:universidad_lg_24/Evaluaciones/views/evaluacion_view.dart';
 import 'package:universidad_lg_24/Home/views/new_home_view.dart';
 import 'package:universidad_lg_24/Noticias/views/noticias_view.dart';
@@ -13,9 +12,7 @@ import 'package:universidad_lg_24/Ranking/views/ranking_view.dart';
 import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
-
 import 'package:universidad_lg_24/users/models/models.dart';
-
 import 'package:universidad_lg_24/users/views/profile/perfil_view.dart';
 
 class DrawerMenu extends StatefulWidget {
@@ -45,7 +42,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           SizedBox(
-            height: 140,
+            height: MediaQuery.of(context).size.height * 0.15,
             child: DrawerHeader(
               margin: const EdgeInsets.only(bottom: 20),
               decoration: const BoxDecoration(
@@ -60,7 +57,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       InkWell(
                         onTap: () {
                           if (!widget.isHome) {
-                            Navigator.pushAndRemoveUntil(
+                            Navigator.pushReplacement(
                               context,
                               MaterialPageRoute<void>(
                                 builder: (_) {
@@ -69,7 +66,6 @@ class _DrawerMenuState extends State<DrawerMenu> {
                                   );
                                 },
                               ),
-                              (route) => false,
                             );
                           }
                         },
@@ -98,12 +94,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
               if (widget.currenPage != 'inicio') {
                 Navigator.of(context).pop();
                 if (widget.isHome) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
                         return NewHomeView(user: widget.user!);
                       },
+                      settings: const RouteSettings(name: '/'),
                     ),
                   );
                 } else {
@@ -113,6 +110,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       builder: (context) {
                         return NewHomeView(user: widget.user!);
                       },
+                      settings: const RouteSettings(name: '/'),
                     ),
                   );
                 }
@@ -132,7 +130,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
           //     if (currenPage != 'entrenamiento') {
           //       Navigator.of(context).pop();
           //       if (isHome) {
-          //         Navigator.push(
+          //         Navigator.pushReplacement(
           //           context,
           //           MaterialPageRoute<void>(
           //             builder: (context) {
@@ -166,12 +164,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
               if (widget.currenPage != 'evaluaciones') {
                 Navigator.of(context).pop();
                 if (widget.isHome) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
                         return EvaluacionView(user: widget.user!);
                       },
+                      settings: const RouteSettings(name: '/assessment'),
                     ),
                   );
                 } else {
@@ -181,6 +180,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       builder: (context) {
                         return EvaluacionView(user: widget.user!);
                       },
+                      settings: const RouteSettings(name: '/assessment'),
                     ),
                   );
                 }
@@ -200,12 +200,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
               if (widget.currenPage != 'biblioteca') {
                 Navigator.of(context).pop();
                 if (widget.isHome) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
                         return BibliotecaView(user: widget.user);
                       },
+                      settings: const RouteSettings(name: '/library'),
                     ),
                   );
                 } else {
@@ -215,6 +216,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       builder: (context) {
                         return BibliotecaView(user: widget.user);
                       },
+                      settings: const RouteSettings(name: '/library'),
                     ),
                   );
                 }
@@ -234,12 +236,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
               if (widget.currenPage != 'noticias') {
                 Navigator.of(context).pop();
                 if (widget.isHome) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
                         return NoticiasView(user: widget.user);
                       },
+                      settings: const RouteSettings(name: '/news'),
                     ),
                   );
                 } else {
@@ -249,6 +252,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       builder: (context) {
                         return NoticiasView(user: widget.user);
                       },
+                      settings: const RouteSettings(name: '/news'),
                     ),
                   );
                 }
@@ -269,7 +273,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
           //       if (currenPage != 'streaming') {
           //         Navigator.of(context).pop();
           //         if (isHome) {
-          //           Navigator.push(context,
+          //           Navigator.pushReplacement(context,
           //               MaterialPageRoute(builder: (context) {
           //             return StreamingPage(user: user);
           //           }));
@@ -288,12 +292,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
               if (widget.currenPage != 'resuelvelo') {
                 Navigator.of(context).pop();
                 if (widget.isHome) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
                         return ResuelveloView(user: widget.user!);
                       },
+                      settings: const RouteSettings(name: '/solve'),
                     ),
                   );
                 } else {
@@ -303,6 +308,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       builder: (context) {
                         return ResuelveloView(user: widget.user!);
                       },
+                      settings: const RouteSettings(name: '/solve'),
                     ),
                   );
                 }
@@ -322,12 +328,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
               if (widget.currenPage != 'calendario') {
                 Navigator.of(context).pop();
                 if (widget.isHome) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
                         return CalendarioView(user: widget.user!);
                       },
+                      settings: const RouteSettings(name: '/calendar'),
                     ),
                   );
                 } else {
@@ -337,6 +344,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       builder: (context) {
                         return CalendarioView(user: widget.user!);
                       },
+                      settings: const RouteSettings(name: '/calendar'),
                     ),
                   );
                 }
@@ -357,12 +365,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
               if (widget.currenPage != 'ranking') {
                 Navigator.of(context).pop();
                 if (widget.isHome) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
                         return RankingView(user: widget.user);
                       },
+                      settings: const RouteSettings(name: '/ranking'),
                     ),
                   );
                 } else {
@@ -372,6 +381,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       builder: (context) {
                         return RankingView(user: widget.user);
                       },
+                      settings: const RouteSettings(name: '/ranking'),
                     ),
                   );
                 }
@@ -391,12 +401,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
               if (widget.currenPage != 'ayuda') {
                 Navigator.of(context).pop();
                 if (widget.isHome) {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute<void>(
                       builder: (context) {
                         return AyudaView(user: widget.user);
                       },
+                      settings: const RouteSettings(name: '/help'),
                     ),
                   );
                 } else {
@@ -406,6 +417,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       builder: (context) {
                         return AyudaView(user: widget.user);
                       },
+                      settings: const RouteSettings(name: '/help'),
                     ),
                   );
                 }
@@ -456,12 +468,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     if (widget.currenPage != 'perfil') {
                       Navigator.of(context).pop();
                       if (widget.isHome) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute<void>(
                             builder: (context) {
                               return PerfilView(user: widget.user);
                             },
+                            settings: const RouteSettings(name: '/profile'),
                           ),
                         );
                       } else {
@@ -471,6 +484,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                             builder: (context) {
                               return PerfilView(user: widget.user);
                             },
+                            settings: const RouteSettings(name: '/profile'),
                           ),
                         );
                       }
@@ -482,7 +496,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 //   title: const Center(child: Text('Cerrar sesión')),
                 //   tileColor: Colors.white,
                 //   onTap: () {
-                //     Navigator.pushAndRemoveUntil(
+                //     Navigator.pushReplacement(
                 //       context,
                 //       MaterialPageRoute<void>(
                 //         builder: (_) {
@@ -490,7 +504,6 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 //           return const LoginView();
                 //         },
                 //       ),
-                //       (route) => false,
                 //     );
                 //   },
                 // ),

@@ -170,6 +170,10 @@ class _TriviaCardBasicoState extends State<TriviaCardBasico> {
                                                     content: response,
                                                   );
                                                 },
+                                                settings: RouteSettings(
+                                                  name:
+                                                      '/games/básico/${response.body?.title}',
+                                                ),
                                               ),
                                             ),
                                           );

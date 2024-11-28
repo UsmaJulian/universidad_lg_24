@@ -6,10 +6,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:universidad_lg_24/Reels/models/reels_model.dart';
 import 'package:universidad_lg_24/Reels/services/reels_services.dart';
 import 'package:universidad_lg_24/constants.dart';
-
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/body_footer_global.dart';
-
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
 import 'package:video_player/video_player.dart';
@@ -225,6 +223,7 @@ class _ReelsViewState extends State<ReelsView> {
   @override
   void initState() {
     _getDataReels();
+
     super.initState();
   }
 
@@ -274,7 +273,7 @@ class _ReelsViewState extends State<ReelsView> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       backgroundColor: const Color(0xffF6F3EB),
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(user: widget.user),
       endDrawer: DrawerMenu(
         user: widget.user,
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando
@@ -284,8 +283,8 @@ class _ReelsViewState extends State<ReelsView> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(
-                top: 135,
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.15,
                 left: 20,
                 right: 20,
               ),

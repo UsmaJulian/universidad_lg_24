@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Biblioteca/models/biblioteca_model.dart';
 import 'package:universidad_lg_24/Biblioteca/views/widgets/widgets.dart';
-
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
@@ -16,7 +15,7 @@ class SingleBibliotecaView extends StatelessWidget {
       extendBodyBehindAppBar: true,
       extendBody: true,
       backgroundColor: const Color(0xffF6F3EB),
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(user: user),
       endDrawer: DrawerMenu(
         user: user,
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando

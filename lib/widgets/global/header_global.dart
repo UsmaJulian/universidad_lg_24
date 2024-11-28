@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:universidad_lg_24/Home/views/new_home_view.dart';
 import 'package:universidad_lg_24/constants.dart';
+import 'package:universidad_lg_24/users/models/models.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  CustomAppBar({super.key, double? height = 93})
-      : preferredSize = Size.fromHeight(height!);
+  CustomAppBar({
+    required this.user,
+    super.key,
+    double? height = 93,
+  }) : preferredSize = Size.fromHeight(height!);
   @override
   final Size preferredSize;
+  final User? user;
 
   Size get getPreferredSize => preferredSize;
 
@@ -19,10 +25,22 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return AppBar(
       toolbarHeight: MediaQuery.of(context).size.height * 0.15,
       backgroundColor: bgColor,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 21),
-        child: Image.asset(
-          'assets/images/Grupo 77.png',
+      leading: GestureDetector(
+        onTap: () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute<void>(
+              builder: (context) {
+                return NewHomeView(user: widget.user!);
+              },
+            ),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(left: 21),
+          child: Image.asset(
+            'assets/images/Grupo 77.png',
+          ),
         ),
       ),
       leadingWidth: 110,

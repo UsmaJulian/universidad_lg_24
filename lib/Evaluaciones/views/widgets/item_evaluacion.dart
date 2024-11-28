@@ -43,11 +43,46 @@ class ItemEvaluacion extends StatelessWidget {
                   style: const TextStyle(fontSize: 18),
                 ),
                 if (evaluacion!.porcentaje == 0)
-                  ButtonMain(
-                    text: 'VER EVALUACIÓN',
-                    onPress: SingleEvaluacionView(
-                      user: user,
-                      nid: evaluacion!.nid!,
+                  // ButtonMain(
+                  //   text: 'VER EVALUACIÓN',
+                  //   onPress: SingleEvaluacionView(
+                  //     user: user,
+                  //     nid: evaluacion!.nid!,
+                  //     singleRoute: '/assessment/${evaluacion!.title}',
+                  //   ),
+                  //   routeName: '/assessment/${evaluacion!.title}',
+                  // )
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(170, 50),
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      backgroundColor: mainColor,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) {
+                            return SingleEvaluacionView(
+                              user: user,
+                              nid: evaluacion!.nid!,
+                              singleRoute: '/assessment/${evaluacion!.title}',
+                            );
+                          },
+                          settings: RouteSettings(
+                            name: '/assessment/${evaluacion!.title}',
+                          ),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'VER EVALUACIÓN',
+                      style: TextStyle(color: Colors.white),
                     ),
                   )
                 else

@@ -2,9 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Juegos/models/juegos_content_model.dart';
 import 'package:universidad_lg_24/Juegos/services/juegos_services.dart';
-
 import 'package:universidad_lg_24/Juegos/views/juegos_view.dart';
-
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/helpers/my_long_print.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -87,7 +85,7 @@ class _TriviaViewState extends State<TriviaView> {
       backgroundColor: const Color(0xffF6F3EB),
       extendBodyBehindAppBar: true,
       extendBody: true,
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(user: widget.user),
       endDrawer: DrawerMenu(
         user: widget.user,
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando
@@ -108,6 +106,7 @@ class _TriviaViewState extends State<TriviaView> {
                       builder: (context) {
                         return JuegosView(user: widget.user);
                       },
+                      settings: const RouteSettings(name: '/games'),
                     ),
                   );
                 },

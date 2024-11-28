@@ -44,7 +44,7 @@ class _TestSalidaViewState extends State<TestSalidaView> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       backgroundColor: secondColor,
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(user: widget.user),
       endDrawer: DrawerMenu(
         user: widget.user,
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando
@@ -236,7 +236,7 @@ class _ContentTestSalida extends StatefulWidget {
 }
 
 class __ContentTestSalidaState extends State<_ContentTestSalida>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   // EvaluacionBloc evalacionBloc = EvaluacionBloc();
   EntrenamientoBloc testSalidaBloc = EntrenamientoBloc();
 
@@ -265,6 +265,8 @@ class __ContentTestSalidaState extends State<_ContentTestSalida>
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addObserver(this);
     //crear los steps/////
     listSteps();
 
@@ -294,9 +296,35 @@ class __ContentTestSalidaState extends State<_ContentTestSalida>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    print('dispose 3 called');
+
+    controllerTime?.disposeTimer();
+
     // detroy de la animacion
     controllerAnimation?.dispose();
     super.dispose();
+  }
+
+  void startTimer() {
+    controllerTime?.start();
+  }
+
+  void pauseTimer() {
+    print('pauseController');
+    controllerTime?.disposeTimer();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('stateUI: $state');
+    if (state == AppLifecycleState.paused) {
+      print('paused');
+      pauseTimer();
+    } else if (state == AppLifecycleState.resumed) {
+      print('Started');
+      startTimer();
+    }
   }
 
   @override

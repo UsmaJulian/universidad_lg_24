@@ -86,7 +86,7 @@ class _ResuelveloViewState extends State<ResuelveloView> {
       extendBodyBehindAppBar: true,
       extendBody: true,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(user: widget.user),
       endDrawer: DrawerMenu(
         user: widget.user,
         isHome: true, // Indica que el DrawerMenuLeft se está utilizando
