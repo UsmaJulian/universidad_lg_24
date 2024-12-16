@@ -267,6 +267,7 @@ class _CalendarioViewState extends State<CalendarioView> {
                 onPress: NoticiasView(
                   user: widget.user,
                 ),
+                routeName: '/news/${event.eventData!.title}',
               ),
             if (event.eventData!.title.contains('Reel'))
               ButtonMain(
@@ -274,6 +275,7 @@ class _CalendarioViewState extends State<CalendarioView> {
                 onPress: ReelsView(
                   user: widget.user,
                 ),
+                routeName: '/reels/${event.eventData!.title}',
               ),
             if (event.eventData!.title.contains('Curso'))
               ButtonMain(
@@ -281,6 +283,7 @@ class _CalendarioViewState extends State<CalendarioView> {
                 onPress: NewCursosView(
                   user: widget.user,
                 ),
+                routeName: '/courses/${event.eventData!.title}',
               ),
           ],
         );

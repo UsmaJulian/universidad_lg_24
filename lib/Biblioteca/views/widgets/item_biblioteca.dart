@@ -56,6 +56,7 @@ class ItemBiblioteca extends StatelessWidget {
                       user: user,
                       data: item,
                     ),
+                    routeName: '/library/${item!.title}',
                   ),
                 ],
               ),

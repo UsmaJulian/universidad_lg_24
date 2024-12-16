@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:universidad_lg_24/home/models/models.dart';
+// import 'package:universidad_lg_24/home/models/models.dart';
 import 'package:universidad_lg_24/home/services/home_service.dart';
 
 part 'home_event.dart';
@@ -42,12 +42,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ///
   /// Retorna un `Future` que se resuelve con una instancia de `HomeModel`
   /// que contiene los datos obtenidos de la API.
-  Future<HomeModel> getHomeContent({String? token, String? uid}) async {
-    /// Llama al método `servicegetHomeContent` de `HomeService` pasándole
-    /// `uid` y `token` como parámetros.
-    ///
-    /// Nota: Se utiliza el operador de afirmación no nula (`!`) porque se asume
-    /// que `uid` y `token` no serán nulos al momento de llamar este método.
-    return await homeService.servicegetHomeContent(uid!, token!);
-  }
+  // Future<HomeModel> getHomeContent({String? token, String? uid}) async {
+  //   /// Llama al método `servicegetHomeContent` de `HomeService` pasándole
+  //   /// `uid` y `token` como parámetros.
+  //   ///
+  //   /// Nota: Se utiliza el operador de afirmación no nula (`!`) porque se asume
+  //   /// que `uid` y `token` no serán nulos al momento de llamar este método.
+  //   return await homeService.servicegetHomeContent(uid!, token!);
+  // }
 }

@@ -10,7 +10,8 @@ import 'package:universidad_lg_24/Entrenamiento/models/models.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/leccion_view.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/test_entrada_view.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/test_salida_view.dart';
-import 'package:universidad_lg_24/Home/views/home_view.dart';
+// import 'package:universidad_lg_24/Home/views/home_view.dart';
+import 'package:universidad_lg_24/Home/views/new_home_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -51,7 +52,7 @@ class _CursoPreviewPageState extends State<CursoPreviewPage> {
                 context,
                 MaterialPageRoute<void>(
                   builder: (_) {
-                    return HomeView(
+                    return NewHomeView(
                       user: widget.user,
                     );
                   },

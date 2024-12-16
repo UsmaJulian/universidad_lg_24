@@ -13,6 +13,7 @@ import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/users/views/login/login_view.dart';
 import 'package:universidad_lg_24/users/views/profile/perfil_view.dart';
 
 class DrawerMenu extends StatefulWidget {
@@ -492,21 +493,21 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     return;
                   },
                 ),
-                // ListTile(
-                //   title: const Center(child: Text('Cerrar sesión')),
-                //   tileColor: Colors.white,
-                //   onTap: () {
-                //     Navigator.pushReplacement(
-                //       context,
-                //       MaterialPageRoute<void>(
-                //         builder: (_) {
-                //           authBloc.add(UserLoggedOut());
-                //           return const LoginView();
-                //         },
-                //       ),
-                //     );
-                //   },
-                // ),
+                ListTile(
+                  title: const Center(child: Text('Cerrar sesión')),
+                  tileColor: Colors.white,
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (_) {
+                          authBloc.add(const UserLoggedOut());
+                          return const LoginView();
+                        },
+                      ),
+                    );
+                  },
+                ),
               ],
             )
           else

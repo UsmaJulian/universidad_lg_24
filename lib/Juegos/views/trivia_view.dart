@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Juegos/models/juegos_content_model.dart';
-import 'package:universidad_lg_24/Juegos/services/juegos_services.dart';
+// import 'package:universidad_lg_24/Juegos/services/juegos_services.dart';
 import 'package:universidad_lg_24/Juegos/views/juegos_view.dart';
 import 'package:universidad_lg_24/constants.dart';
-import 'package:universidad_lg_24/helpers/my_long_print.dart';
+// import 'package:universidad_lg_24/helpers/my_long_print.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
@@ -21,57 +21,9 @@ class TriviaView extends StatefulWidget {
 class _TriviaViewState extends State<TriviaView> {
   int _currentTrivia = 0;
   final List<String> _currentAnswer = ['', '', '', '', ''];
-  final _trivias = <dynamic>[
-    // {
-    //   'question':
-    //       '¿Cuánto es el ahorro de energía del Compresor linear Inverter en refrigeradoras?',
-    //   'anwers': [
-    //     '31%',
-    //     '32%',
-    //     '36%',
-    //     'N.A',
-    //   ],
-    // },
-    // {
-    //   'question':
-    //       '¿Cuánto es el porcentaje de ahorro de energía del compresor Smart Inverter en refrigeradoras?',
-    //   'anwers': [
-    //     '36%',
-    //     '37%',
-    //     '32%',
-    //     'N.A',
-    //   ],
-    // },
-    // {
-    //   'question':
-    //       '¿Cuánto es el porcentaje de ahorro en las lavadoras Smart Inverter?',
-    //   'anwers': [
-    //     '36%',
-    //     '37%',
-    //     '32%',
-    //     'N.A',
-    //   ],
-    // },
-    // {
-    //   'question':
-    //       '¿Cuánto es La capacidad de horno de nuestras cocinas Lupin 2?',
-    //   'anwers': [
-    //     '165 Litros',
-    //     '164 Litros',
-    //     '153 Litros',
-    //     'N.A',
-    //   ],
-    // },
-    // {
-    //   'question': '¿Cuáles son las capacidades de nuestros hornos Neochef?',
-    //   'anwers': [
-    //     '26 y 43 Litros',
-    //     '30 y 44 Litros',
-    //     '25 y 42 Litros',
-    //     'N.A',
-    //   ],
-    // },
-  ];
+  final _trivias = <dynamic>[];
+  String _selectedAnswer = '';
+
   @override
   void initState() {
     _trivias.addAll(widget.content.body!.trivia!);
@@ -88,8 +40,7 @@ class _TriviaViewState extends State<TriviaView> {
       appBar: CustomAppBar(user: widget.user),
       endDrawer: DrawerMenu(
         user: widget.user,
-        isHome: true, // Indica que el DrawerMenuLeft se está utilizando
-        // en la pantalla de inicio.
+        isHome: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -135,39 +86,6 @@ class _TriviaViewState extends State<TriviaView> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              // Row(
-              //   children: [
-              //     for (var i = 0; i < _trivias.length; i++)
-              //       GestureDetector(
-              //         child: Container(
-              //           width: 41,
-              //           height: 41,
-              //           margin: const EdgeInsets.only(right: 10),
-              //           decoration: BoxDecoration(
-              //             color: (_currentTrivia == i)
-              //                 ? const Color(0xffCBC8C2)
-              //                 : Colors.white,
-              //             borderRadius: BorderRadius.circular(30),
-              //           ),
-              //           child: Center(
-              //             child: Text(
-              //               '${i + 1}',
-              //               style: const TextStyle(
-              //                 color: Colors.black,
-              //                 fontSize: 20,
-              //                 fontWeight: FontWeight.bold,
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //         onTap: () {
-              //           setState(() {
-              //             _currentTrivia = i;
-              //           });
-              //         },
-              //       ),
-              //   ],
-              // ),
               const Padding(
                 padding: EdgeInsets.only(top: 43),
                 child: Divider(
@@ -217,321 +135,79 @@ class _TriviaViewState extends State<TriviaView> {
                     Padding(
                       padding: const EdgeInsets.only(top: 15),
                       child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const AutoSizeText(
-                                'a',
-                                maxLines: 4,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (_currentTrivia == 0) {
-                                    _currentAnswer[0] = '1';
-                                  } else if (_currentTrivia == 1) {
-                                    _currentAnswer[1] = '1';
-                                  } else if (_currentTrivia == 2) {
-                                    _currentAnswer[2] = '1';
-                                  } else if (_currentTrivia == 3) {
-                                    _currentAnswer[3] = '1';
-                                  } else if (_currentTrivia == 4) {
-                                    _currentAnswer[4] = '1';
-                                  }
-                                  setState(() {
-                                    if (_currentTrivia < _trivias.length - 1) {
-                                      _currentTrivia++;
-                                    }
-                                  });
-                                  debugPrint('CurrentAnswer: $_currentAnswer');
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(129, 41),
-                                  backgroundColor: const Color(0xffF6F3EB),
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(30),
-                                    ),
-                                  ),
-                                ),
-                                child: SizedBox(
-                                  width: 235,
-                                  child: AutoSizeText(
-                                    _trivias[_currentTrivia]
-                                        .anwers[0]
-                                        .toString(),
-                                    maxLines: 4,
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'b',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              Row(
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      if (_currentTrivia == 0) {
-                                        _currentAnswer[0] = '2';
-                                      } else if (_currentTrivia == 1) {
-                                        _currentAnswer[1] = '2';
-                                      } else if (_currentTrivia == 2) {
-                                        _currentAnswer[2] = '2';
-                                      } else if (_currentTrivia == 3) {
-                                        _currentAnswer[3] = '2';
-                                      } else if (_currentTrivia == 4) {
-                                        _currentAnswer[4] = '2';
-                                      }
-                                      setState(() {
-                                        if (_currentTrivia <
-                                            _trivias.length - 1) {
-                                          _currentTrivia++;
-                                        }
-                                      });
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(129, 41),
-                                      backgroundColor: const Color(0xffF6F3EB),
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(30),
-                                        ),
-                                      ),
-                                    ),
-                                    child: SizedBox(
-                                      width: 235,
-                                      child: AutoSizeText(
-                                        maxLines: 4,
-                                        _trivias[_currentTrivia]
-                                            .anwers[1]
-                                            .toString(),
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'c',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (_currentTrivia == 0) {
-                                    _currentAnswer[0] = '3';
-                                  } else if (_currentTrivia == 1) {
-                                    _currentAnswer[1] = '3';
-                                  } else if (_currentTrivia == 2) {
-                                    _currentAnswer[2] = '3';
-                                  } else if (_currentTrivia == 3) {
-                                    _currentAnswer[3] = '3';
-                                  } else if (_currentTrivia == 4) {
-                                    _currentAnswer[4] = '3';
-                                  }
-                                  setState(() {
-                                    if (_currentTrivia < _trivias.length - 1) {
-                                      _currentTrivia++;
-                                    }
-                                  });
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(129, 41),
-                                  backgroundColor: const Color(0xffF6F3EB),
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(30),
-                                    ),
-                                  ),
-                                ),
-                                child: SizedBox(
-                                  width: 235,
-                                  child: AutoSizeText(
-                                    maxLines: 4,
-                                    _trivias[_currentTrivia]
-                                        .anwers[2]
-                                        .toString(),
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'd',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (_currentTrivia == 0) {
-                                    _currentAnswer[0] = '4';
-                                  } else if (_currentTrivia == 1) {
-                                    _currentAnswer[1] = '4';
-                                  } else if (_currentTrivia == 2) {
-                                    _currentAnswer[2] = '4';
-                                  } else if (_currentTrivia == 3) {
-                                    _currentAnswer[3] = '4';
-                                  } else if (_currentTrivia == 4) {
-                                    _currentAnswer[4] = '4';
-                                  }
-                                  setState(() {
-                                    if (_currentTrivia < _trivias.length - 1) {
-                                      _currentTrivia++;
-                                    }
-                                  });
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: const Size(129, 41),
-                                  backgroundColor: const Color(0xffF6F3EB),
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(30),
-                                    ),
-                                  ),
-                                ),
-                                child: SizedBox(
-                                  width: 235,
-                                  child: AutoSizeText(
-                                    maxLines: 4,
-                                    _trivias[_currentTrivia]
-                                        .anwers[3]
-                                        .toString(),
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 42,
-                              left: 16,
-                              bottom: 41,
-                            ),
+                        children: List.generate(4, (index) {
+                          final answer = _trivias[_currentTrivia].anwers[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
                             child: ElevatedButton(
-                              onPressed: () async {
+                              onPressed: () {
                                 setState(() {
-                                  if (_currentTrivia < _trivias.length - 1) {
-                                    _currentTrivia++;
-                                  } else if (_currentTrivia ==
-                                      _trivias.length - 1) {}
+                                  _selectedAnswer = (index + 1).toString();
+                                  _currentAnswer[_currentTrivia] =
+                                      _selectedAnswer;
                                 });
-                                debugPrint(_currentAnswer.toString());
-                                if (_currentTrivia == 4 &&
-                                    _currentAnswer[0].isNotEmpty &&
-                                    _currentAnswer[1].isNotEmpty &&
-                                    _currentAnswer[2].isNotEmpty &&
-                                    _currentAnswer[3].isNotEmpty &&
-                                    _currentAnswer[4].isNotEmpty) {
-                                  final response = await IsJuegosServices()
-                                      .saveJuegosAnswers(
-                                    user: widget.user.userId,
-                                    token: widget.user.token,
-                                    nid: int.parse(
-                                      widget.content.body!.nid.toString(),
-                                    ),
-                                    answers: _currentAnswer,
-                                  );
-                                  myLongPrint('Respuesta del save:$response');
-                                  if (response.response!.type == 'success') {
-                                    await showDialog<void>(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text(
-                                            '¡Gracias por participar!',
-                                          ),
-                                          content: const Text(
-                                            'Has completado la trivia',
-                                          ),
-                                          actions: [
-                                            ButtonMain(
-                                              text: 'Aceptar',
-                                              onPress: JuegosView(
-                                                user: widget.user,
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  } else {
-                                    debugPrint('error');
-                                  }
-                                }
                               },
                               style: ElevatedButton.styleFrom(
                                 minimumSize: const Size(129, 41),
-                                backgroundColor: mainColor,
+                                backgroundColor:
+                                    _selectedAnswer == (index + 1).toString()
+                                        ? Colors.green
+                                        : const Color(0xffF6F3EB),
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(30),
                                   ),
                                 ),
                               ),
-                              child: Text(
-                                (_currentTrivia == 4) ? 'Guardar' : 'Siguiente',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                              child: SizedBox(
+                                width: 235,
+                                child: AutoSizeText(
+                                  answer.toString(),
+                                  maxLines: 4,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ),
+                          );
+                        }),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 42,
+                        left: 16,
+                        bottom: 41,
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            if (_currentTrivia < _trivias.length - 1) {
+                              _currentTrivia++;
+                              _selectedAnswer = ''; // Reinicia el color
+                            }
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(129, 41),
+                          backgroundColor: mainColor,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30),
+                            ),
                           ),
-                        ],
+                        ),
+                        child: Text(
+                          (_currentTrivia == _trivias.length - 1)
+                              ? 'Finalizar'
+                              : 'Siguiente',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                   ],

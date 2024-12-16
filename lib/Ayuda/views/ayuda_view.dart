@@ -28,7 +28,8 @@ class AyudaView extends StatelessWidget {
         // en la pantalla de inicio.
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 120),
+        padding:
+            EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.15),
         child: BlocProvider<AyudaBloc>(
           create: (context) => AyudaBloc(
             service: IsAyudaService(),

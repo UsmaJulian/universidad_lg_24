@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:universidad_lg_24/home/views/home_view.dart';
+import 'package:universidad_lg_24/Home/views/new_home_view.dart';
+// import 'package:universidad_lg_24/home/views/home_view.dart';
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 import 'package:universidad_lg_24/users/views/login/widgets/widget.dart';
 
@@ -17,7 +18,7 @@ class LoginView extends StatelessWidget {
             // print('$state login page');
             final authBloc = BlocProvider.of<AuthenticationBloc>(context);
             if (state is AuthenticationAuthenticatedState) {
-              return HomeView(
+              return NewHomeView(
                 user: state.user,
               );
             }

@@ -3,9 +3,10 @@ import 'package:universidad_lg_24/Ayuda/views/ayuda_view.dart';
 import 'package:universidad_lg_24/Biblioteca/views/biblioteca_view.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/entrenamiento_view.dart';
 import 'package:universidad_lg_24/Evaluaciones/views/evaluacion_view.dart';
+import 'package:universidad_lg_24/Home/views/new_home_view.dart';
 import 'package:universidad_lg_24/Noticias/views/noticias_view.dart';
 import 'package:universidad_lg_24/constants.dart';
-import 'package:universidad_lg_24/home/views/home_view.dart';
+// import 'package:universidad_lg_24/home/views/home_view.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 
 class DrawerMenuLeft extends StatelessWidget {
@@ -41,8 +42,8 @@ class DrawerMenuLeft extends StatelessWidget {
                           context,
                           MaterialPageRoute<void>(
                             builder: (_) {
-                              return HomeView(
-                                user: user,
+                              return NewHomeView(
+                                user: user!,
                               );
                             },
                           ),

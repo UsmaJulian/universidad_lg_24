@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:universidad_lg_24/Cursos/services/cursos_services.dart';
 import 'package:universidad_lg_24/Cursos/views/new_curso_single_view.dart';
-import 'package:universidad_lg_24/helpers/my_long_print.dart';
+
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';

@@ -24,7 +24,8 @@ class BibliotecaView extends StatelessWidget {
         // en la pantalla de inicio.
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 120),
+        padding:
+            EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.15),
         child: BlocProvider<BibliotecaBloc>(
           create: (context) => BibliotecaBloc(service: IsBibliotecaService()),
           child: ContentBibliotecaView(user: user),

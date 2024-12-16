@@ -94,7 +94,8 @@ class _ResuelveloViewState extends State<ResuelveloView> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 130),
+          padding:
+              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.14),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -107,56 +108,63 @@ class _ResuelveloViewState extends State<ResuelveloView> {
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 20),
-                height: 250,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    if (data != null)
-                      for (final resuelve in data!.body.data)
-                        Stack(
-                          children: [
-                            SizedBox(
-                              width: 200,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Column(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(30),
-                                      child: Image.network(
-                                        resuelve.thumbnail,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            if (resuelve.resource.isNotEmpty &&
-                                resuelve.resource.contains('youtube'))
-                              Positioned(
-                                bottom: 0,
-                                left: 15,
-                                child: ButtonMain(
-                                  text: 'Ver',
-                                  onPress: ResuelveloVideoView(
-                                    user: widget.user,
-                                    resuelveloData: resuelve,
+                height: MediaQuery.of(context).size.height * 0.4,
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // Número de columnas en el Grid
+                    crossAxisSpacing:
+                        10, // Espaciado horizontal entre elementos
+                    mainAxisSpacing: 10, // Espaciado vertical entre elementos
+                    childAspectRatio:
+                        0.75, // Relación de aspecto de los elementos
+                  ),
+                  itemCount: data?.body.data.length ?? 0,
+                  itemBuilder: (context, index) {
+                    final resuelve = data!.body.data[index];
+                    return Stack(
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(30),
+                                  child: Image.network(
+                                    resuelve.thumbnail,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                              )
-                            else
-                              Positioned(
-                                bottom: 0,
-                                left: 15,
-                                child: ButtonMain(
-                                  text: 'Ver',
-                                ),
-                              ),
-                          ],
+                              ],
+                            ),
+                          ),
                         ),
-                  ],
+                        if (resuelve.resource.isNotEmpty &&
+                            resuelve.resource.contains('youtube'))
+                          Positioned(
+                            bottom: MediaQuery.of(context).size.height * 0.04,
+                            left: 15,
+                            child: ButtonMain(
+                              text: 'Ver',
+                              onPress: ResuelveloVideoView(
+                                user: widget.user,
+                                resuelveloData: resuelve,
+                              ),
+                              routeName: '/resuelvelo-video/${resuelve.title}',
+                            ),
+                          )
+                        else
+                          Positioned(
+                            bottom: 10,
+                            left: 15,
+                            child: ButtonMain(
+                              text: 'Ver',
+                            ),
+                          ),
+                      ],
+                    );
+                  },
                 ),
               ),
               Padding(

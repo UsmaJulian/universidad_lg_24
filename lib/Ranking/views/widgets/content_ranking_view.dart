@@ -30,64 +30,69 @@ class _ContentRankingPage extends State<ContentRankingView> {
             // controller: scrollController,
             child: Column(
               children: [
-                Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Colors.grey,
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.15,
+                  ),
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                  ),
-                  margin: const EdgeInsets.only(bottom: 10),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 2,
-                        child: const Text(
-                          'RANKING',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 18),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                    ),
+                    margin: const EdgeInsets.only(bottom: 10),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 2,
+                          child: const Text(
+                            'RANKING',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 2,
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SizedBox(
-                              width: 50,
-                              child: Icon(
-                                Icons.emoji_events,
-                                color: Color(0xFFfbeb39),
-                                size: 50,
-                                textDirection: TextDirection.ltr,
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 2,
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SizedBox(
+                                width: 50,
+                                child: Icon(
+                                  Icons.emoji_events,
+                                  color: Color(0xFFfbeb39),
+                                  size: 50,
+                                  textDirection: TextDirection.ltr,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 50,
-                              child: Icon(
-                                Icons.emoji_events,
-                                color: Color(0xFFe4e4e4),
-                                size: 50,
+                              SizedBox(
+                                width: 50,
+                                child: Icon(
+                                  Icons.emoji_events,
+                                  color: Color(0xFFe4e4e4),
+                                  size: 50,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 50,
-                              child: Icon(
-                                Icons.emoji_events,
-                                color: Color(0xFFf8ac2f),
-                                size: 50,
+                              SizedBox(
+                                width: 50,
+                                child: Icon(
+                                  Icons.emoji_events,
+                                  color: Color(0xFFf8ac2f),
+                                  size: 50,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 if (state is RankingSuccess)

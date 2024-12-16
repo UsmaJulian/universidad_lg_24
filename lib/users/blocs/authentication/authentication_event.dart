@@ -29,4 +29,6 @@ class UserLoggedCodigo extends AuthenticationEvent {
 }
 
 // Fired when the user has logged out
-class UserLoggedOut extends AuthenticationEvent {}
+class UserLoggedOut extends AuthenticationEvent {
+  const UserLoggedOut();
+}

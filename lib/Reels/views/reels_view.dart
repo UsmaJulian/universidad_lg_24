@@ -215,7 +215,7 @@ class _ReelsViewState extends State<ReelsView> {
     //   'type': 'video',
     // },
   ];
-  int _pager = 1;
+  int _pager = 0;
   TextEditingController searchController = TextEditingController();
   final RefreshController _refreshController = RefreshController();
 
