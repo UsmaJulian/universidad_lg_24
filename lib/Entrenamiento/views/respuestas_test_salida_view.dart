@@ -5,6 +5,8 @@ import 'package:universidad_lg_24/Entrenamiento/entrenamiento/entrenamiento_bloc
 import 'package:universidad_lg_24/Entrenamiento/models/respuestas_test_salida_model.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/widgets/global/header_global.dart';
+import 'package:universidad_lg_24/widgets/widgets.dart';
 
 class RespuestasTestSalidaPage extends StatelessWidget {
   final User? user;
@@ -16,12 +18,14 @@ class RespuestasTestSalidaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'PREGUNTAS Y RESPUETAS',
-          style: TextStyle(fontSize: 16),
-        ),
-        backgroundColor: mainColor,
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      backgroundColor: const Color(0xffF6F3EB),
+      appBar: CustomAppBar(user: user),
+      endDrawer: DrawerMenu(
+        user: user,
+        isHome: true, // Indica que el DrawerMenuLeft se está utilizando
+        // en la pantalla de inicio.
       ),
       body: Container(
         padding: EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -138,7 +142,7 @@ class ItemRespuetas extends StatelessWidget {
               children: [
                 for (var rs in item.respuesta!)
                   itemRespueta(
-                    item: rs,
+                    item: rs as Respuesta,
                   )
               ],
             ),

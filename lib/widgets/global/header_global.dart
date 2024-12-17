@@ -33,6 +33,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               builder: (context) {
                 return NewHomeView(user: widget.user!);
               },
+              settings: const RouteSettings(name: '/'),
             ),
           );
         },

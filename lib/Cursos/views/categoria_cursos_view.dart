@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:universidad_lg_24/Cursos/services/cursos_services.dart';
 import 'package:universidad_lg_24/Cursos/views/new_curso_single_view.dart';
+import 'package:universidad_lg_24/constants.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
@@ -24,9 +28,22 @@ class CategoriaCursosView extends StatefulWidget {
 }
 
 class _CategoriaCursosViewState extends State<CategoriaCursosView> {
+  final StreamController<dynamic> _streamController = StreamController();
   TextEditingController searchController = TextEditingController();
-
+  final RefreshController _refreshController = RefreshController();
   String searchTerm = '';
+  int _pager = 0;
+
+  String? _selectedCategory; // Categoría seleccionada
+  final List<String> _categories = [
+    'LINEA ISP',
+    'LINEA TV',
+    'LINEA HA',
+    'LINEA AV',
+    'LINEA MC',
+    'LINEA HE',
+    'TECNICA DE VENTAS',
+  ]; // Lista de categorías
 
   Map<dynamic, dynamic>? cursosData;
   @override
@@ -40,10 +57,36 @@ class _CategoriaCursosViewState extends State<CategoriaCursosView> {
       widget.user.userId.toString(),
       widget.user.token.toString(),
       widget.query,
+      _pager,
     );
     cursosData = stringCursoData as Map<dynamic, dynamic>;
 
     setState(() {});
+  }
+
+  Future<void> _refreshData() async {
+    try {
+      debugPrint('refrescando');
+      final data = await CursosServices().serviceGetCursoCategoContent(
+        widget.user.userId.toString(),
+        widget.user.token.toString(),
+        widget.query,
+        _pager++,
+      );
+
+      _streamController.add(data);
+      _refreshController.loadComplete();
+    } catch (e) {
+      _streamController.addError(e);
+    }
+  }
+
+  @override
+  void dispose() {
+    _streamController.close();
+    searchController.dispose();
+    _refreshController.dispose();
+    super.dispose();
   }
 
   @override
@@ -73,8 +116,11 @@ class _CategoriaCursosViewState extends State<CategoriaCursosView> {
               Row(
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, bottom: 10, top: 10),
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      bottom: 10,
+                      top: 10,
+                    ),
                     child: OutlinedButton(
                       onPressed: () => Navigator.pop(context),
                       child: const Text(
@@ -83,19 +129,82 @@ class _CategoriaCursosViewState extends State<CategoriaCursosView> {
                       ),
                     ),
                   ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    // DropdownButtonFormField para el filtro de categorías
+                    child: DropdownButtonFormField<String>(
+                      // isExpanded: true,
+                      elevation: 16,
+
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white,
+                      ),
+                      dropdownColor: mainColor,
+                      decoration: const InputDecoration(
+                        fillColor: mainColor,
+                        filled: true,
+                        hintText: 'CATEGORÍAS',
+                        hintStyle: TextStyle(color: Colors.white),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: mainColor, width: 0),
+                        ),
+                      ),
+                      value: _selectedCategory, // Categoría seleccionada
+                      items: _categories
+                          .map(
+                            (category) => DropdownMenuItem(
+                              value: category,
+                              child: Text(
+                                category,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (String? value) {
+                        setState(() {
+                          _selectedCategory = value;
+                        });
+                      },
+                    ),
+                  ),
                 ],
               ),
-              if (cursosData != null)
-                for (final curso in cursosData!.values)
-                  if (curso['title']
-                      .toString()
-                      .toLowerCase()
-                      .contains(searchTerm.toLowerCase()))
-                    CursoCard(
-                      curso: curso as Map<dynamic, dynamic>,
-                      user: widget.user,
-                      title: widget.title,
-                    ),
+
+              // if (cursosData != null)
+              //   for (final curso in cursosData!.values)
+              //     if (curso['title']
+              //         .toString()
+              //         .toLowerCase()
+              //         .contains(searchTerm.toLowerCase()))
+              //       CursoCard(
+              //         curso: curso as Map<dynamic, dynamic>,
+              //         user: widget.user,
+              //         title: widget.title,
+              //       ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.6,
+                child: SmartRefresher(
+                  enablePullDown: false,
+                  enablePullUp: true,
+                  header: const WaterDropHeader(),
+                  controller: _refreshController,
+                  onLoading: _refreshData,
+                  child: ListView.builder(
+                    itemCount: _filteredCursosData().length,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return CursoCard(
+                        curso: _filteredCursosData()[index]
+                            as Map<dynamic, dynamic>,
+                        user: widget.user,
+                        title: widget.title,
+                      );
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -147,6 +256,36 @@ class _CategoriaCursosViewState extends State<CategoriaCursosView> {
     setState(() {
       searchTerm = value;
     });
+  }
+
+  List<dynamic> _filteredCursosData() {
+    if (_selectedCategory == null || _selectedCategory == 'Todas') {
+      return cursosData?.values.toList() ?? [];
+    }
+    String? seleccion;
+    switch (_selectedCategory) {
+      case 'LINEA ISP':
+        seleccion = '181';
+      case 'LINEA TV':
+        seleccion = '30';
+      case 'LINEA HA':
+        seleccion = '3';
+      case 'LINEA AV':
+        seleccion = '1';
+      case 'LINEA MC':
+        seleccion = '72';
+      case 'LINEA HE':
+        seleccion = '123';
+      case 'TECNICA DE VENTAS':
+        seleccion = '76';
+    }
+
+    return cursosData?.values
+            .where(
+              (curso) => curso['categoria']?.toString() == seleccion,
+            )
+            .toList() ??
+        [];
   }
 }
 

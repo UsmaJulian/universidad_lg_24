@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:universidad_lg_24/Resuelvelo/models/resuelvelo_model.dart';
 import 'package:universidad_lg_24/Resuelvelo/services/comment_resuelvelo_service.dart';
+import 'package:universidad_lg_24/helpers/my_long_print.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
@@ -73,7 +74,12 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
         isHome: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 148, left: 16, right: 16),
+        padding: EdgeInsets.only(
+          top: 148,
+          left: 16,
+          right: 16,
+          bottom: MediaQuery.of(context).size.height * 0.1,
+        ),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,13 +162,24 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
               Align(
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
-                  onPressed: () {
-                    IsAddResuelveloComment().getAddResuelveloCommentService(
+                  onPressed: () async {
+                    final response = await IsAddResuelveloComment()
+                        .getAddResuelveloCommentService(
                       userId: widget.user.userId.toString(),
                       token: widget.user.token.toString(),
                       nid: widget.resuelveloData.nid,
                       comment: _commentController.text.trim(),
                     );
+                    myLongPrint('comentario ${response.toJson()}');
+                    if (response.response!.type != 'error') {
+                      _addComment();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(response.response!.message!.toString()),
+                        ),
+                      );
+                    }
                   },
                   child: const Text('Enviar'),
                 ),

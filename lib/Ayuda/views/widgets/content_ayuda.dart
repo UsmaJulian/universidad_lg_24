@@ -34,73 +34,78 @@ class _ContentAyudaState extends State<ContentAyuda> {
           _items ??= state.data.status?.data ?? [];
 
           return SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 15,
-                    horizontal: 20,
-                  ),
-                  margin: const EdgeInsets.only(bottom: 20),
-                  child: const Text(
-                    'AYUDA',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-                ExpansionPanelList(
-                  elevation: 0,
-                  expansionCallback: (int index, bool isExpanded) {
-                    if (expanded == false) {
-                      expanded = true;
-                    } else {
-                      expanded = false;
-                    }
-
-                    print('isExpanded: $expanded');
-                    setState(() {
-                      _items![index].isExpanded = expanded;
-                    });
-                  },
-                  children: _items!.map<ExpansionPanel>((Datum item) {
-                    return ExpansionPanel(
-                      headerBuilder: (BuildContext context, bool isExpanded) {
-                        return ListTile(
-                          minVerticalPadding: 8,
-                          title: Text(
-                            item.title ?? '',
-                            style: const TextStyle(height: 1.15),
-                          ),
-                        );
-                      },
-                      body: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(),
-                        title: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          decoration: const BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(color: mainColor),
-                            ),
-                          ),
-                          child: HtmlWidget(
-                            item.bodyValue ?? '',
-                          ),
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height * 0.1,
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.grey,
                         ),
                       ),
-                      isExpanded: item.isExpanded ?? false,
-                      canTapOnHeader: true,
-                    );
-                  }).toList(),
-                ),
-              ],
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: 20,
+                    ),
+                    margin: const EdgeInsets.only(bottom: 20),
+                    child: const Text(
+                      'AYUDA',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                  ExpansionPanelList(
+                    elevation: 0,
+                    expansionCallback: (int index, bool isExpanded) {
+                      if (expanded == false) {
+                        expanded = true;
+                      } else {
+                        expanded = false;
+                      }
+
+                      print('isExpanded: $expanded');
+                      setState(() {
+                        _items![index].isExpanded = expanded;
+                      });
+                    },
+                    children: _items!.map<ExpansionPanel>((Datum item) {
+                      return ExpansionPanel(
+                        headerBuilder: (BuildContext context, bool isExpanded) {
+                          return ListTile(
+                            minVerticalPadding: 8,
+                            title: Text(
+                              item.title ?? '',
+                              style: const TextStyle(height: 1.15),
+                            ),
+                          );
+                        },
+                        body: ListTile(
+                          contentPadding: const EdgeInsets.symmetric(),
+                          title: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(color: mainColor),
+                              ),
+                            ),
+                            child: HtmlWidget(
+                              item.bodyValue ?? '',
+                            ),
+                          ),
+                        ),
+                        isExpanded: item.isExpanded ?? false,
+                        canTapOnHeader: true,
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
             ),
           );
         }

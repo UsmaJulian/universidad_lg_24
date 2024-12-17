@@ -15,8 +15,7 @@ class RespuestasTestSalida {
     this.status,
   });
 
-  factory RespuestasTestSalida.fromJson(Map<String, dynamic> json) =>
-      RespuestasTestSalida(
+  factory RespuestasTestSalida.fromJson(dynamic json) => RespuestasTestSalida(
         status: Status.fromJson(json['status'] as Map<String, dynamic>),
       );
 
@@ -35,7 +34,7 @@ class Status {
     this.respuetas,
   });
 
-  factory Status.fromJson(Map<String, dynamic> json) => Status(
+  factory Status.fromJson(dynamic json) => Status(
         type: json['type'].toString(),
         code: int.parse(json['code'].toString()),
         message: json['message'].toString(),
@@ -63,7 +62,7 @@ class Respuetas {
     this.inCorrectas,
   });
 
-  factory Respuetas.fromJson(Map<String, dynamic> json) => Respuetas(
+  factory Respuetas.fromJson(dynamic json) => Respuetas(
         idCurso: json['id_curso'].toString(),
         items: List<Item>.from(json['items'].map(Item.fromJson) as Iterable),
         inCorrectas: int.parse(json['inCorrectas'].toString()),
@@ -89,12 +88,12 @@ class Item {
     this.itemClass,
   });
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
+  factory Item.fromJson(dynamic json) => Item(
         id: json['id'].toString(),
         pregunta: json['pregunta'].toString(),
         tipo: int.parse(json['tipo'].toString()),
-        respuesta: List<Respuesta>.from(
-          json['respuesta'].map(Respuesta.fromJson) as Iterable<Respuesta>,
+        respuesta: List<dynamic>.from(
+          json['respuesta'].map(Respuesta.fromJson) as Iterable<dynamic>,
         ),
         itemClass: json['class'].toString(),
       );
@@ -102,7 +101,7 @@ class Item {
   String? id;
   String? pregunta;
   int? tipo;
-  List<Respuesta>? respuesta;
+  List<dynamic>? respuesta;
   String? itemClass;
 
   Map<String, dynamic> toJson() => {
@@ -120,7 +119,7 @@ class Respuesta {
     this.estado,
   });
 
-  factory Respuesta.fromJson(Map<String, dynamic> json) => Respuesta(
+  factory Respuesta.fromJson(dynamic json) => Respuesta(
         respuesta: json['respuesta'].toString(),
         estado: int.parse(json['estado'].toString()),
       );

@@ -15,8 +15,7 @@ class RespuestaEvaluacion {
     this.status,
   });
 
-  factory RespuestaEvaluacion.fromJson(Map<String, dynamic> json) =>
-      RespuestaEvaluacion(
+  factory RespuestaEvaluacion.fromJson(dynamic json) => RespuestaEvaluacion(
         status: StatusResp.fromJson(json['status'] as Map<String, dynamic>),
       );
 
@@ -35,7 +34,7 @@ class StatusResp {
     this.respuetas,
   });
 
-  factory StatusResp.fromJson(Map<String, dynamic> json) => StatusResp(
+  factory StatusResp.fromJson(dynamic json) => StatusResp(
         type: json['type'].toString(),
         code: int.parse(json['code'].toString()),
         message: json['message'].toString(),
@@ -63,7 +62,7 @@ class Respuetas {
     this.inCorrectas,
   });
 
-  factory Respuetas.fromJson(Map<String, dynamic> json) => Respuetas(
+  factory Respuetas.fromJson(dynamic json) => Respuetas(
         idCurso: json['id_curso'].toString(),
         items: List<Item>.from(json['items'].map(Item.fromJson) as Iterable),
         inCorrectas: int.parse(json['inCorrectas'].toString()),
@@ -88,7 +87,7 @@ class Item {
     this.respuesta,
   });
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
+  factory Item.fromJson(dynamic json) => Item(
         id: json['id'].toString(),
         pregunta: json['pregunta'].toString(),
         tipo: int.parse(json['tipo'].toString()),
@@ -116,7 +115,7 @@ class Respuesta {
     this.estado,
   });
 
-  factory Respuesta.fromJson(Map<String, dynamic> json) => Respuesta(
+  factory Respuesta.fromJson(dynamic json) => Respuesta(
         respuesta: json['respuesta'].toString(),
         estado: int.parse(json['estado'].toString()),
       );

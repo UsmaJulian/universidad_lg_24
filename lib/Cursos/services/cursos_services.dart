@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:universidad_lg_24/Entrenamiento/models/models.dart';
 import 'package:universidad_lg_24/constants.dart';
+import 'package:universidad_lg_24/helpers/my_long_print.dart';
 
 class CursosServices {
   /// Obtener todos los cursos y filtrarlos
@@ -11,28 +12,34 @@ class CursosServices {
     String userid,
     String token,
     String query,
+    int page,
   ) async {
+    myLongPrint('query: $query');
     final response = await http.post(
-      Uri.https(baseUrl, 'app/entrenamiento'),
+      Uri.https(baseUrl, 'app/entrenamiento/$query'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{
+      body: jsonEncode(<dynamic, dynamic>{
         'userId': userid,
         'token': token,
+        'pager': page,
       }),
     );
 
     if (response.statusCode == 200) {
       final request = json.decode(response.body);
-      if (request['status']['type'] != 'error') {
-        final cursosToJson = EntrenamientoModel.fromJson(
-          json.decode(response.body) as Map<String, dynamic>,
-        );
+      myLongPrint('request $request');
+      if (request['response']['type'] != 'error') {
+        // final cursosToJson = EntrenamientoModel.fromJson(
+        //   json.decode(response.body) as Map<String, dynamic>,
+        // );
 
-        final cursos = cursosToJson.status!.cursos!.toJson();
+        // final cursos = cursosToJson.status!.cursos!.toJson();
 
-        return cursos[query];
+        // return cursos[query];
+        final cursos = request['body'].asMap();
+        return cursos;
       } else {
         throw <dynamic, dynamic>{};
       }

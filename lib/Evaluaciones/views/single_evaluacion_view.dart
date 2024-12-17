@@ -9,6 +9,7 @@ import 'package:rainbow_color/rainbow_color.dart';
 import 'package:universidad_lg_24/Evaluaciones/bloc/evaluacion_bloc.dart';
 import 'package:universidad_lg_24/Evaluaciones/models/models.dart';
 import 'package:universidad_lg_24/Evaluaciones/views/evaluacion_view.dart';
+import 'package:universidad_lg_24/Evaluaciones/views/resultado_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/helpers/flutter_radio_button_form_field.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -741,25 +742,25 @@ _result({EvaluacionRest? res, User? user, BuildContext? context, String? id}) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // TextButton(
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute<void>(
-              //         builder: (context) => ResultadoView(
-              //           user: user,
-              //           evaluacion: id,
-              //         ),
-              //       ),
-              //     );
-              //   },
-              //   child: const Text(
-              //     'VER RESPUESTAS',
-              //     style: TextStyle(
-              //       color: mainColor,
-              //     ),
-              //   ),
-              // ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (context) => ResultadoView(
+                        user: user,
+                        evaluacion: id,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text(
+                  'VER RESPUESTAS',
+                  style: TextStyle(
+                    color: mainColor,
+                  ),
+                ),
+              ),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);

@@ -4,9 +4,10 @@ import 'package:universidad_lg_24/Resuelvelo/exception/resuelvelo_exception.dart
 import 'package:universidad_lg_24/Resuelvelo/models/add_comment_solve_model.dart';
 
 import 'package:universidad_lg_24/constants.dart';
+import 'package:universidad_lg_24/helpers/my_long_print.dart';
 
 abstract class CommentResuelveloService {
-  Future<AddCommentSolveModel> getAddResuelveloCommentService({
+  Future<dynamic> getAddResuelveloCommentService({
     String userId,
     String token,
     String nid,
@@ -16,12 +17,13 @@ abstract class CommentResuelveloService {
 
 class IsAddResuelveloComment extends CommentResuelveloService {
   @override
-  Future<AddCommentSolveModel> getAddResuelveloCommentService({
+  Future<dynamic> getAddResuelveloCommentService({
     String? userId,
     String? token,
     String? nid,
     String? comment,
   }) async {
+    myLongPrint('info: $userId, $token, $nid, $comment');
     final response = await http.post(
       Uri.https(baseUrl, 'app/save/comentario'),
       headers: <String, String>{
@@ -45,8 +47,13 @@ class IsAddResuelveloComment extends CommentResuelveloService {
 
         return resuelvelo;
       } else {
-        throw ResuelveloException(
-          message: request['status']['message'].toString(),
+        return AddCommentSolveModel(
+          response: Response(
+            type: request['response']['type'].toString(),
+            message: request['response']['message'].toString(),
+            code: int.parse(request['response']['code'].toString()),
+          ),
+          body: Body(idInt: request['body']['idInt'].toString()),
         );
       }
     } else {
