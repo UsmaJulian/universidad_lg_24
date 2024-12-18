@@ -16,21 +16,21 @@ class _NewCursosViewState extends State<NewCursosView> {
   final ScrollController controller = ScrollController();
   final cursosInfo = [
     {
-      'image': 'assets/static/basico.png',
+      'image': 'assets/images/IMG_4339.PNG',
       'title': 'Básico',
       'description':
           'Aprende los fundamentos de LG y sus productos. Este curso cubre la historia de la marca, características básicas de los productos y técnicas iniciales de venta. Ideal para comenzar a interactuar con clientes de manera efectiva.',
       'query': 'basico',
     },
     {
-      'image': 'assets/static/medio.jpg',
+      'image': 'assets/images/IMG_4338.PNG',
       'title': 'Intermedio',
       'description':
           'Desarrolla habilidades más avanzadas con detalles técnicos de los productos y técnicas de venta sofisticadas. Incluye estrategias de presentación, manejo de objeciones y servicio al cliente para mejorar la efectividad en el cierre de ventas.',
       'query': 'intermedio',
     },
     {
-      'image': 'assets/static/avanzado.jpg',
+      'image': 'assets/images/IMG_4337.PNG',
       'title': 'Avanzado',
       'description':
           'Perfecciona tus habilidades con las últimas innovaciones y estrategias avanzadas. Enfocado en liderazgo, coaching, y análisis del rendimiento para optimizar las ventas y guiar a otros promotores.',

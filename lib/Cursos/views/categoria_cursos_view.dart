@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:universidad_lg_24/Cursos/services/cursos_services.dart';
 import 'package:universidad_lg_24/Cursos/views/new_curso_single_view.dart';
 import 'package:universidad_lg_24/constants.dart';
-
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
@@ -28,13 +26,13 @@ class CategoriaCursosView extends StatefulWidget {
 }
 
 class _CategoriaCursosViewState extends State<CategoriaCursosView> {
-  final StreamController<dynamic> _streamController = StreamController();
-  TextEditingController searchController = TextEditingController();
+  final StreamController<List<dynamic>> _streamController = StreamController();
+  final TextEditingController searchController = TextEditingController();
   final RefreshController _refreshController = RefreshController();
+
   String searchTerm = '';
   int _pager = 0;
-
-  String? _selectedCategory; // Categoría seleccionada
+  String? _selectedCategory;
   final List<String> _categories = [
     'LINEA ISP',
     'LINEA TV',
@@ -43,41 +41,55 @@ class _CategoriaCursosViewState extends State<CategoriaCursosView> {
     'LINEA MC',
     'LINEA HE',
     'TECNICA DE VENTAS',
-  ]; // Lista de categorías
+  ];
 
-  Map<dynamic, dynamic>? cursosData;
+  List<dynamic> cursosData = [];
+
   @override
   void initState() {
     super.initState();
-    getCursosData();
+    _fetchCursosData();
   }
 
-  Future<void> getCursosData() async {
-    final stringCursoData = await CursosServices().serviceGetCursoCategoContent(
-      widget.user.userId.toString(),
-      widget.user.token.toString(),
-      widget.query,
-      _pager,
-    );
-    cursosData = stringCursoData as Map<dynamic, dynamic>;
-
-    setState(() {});
-  }
-
-  Future<void> _refreshData() async {
+  Future<void> _fetchCursosData() async {
     try {
-      debugPrint('refrescando');
       final data = await CursosServices().serviceGetCursoCategoContent(
         widget.user.userId.toString(),
         widget.user.token.toString(),
         widget.query,
-        _pager++,
+        _pager,
       );
+      if (data != null && data is Map) {
+        setState(() {
+          cursosData.addAll(data.values.toList());
+        });
+        _streamController.add(cursosData);
+      }
+    } catch (e) {
+      debugPrint('Error al obtener los cursos: $e');
+      _streamController.addError(e);
+    }
+  }
 
-      _streamController.add(data);
+  Future<void> _refreshData() async {
+    try {
+      _pager++;
+      final data = await CursosServices().serviceGetCursoCategoContent(
+        widget.user.userId.toString(),
+        widget.user.token.toString(),
+        widget.query,
+        _pager,
+      );
+      if (data != null && data is Map) {
+        setState(() {
+          cursosData.addAll(data.values.toList());
+        });
+        _streamController.add(cursosData);
+      }
       _refreshController.loadComplete();
     } catch (e) {
-      _streamController.addError(e);
+      debugPrint('Error al refrescar los datos: $e');
+      _refreshController.loadFailed();
     }
   }
 
@@ -96,11 +108,7 @@ class _CategoriaCursosViewState extends State<CategoriaCursosView> {
       extendBody: true,
       backgroundColor: const Color(0xffF6F3EB),
       appBar: CustomAppBar(user: widget.user),
-      endDrawer: DrawerMenu(
-        user: widget.user,
-        isHome: true, // Indica que el DrawerMenuLeft se está utilizando
-        // en la pantalla de inicio.
-      ),
+      endDrawer: DrawerMenu(user: widget.user, isHome: true),
       body: Padding(
         padding: EdgeInsets.only(
           top: MediaQuery.of(context).size.height * 0.17,
@@ -108,105 +116,48 @@ class _CategoriaCursosViewState extends State<CategoriaCursosView> {
           left: 25,
           bottom: 106,
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              searchInput(),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      bottom: 10,
-                      top: 10,
-                    ),
-                    child: OutlinedButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text(
-                        'Volver',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    // DropdownButtonFormField para el filtro de categorías
-                    child: DropdownButtonFormField<String>(
-                      // isExpanded: true,
-                      elevation: 16,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            searchInput(),
+            _buildCategoryDropdown(),
+            Expanded(
+              child: StreamBuilder<List<dynamic>>(
+                stream: _streamController.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(
+                      child: Text('No hay cursos disponibles'),
+                    );
+                  }
 
-                      icon: const Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
-                      ),
-                      dropdownColor: mainColor,
-                      decoration: const InputDecoration(
-                        fillColor: mainColor,
-                        filled: true,
-                        hintText: 'CATEGORÍAS',
-                        hintStyle: TextStyle(color: Colors.white),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: mainColor, width: 0),
-                        ),
-                      ),
-                      value: _selectedCategory, // Categoría seleccionada
-                      items: _categories
-                          .map(
-                            (category) => DropdownMenuItem(
-                              value: category,
-                              child: Text(
-                                category,
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          )
-                          .toList(),
-                      onChanged: (String? value) {
-                        setState(() {
-                          _selectedCategory = value;
-                        });
+                  final filteredCursos = _filteredCursosData(snapshot.data!);
+
+                  return SmartRefresher(
+                    enablePullDown: false,
+                    enablePullUp: true,
+                    header: const WaterDropHeader(),
+                    controller: _refreshController,
+                    onLoading: _refreshData,
+                    child: ListView.builder(
+                      itemCount: filteredCursos.length,
+                      itemBuilder: (context, index) {
+                        return CursoCard(
+                          curso: filteredCursos[index] as Map<dynamic, dynamic>,
+                          user: widget.user,
+                          title: widget.title,
+                        );
                       },
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
-
-              // if (cursosData != null)
-              //   for (final curso in cursosData!.values)
-              //     if (curso['title']
-              //         .toString()
-              //         .toLowerCase()
-              //         .contains(searchTerm.toLowerCase()))
-              //       CursoCard(
-              //         curso: curso as Map<dynamic, dynamic>,
-              //         user: widget.user,
-              //         title: widget.title,
-              //       ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.6,
-                child: SmartRefresher(
-                  enablePullDown: false,
-                  enablePullUp: true,
-                  header: const WaterDropHeader(),
-                  controller: _refreshController,
-                  onLoading: _refreshData,
-                  child: ListView.builder(
-                    itemCount: _filteredCursosData().length,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return CursoCard(
-                        curso: _filteredCursosData()[index]
-                            as Map<dynamic, dynamic>,
-                        user: widget.user,
-                        title: widget.title,
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: const CustomBottomAppBar(),
@@ -223,14 +174,12 @@ class _CategoriaCursosViewState extends State<CategoriaCursosView> {
         color: Color(0xffE6E1D6),
       ),
       child: Row(
-        children: <Widget>[
+        children: [
           Expanded(
             child: TextField(
               controller: searchController,
               textAlign: TextAlign.center,
-              onChanged: (String value) async {
-                search(value);
-              },
+              onChanged: (value) => setState(() => searchTerm = value),
               decoration: const InputDecoration(
                 hintText: 'Buscar',
                 hintStyle: TextStyle(fontSize: 16, color: Color(0xff716F6A)),
@@ -239,53 +188,90 @@ class _CategoriaCursosViewState extends State<CategoriaCursosView> {
             ),
           ),
           InkWell(
-            onTap: () {
-              search(searchController.text);
-              // print(searchController.text);
-            },
-            child: const SizedBox(
-              child: Icon(Icons.search, color: Color(0xff716F6A)),
-            ),
+            onTap: () => setState(() => searchTerm = searchController.text),
+            child: const Icon(Icons.search, color: Color(0xff716F6A)),
           ),
         ],
       ),
     );
   }
 
-  void search(String value) {
-    setState(() {
-      searchTerm = value;
-    });
+  Widget _buildCategoryDropdown() {
+    return Row(
+      children: [
+        OutlinedButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Volver', style: TextStyle(color: Colors.black)),
+        ),
+        const SizedBox(width: 20),
+        Expanded(
+          child: DropdownButtonFormField<String>(
+            elevation: 16,
+            dropdownColor: mainColor,
+            decoration: const InputDecoration(
+              fillColor: mainColor,
+              filled: true,
+              hintText: 'CATEGORÍAS',
+              hintStyle: TextStyle(color: Colors.white),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: mainColor),
+              ),
+            ),
+            value: _selectedCategory,
+            items: _categories
+                .map(
+                  (category) => DropdownMenuItem(
+                    value: category,
+                    child: Text(
+                      category,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                )
+                .toList(),
+            onChanged: (value) => setState(() => _selectedCategory = value),
+          ),
+        ),
+      ],
+    );
   }
 
-  List<dynamic> _filteredCursosData() {
-    if (_selectedCategory == null || _selectedCategory == 'Todas') {
-      return cursosData?.values.toList() ?? [];
-    }
-    String? seleccion;
-    switch (_selectedCategory) {
-      case 'LINEA ISP':
-        seleccion = '181';
-      case 'LINEA TV':
-        seleccion = '30';
-      case 'LINEA HA':
-        seleccion = '3';
-      case 'LINEA AV':
-        seleccion = '1';
-      case 'LINEA MC':
-        seleccion = '72';
-      case 'LINEA HE':
-        seleccion = '123';
-      case 'TECNICA DE VENTAS':
-        seleccion = '76';
-    }
+  List<dynamic> _filteredCursosData(List<dynamic> data) {
+    final categoryFilter =
+        _selectedCategory != null && _selectedCategory != 'Todas'
+            ? _mapCategoryToId(_selectedCategory!)
+            : null;
 
-    return cursosData?.values
-            .where(
-              (curso) => curso['categoria']?.toString() == seleccion,
-            )
-            .toList() ??
-        [];
+    return data.where((curso) {
+      final matchesCategory =
+          categoryFilter == null || curso['categoria'] == categoryFilter;
+      final matchesSearch = curso['title']
+          .toString()
+          .toLowerCase()
+          .contains(searchTerm.toLowerCase());
+      return matchesCategory && matchesSearch;
+    }).toList();
+  }
+
+  String? _mapCategoryToId(String category) {
+    switch (category) {
+      case 'LINEA ISP':
+        return '181';
+      case 'LINEA TV':
+        return '30';
+      case 'LINEA HA':
+        return '3';
+      case 'LINEA AV':
+        return '1';
+      case 'LINEA MC':
+        return '72';
+      case 'LINEA HE':
+        return '123';
+      case 'TECNICA DE VENTAS':
+        return '76';
+      default:
+        return null;
+    }
   }
 }
 

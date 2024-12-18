@@ -98,7 +98,7 @@ class AuthenticationBloc
     var attempt = 0; // Contador de intentos
     var success = false; // Indicador de éxito
 
-    while (attempt < 2 && !success) {
+    while (attempt < 5 && !success) {
       try {
         attempt++;
 
@@ -117,8 +117,8 @@ class AuthenticationBloc
 
         success = true; // Si todas las operaciones tienen éxito
       } catch (e) {
-        if (attempt >= 2) {
-          // Manejar errores si los dos intentos fallan
+        if (attempt >= 5) {
+          // Manejar errores si los intentos fallan
           emit(
             const AuthenticationFailure(
               message: 'Error al cerrar sesión después de varios intentos.',
