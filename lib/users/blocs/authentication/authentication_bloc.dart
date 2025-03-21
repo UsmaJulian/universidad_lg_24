@@ -7,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:universidad_lg_24/home/views/globals.dart' as globals;
 
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/users/models/register_user.dart';
 import 'package:universidad_lg_24/users/services/services.dart';
 import 'package:universidad_lg_24/users/views/login/login_view.dart';
 
@@ -25,6 +26,7 @@ class AuthenticationBloc
       : _authenticationService = authenticationService,
         super(AuthenticationInitialState()) {
     on<AppLoadedEvent>(_onMapAppLoadedToState);
+    on<UserRegisterIn>(_onMapUserRegisterInToState);
     on<UserLoggedIn>(_onMapUserLoggedInToState);
     on<UserLoggedCodigo>(_onMapUserLoggedCodigoToState);
     on<UserLoggedOut>(_onUserLoggedOut);
@@ -56,7 +58,23 @@ class AuthenticationBloc
     }
   }
 
-  /// Maneja el evento [UserLoggedIn] para actualizar el estado cuando un
+  FutureOr<void> _onMapUserRegisterInToState(
+    UserRegisterIn event,
+    Emitter<AuthenticationState> emit,
+  ) {
+    final user = User(
+      mensaje: event.user!.statusRegister.message,
+      userId: event.user!.body.userId,
+      email: event.user!.body.email,
+      name: event.user!.body.username,
+      username: event.user!.body.username,
+      token: event.user!.body.token,
+      role: event.user!.body.role,
+    );
+    emit(AuthenticationAuthenticatedState(user: user));
+  }
+
+  /// Maneja el evento [UserRegisterIn] para actualizar el estado cuando un
   ///  usuario ha iniciado sesión.
   FutureOr<void> _onMapUserLoggedInToState(
     UserLoggedIn event,
@@ -102,7 +120,6 @@ class AuthenticationBloc
       try {
         attempt++;
 
-        // Eliminar la información del usuario (por ejemplo, SharedPreferences)
         await _clearUserData();
 
         // Emitir el estado de no autenticado

@@ -1,4 +1,4 @@
-// ignore_for_file: strict_raw_type, inference_failure_on_function_return_type
+// ignore_for_file: strict_raw_type, inference_failure_on_function_return_type, invalid_use_of_protected_member
 
 import 'package:cool_stepper_reloaded/cool_stepper_reloaded.dart';
 import 'package:flutter/material.dart';
@@ -556,7 +556,7 @@ class __ContentTestEntradaState extends State<_ContentTestEntrada>
 
   ///////////////  finalizavion de los steps //////////
 
-  _onFinish() {
+  void _onFinish() {
     showDialog<String>(
       barrierDismissible: false,
       context: context,
@@ -630,7 +630,7 @@ class __ContentTestEntradaState extends State<_ContentTestEntrada>
   }
 
   ///  finalizacion del tiempo ////
-  _onFinishTime() {
+  void _onFinishTime() {
     showDialog<String>(
       context: context,
       barrierDismissible: false,
@@ -680,7 +680,7 @@ class __ContentTestEntradaState extends State<_ContentTestEntrada>
   }
 }
 
-_result({
+void _result({
   DataTest? res,
   User? user,
   BuildContext? context,

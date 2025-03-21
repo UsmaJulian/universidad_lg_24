@@ -43,7 +43,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.15,
+            height: MediaQuery.of(context).size.height * 0.16,
             child: DrawerHeader(
               margin: const EdgeInsets.only(bottom: 20),
               decoration: const BoxDecoration(

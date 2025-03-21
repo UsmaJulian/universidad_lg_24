@@ -113,7 +113,7 @@ class _ContentNoticiasPageState extends State<ContentNoticiasPage> {
 }
 
 class _ItemNoticias extends StatelessWidget {
-  const _ItemNoticias({super.key, this.item, this.user});
+  const _ItemNoticias({this.item, this.user});
   final Datum? item;
   final User? user;
   @override

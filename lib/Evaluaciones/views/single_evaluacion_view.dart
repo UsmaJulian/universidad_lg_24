@@ -226,7 +226,6 @@ class __SingleEvaluacionContentState extends State<_SingleEvaluacionContent> {
 class _ContentSingleEvaluacion extends StatefulWidget {
   const _ContentSingleEvaluacion({
     required this.singleRoute,
-    super.key,
     this.evaluacionInfo,
     this.time,
     this.user,

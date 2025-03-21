@@ -8,11 +8,16 @@ import 'package:universidad_lg_24/helpers/my_long_print.dart';
 import 'package:universidad_lg_24/users/exceptions/exceptions.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/users/models/register_user.dart';
 import 'package:universidad_lg_24/users/services/services.dart';
 
 sealed class AuthenticationService {
   Future<User?> getCurrentUser();
   Future<User?> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  });
+  Future<RegisterUser?> registerWithEmailAndPassword({
     required String email,
     required String password,
   });
@@ -100,6 +105,7 @@ class IsAuthenticationService extends AuthenticationService {
           empresa: request['status']['dataUser']['empresa'].toString(),
           cargo: request['status']['dataUser']['cargo'].toString(),
           mensaje: request['status']['dataUser']['mensaje'].toString(),
+          role: request['status']['dataUser']['role'].toString(),
         );
 
         final userStorage = UserStorage(user: user);
@@ -115,6 +121,60 @@ class IsAuthenticationService extends AuthenticationService {
     } else {
       throw AuthenticationException(message: 'ocurrió un problema de conexión');
     }
+  }
+
+  @override
+  Future<RegisterUser?> registerWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response = await http.post(
+        Uri.https(baseUrl, 'app/signup'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'email': email.trim(),
+          'password': password.trim(),
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final request = json.decode(response.body);
+        myLongPrint('request: $request');
+        if (request['status']['type'] != 'error') {
+          final user = RegisterUser(
+            statusRegister: StatusRegister.fromJson(
+              request['status'] as Map<String, dynamic>,
+            ),
+            body: Body.fromJson(request['body'] as Map<String, dynamic>),
+          );
+          final userForStorage = User(
+            userId: user.body.userId,
+            email: user.body.email,
+            name: user.body.username,
+            username: user.body.username,
+            token: user.body.token,
+            role: user.body.role,
+          );
+          final userStorage = UserStorage(user: userForStorage);
+          await userStorage.createUserStorage();
+          return user;
+        } else {
+          throw AuthenticationException(
+            message: request['status']['message'].toString(),
+          );
+        }
+      } else {
+        throw AuthenticationException(
+          message: 'ocurrió un problema de conexión',
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+    return null;
   }
 
   @override

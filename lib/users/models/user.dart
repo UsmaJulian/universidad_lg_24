@@ -18,6 +18,7 @@ class User {
     this.mensaje,
     this.codigo,
     this.isLogin,
+    this.role,
   });
 
   /// Factory constructor para crear una instancia de User desde un JSON.
@@ -34,6 +35,7 @@ class User {
       empresa: json['status']['dataUser']['empresa'].toString(),
       cargo: json['status']['dataUser']['cargo'].toString(),
       mensaje: json['status']['dataUser']['mensaje'].toString(),
+      role: json['status']['dataUser']['role'].toString(),
     );
   }
 
@@ -49,10 +51,11 @@ class User {
   final String? token;
   final int? codigo;
   final int? isLogin;
+  final String? role;
 
   @override
   String toString() =>
-      'User { name: $name, email: $email, token: $token, uid:$userId }';
+      'User { name: $name, email: $email, token: $token, uid:$userId, role: $role }';
 }
 
 /// Clase que maneja el almacenamiento seguro del usuario.
@@ -77,6 +80,7 @@ class UserStorage {
     await UserSecureStorage.setEmpresa(user!.empresa.toString());
     await UserSecureStorage.setCargo(user!.cargo.toString());
     await UserSecureStorage.setMensaje(user!.mensaje.toString());
+    await UserSecureStorage.setRole(user!.role.toString());
   }
 
   /// Destruye el almacenamiento del usuario limpiando los datos del almacenamiento seguro.
@@ -92,6 +96,7 @@ class UserStorage {
     await UserSecureStorage.clearEmpresa();
     await UserSecureStorage.clearCargo();
     await UserSecureStorage.clearMensaje();
+    await UserSecureStorage.clearRole();
     return true;
   }
 }

@@ -2,33 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:string_extensions/string_extensions.dart';
 import 'package:universidad_lg_24/constants.dart';
-import 'package:universidad_lg_24/users/blocs/login/login_bloc.dart';
-import 'package:universidad_lg_24/users/views/register/register_view.dart';
+import 'package:universidad_lg_24/users/blocs/register/register_bloc.dart';
+import 'package:universidad_lg_24/users/views/login/login_view.dart';
+
 import 'package:universidad_lg_24/users/views/therms/views/terminos_view.dart';
 
-class SignInForm extends StatefulWidget {
-  const SignInForm({super.key});
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({super.key});
 
   @override
-  _SignInFormState createState() => _SignInFormState();
+  _SignUpFormState createState() => _SignUpFormState();
 }
 
-class _SignInFormState extends State<SignInForm> {
+class _SignUpFormState extends State<SignUpForm> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   final _emailController = TextEditingController();
   bool _autoValidate = false;
   bool isObscureText = true;
+  bool isObscureTextConfirm = true;
   bool _checkTherms = false;
 
   @override
   Widget build(BuildContext context) {
-    final loginBloc = BlocProvider.of<LoginBloc>(context);
+    final resgisterBloc = BlocProvider.of<RegisterBloc>(context);
 
-    void onLoginButtonPressed() {
+    void onRegisterButtonPressed() {
       if (_key.currentState!.validate()) {
-        loginBloc.add(
-          LoginInWithEmailButtonPressedEvent(
+        resgisterBloc.add(
+          RegisterWithEmailAndPasswordEvent(
             email: _emailController.text,
             password: _passwordController.text,
           ),
@@ -40,15 +43,15 @@ class _SignInFormState extends State<SignInForm> {
       }
     }
 
-    return BlocListener<LoginBloc, LoginState>(
+    return BlocListener<RegisterBloc, RegisterState>(
       listener: (context, state) {
-        if (state is LoginFailureState) {
+        if (state is RegisterFailureState) {
           _showError(state.error);
         }
       },
-      child: BlocBuilder<LoginBloc, LoginState>(
+      child: BlocBuilder<RegisterBloc, RegisterState>(
         builder: (context, state) {
-          if (state is LoginLoadingState) {
+          if (state is RegisterLoadingState) {
             return const Center(
               child: CircularProgressIndicator(
                 color: mainColor,
@@ -139,6 +142,48 @@ class _SignInFormState extends State<SignInForm> {
                     },
                   ),
                   const SizedBox(
+                    height: 12,
+                  ),
+                  TextFormField(
+                    cursorColor: Colors.black,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      decorationColor: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: 'Confirmar Contraseña',
+                      hintStyle: const TextStyle(color: Colors.black),
+                      focusedBorder: const UnderlineInputBorder(),
+                      enabledBorder: const UnderlineInputBorder(),
+                      icon: const Icon(
+                        Icons.lock,
+                        color: Colors.black,
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          isObscureTextConfirm
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isObscureTextConfirm = !isObscureTextConfirm;
+                          });
+                          print(isObscureTextConfirm);
+                        },
+                        color: Colors.black,
+                      ),
+                    ),
+                    obscureText: isObscureTextConfirm,
+                    controller: _confirmPasswordController,
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return '*Campo Requerido';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
                     height: 16,
                   ),
                   Row(
@@ -173,13 +218,13 @@ class _SignInFormState extends State<SignInForm> {
                     child: InkWell(
                       child: const Text.rich(
                         TextSpan(
-                          text: '¿No tienes cuenta?',
+                          text: '¿Ya tienes cuenta?',
                           style: TextStyle(
                             color: Colors.black,
                           ),
                           children: <TextSpan>[
                             TextSpan(
-                              text: ' Regístrate.',
+                              text: ' Inicia sesión',
                               style: TextStyle(
                                 color: mainColor,
                                 decoration: TextDecoration.underline,
@@ -193,7 +238,7 @@ class _SignInFormState extends State<SignInForm> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute<void>(
-                            builder: (context) => const RegisterView(),
+                            builder: (context) => const LoginView(),
                           ),
                         );
                       },
@@ -203,9 +248,9 @@ class _SignInFormState extends State<SignInForm> {
                     height: 16,
                   ),
                   ElevatedButton(
-                    onPressed: state is LoginLoadingState
+                    onPressed: state is RegisterLoadingState
                         ? () {}
-                        : onLoginButtonPressed,
+                        : onRegisterButtonPressed,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: mainColor,
                       shape: const RoundedRectangleBorder(

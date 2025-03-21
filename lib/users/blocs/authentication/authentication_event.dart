@@ -11,6 +11,15 @@ sealed class AuthenticationEvent extends Equatable {
 // Fired just after the app is launched
 class AppLoadedEvent extends AuthenticationEvent {}
 
+// Fired when a user has successfully register
+class UserRegisterIn extends AuthenticationEvent {
+  const UserRegisterIn({required this.user});
+  final RegisterUser? user;
+
+  @override
+  List<Object> get props => [user!];
+}
+
 // Fired when a user has successfully logged in
 class UserLoggedIn extends AuthenticationEvent {
   const UserLoggedIn({required this.user});

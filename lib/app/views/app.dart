@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:universidad_lg_24/Home/views/new_home_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/home/views/globals.dart' as globals;
+import 'package:universidad_lg_24/l10n/arb/app_localizations.dart';
 import 'package:universidad_lg_24/l10n/l10n.dart';
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
-import 'package:universidad_lg_24/users/views/login/login_view.dart';
+
+import 'package:universidad_lg_24/users/views/register/register_view.dart';
 
 import 'package:universidad_lg_24/widgets/global/my_navigator_observer.dart';
 
@@ -48,7 +50,7 @@ class App extends StatelessWidget {
               state is AuthenticationInitialState ||
               state is AuthenticationNotCodeState) {
             // Si el usuario no está autenticado, mostrar la vista de login
-            return const LoginView();
+            return const RegisterView();
           }
 
           // Mostrar un indicador de progreso mientras se determina el estado de autenticación

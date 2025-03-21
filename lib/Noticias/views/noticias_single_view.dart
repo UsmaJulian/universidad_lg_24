@@ -40,7 +40,7 @@ class NoticiaSinglePage extends StatelessWidget {
 }
 
 class _ContentSingleNoticia extends StatefulWidget {
-  const _ContentSingleNoticia({super.key, this.user, this.nid});
+  const _ContentSingleNoticia({this.user, this.nid});
   final User? user;
   final String? nid;
 

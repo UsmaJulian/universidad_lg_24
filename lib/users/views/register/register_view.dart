@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:universidad_lg_24/Home/views/new_home_view.dart';
+// import 'package:universidad_lg_24/home/views/home_view.dart';
+import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
+import 'package:universidad_lg_24/users/views/register/widgets/register_auth_form.dart';
+
+class RegisterView extends StatelessWidget {
+  const RegisterView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: SizedBox(
+        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+            // print('$state login page');
+            final authBloc = BlocProvider.of<AuthenticationBloc>(context);
+            if (state is AuthenticationAuthenticatedState) {
+              return NewHomeView(
+                user: state.user,
+              );
+            }
+            if (state is AuthenticationNotAuthenticatedState) {
+              return const RegisterAuthForm(
+                isRegister: true,
+              );
+            }
+            if (state is AuthenticationNotCodeState) {
+              return const RegisterAuthForm(
+                isRegister: false,
+              );
+            }
+
+            if (state is AuthenticationFailure) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(state.message),
+                    TextButton(
+                      child: const Text('Volver a intentar'),
+                      onPressed: () {
+                        authBloc.add(AppLoadedEvent());
+                      },
+                    ),
+                  ],
+                ),
+              );
+            }
+            // return splash screen
+            return const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}

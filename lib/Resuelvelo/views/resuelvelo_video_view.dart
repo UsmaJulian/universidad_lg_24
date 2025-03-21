@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:universidad_lg_24/Resuelvelo/models/resuelvelo_model.dart';
@@ -34,6 +36,7 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
   @override
   void initState() {
     super.initState();
+    log('ResuelveloVideoView: ${widget.resuelveloData.resource}');
     _controller.loadVideo(widget.resuelveloData.resource);
     // Inicializa comentarios desde los datos existentes
     _comments.addAll(
