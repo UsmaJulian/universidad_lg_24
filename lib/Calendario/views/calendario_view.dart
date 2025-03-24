@@ -30,7 +30,7 @@ class _CalendarioViewState extends State<CalendarioView> {
 
   // Actualización de controladores según el ejemplo
   final calendarController = CalendarController<Event>();
-  final eventsController = EventsController<Event>();
+  final eventsController = DefaultEventsController<Event>();
 
   late DateTime now;
   late DateTimeRange displayRange;

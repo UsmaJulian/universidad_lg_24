@@ -2,7 +2,7 @@
 //
 //     final resuelveloModel = resuelveloModelFromJson(jsonString);
 
-// ignore_for_file: inference_failure_on_untyped_parameter, avoid_dynamic_calls
+// ignore_for_file: avoid_dynamic_calls, inference_failure_on_untyped_parameter
 
 import 'dart:convert';
 
@@ -42,7 +42,7 @@ class Body {
         info: Info.fromJson(json['info'] as Map<String, dynamic>),
         data: List<Datum>.from(
           json['data'].map((x) => Datum.fromJson(x as Map<String, dynamic>))
-              as Iterable<dynamic>,
+              as Iterable,
         ),
       );
   Info info;
@@ -65,6 +65,7 @@ class Datum {
     required this.tags,
     required this.likes,
     required this.comments,
+    required this.test,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -74,14 +75,16 @@ class Datum {
         title: json['title'].toString(),
         created: json['created'].toString(),
         content: json['content'].toString(),
-        tags:
-            List<String>.from(json['tags'].map((x) => x) as Iterable<dynamic>),
+        tags: List<String>.from(json['tags'].map((x) => x) as Iterable),
         likes: int.parse(json['likes'].toString()),
         comments: List<Comment>.from(
-          json['comments']
-                  .map((x) => Comment.fromJson(x as Map<String, dynamic>))
-              as Iterable<dynamic>,
+          (json['comments'] as List<dynamic>)
+              .map(
+                (x) => Comment.fromJson(x as Map<String, dynamic>),
+              )
+              .toList(),
         ),
+        test: int.parse(json['test'].toString()),
       );
   String resource;
   String thumbnail;
@@ -92,6 +95,7 @@ class Datum {
   List<String> tags;
   int likes;
   List<Comment> comments;
+  int test;
 
   Map<String, dynamic> toJson() => {
         'resource': resource,
@@ -103,6 +107,7 @@ class Datum {
         'tags': List<dynamic>.from(tags.map((x) => x)),
         'likes': likes,
         'comments': List<dynamic>.from(comments.map((x) => x.toJson())),
+        'test': test,
       };
 }
 

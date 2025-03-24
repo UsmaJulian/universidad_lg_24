@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:universidad_lg_24/Resuelvelo/models/resuelvelo_model.dart';
 import 'package:universidad_lg_24/Resuelvelo/services/comment_resuelvelo_service.dart';
+import 'package:universidad_lg_24/Resuelvelo/services/resuelvelo_services.dart';
+import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_test_view.dart';
 import 'package:universidad_lg_24/helpers/my_long_print.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
@@ -47,6 +49,7 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
 
   @override
   void dispose() {
+    _controller.stopVideo();
     _controller.close();
     _commentController.dispose();
     super.dispose();
@@ -67,6 +70,7 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
 
   @override
   Widget build(BuildContext context) {
+    log('ResuelveloVideoView: ${widget.resuelveloData.test}');
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
@@ -88,6 +92,75 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               YoutubePlayer(controller: _controller),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 14,
+                  bottom: 14,
+                ),
+                child: ElevatedButton(
+                  onPressed: (widget.resuelveloData.test.toString() == '1')
+                      ? () async {
+                          final response =
+                              await IsResuelveloService().getTestResuelvelo(
+                            token: widget.user.token.toString(),
+                            uid: widget.user.userId.toString(),
+                            nid: int.parse(widget.resuelveloData.nid),
+                          );
+                          if (response.body.test.isNotEmpty) {
+                            await Future<void>.delayed(
+                              Duration.zero,
+                            ).then(
+                              (_) => Navigator.push(
+                                context,
+                                MaterialPageRoute<void>(
+                                  builder: (context) {
+                                    return ResuelveloTestView(
+                                      user: widget.user,
+                                      content: response,
+                                    );
+                                  },
+                                  settings: RouteSettings(
+                                    name: '/solve/test/${response.body.title}',
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'No hay trivias disponibles',
+                                ),
+                              ),
+                            );
+                          }
+                        }
+                      : null,
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(129, 41),
+                    backgroundColor: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(30),
+                      ),
+                      side: BorderSide(),
+                    ),
+                  ),
+                  child: (widget.resuelveloData.test.toString() == '0')
+                      ? const Text(
+                          'Iniciar Test',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        )
+                      : const Text(
+                          'Realizada',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                ),
+              ),
               HtmlWidget(
                 widget.resuelveloData.content,
                 enableCaching: true,
