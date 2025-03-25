@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Ayuda/views/ayuda_view.dart';
@@ -28,8 +30,10 @@ class NewHomeView extends StatefulWidget {
 
 class _NewHomeViewState extends State<NewHomeView> {
   NewHomeModel? data;
+  String? role;
   @override
   void initState() {
+    _getRole();
     _getHomeContent();
     super.initState();
   }
@@ -69,9 +73,18 @@ class _NewHomeViewState extends State<NewHomeView> {
   //     ),
   //   },
   // ];
+  Future<String?> _getRole() async {
+    await UserStorage().getUserStorage().then((value) {
+      role = value?.role;
+    });
+
+    setState(() {});
+    return role;
+  }
 
   @override
   Widget build(BuildContext context) {
+    log('role: $role');
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
@@ -187,15 +200,25 @@ class _NewHomeViewState extends State<NewHomeView> {
                                     case '/':
                                       return NewHomeView(user: widget.user);
                                     case '/courses':
-                                      return NewCursosView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? NewCursosView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case '/assessment':
-                                      return EvaluacionView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? EvaluacionView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case 'library':
-                                      return BibliotecaView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? BibliotecaView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case '/solve':
-                                      return ResuelveloView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? ResuelveloView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case '/ranking':
-                                      return RankingView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? RankingView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case '/help':
                                       return AyudaView(user: widget.user);
                                     case '/profile':
@@ -239,15 +262,25 @@ class _NewHomeViewState extends State<NewHomeView> {
                                     case '/':
                                       return NewHomeView(user: widget.user);
                                     case '/courses':
-                                      return NewCursosView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? NewCursosView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case '/assessment':
-                                      return EvaluacionView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? EvaluacionView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case 'library':
-                                      return BibliotecaView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? BibliotecaView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case '/solve':
-                                      return ResuelveloView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? ResuelveloView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case '/ranking':
-                                      return RankingView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? RankingView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case '/help':
                                       return AyudaView(user: widget.user);
                                     case '/profile':
@@ -291,15 +324,25 @@ class _NewHomeViewState extends State<NewHomeView> {
                                     case '/':
                                       return NewHomeView(user: widget.user);
                                     case '/courses':
-                                      return NewCursosView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? NewCursosView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case '/assessment':
-                                      return EvaluacionView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? EvaluacionView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case 'library':
-                                      return BibliotecaView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? BibliotecaView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case '/solve':
-                                      return ResuelveloView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? ResuelveloView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case '/ranking':
-                                      return RankingView(user: widget.user);
+                                      return (role != 'visitorApp')
+                                          ? RankingView(user: widget.user)
+                                          : NewHomeView(user: widget.user);
                                     case '/help':
                                       return AyudaView(user: widget.user);
                                     case '/profile':
@@ -329,57 +372,84 @@ class _NewHomeViewState extends State<NewHomeView> {
             const SizedBox(
               height: 10,
             ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ButtonMain(
-                      text: 'Cursos',
-                      onPress: NewCursosView(
-                        user: widget.user,
+            if (role != 'visitorApp')
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ButtonMain(
+                        text: 'Cursos',
+                        onPress: NewCursosView(
+                          user: widget.user,
+                        ),
+                        routeName: '/courses',
                       ),
-                      routeName: '/courses',
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 15, right: 15),
-                      width: 3,
-                      height: 50,
-                      decoration: const BoxDecoration(color: Colors.white),
-                    ),
-                    ButtonMain(
-                      text: 'Noticias',
-                      onPress: NoticiasView(user: widget.user),
-                      routeName: '/news',
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 26,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ButtonMain(
-                      text: 'Reels',
-                      onPress: ReelsView(user: widget.user),
-                      routeName: '/reels',
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 15, right: 15),
-                      width: 3,
-                      height: 50,
-                      decoration: const BoxDecoration(color: Colors.white),
-                    ),
-                    ButtonMain(
-                      text: 'Juegos',
-                      onPress: JuegosView(user: widget.user),
-                      routeName: '/games',
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 15, right: 15),
+                        width: 3,
+                        height: 50,
+                        decoration: const BoxDecoration(color: Colors.white),
+                      ),
+                      ButtonMain(
+                        text: 'Noticias',
+                        onPress: NoticiasView(user: widget.user),
+                        routeName: '/news',
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 26,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ButtonMain(
+                        text: 'Reels',
+                        onPress: ReelsView(user: widget.user),
+                        routeName: '/reels',
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 15, right: 15),
+                        width: 3,
+                        height: 50,
+                        decoration: const BoxDecoration(color: Colors.white),
+                      ),
+                      ButtonMain(
+                        text: 'Juegos',
+                        onPress: JuegosView(user: widget.user),
+                        routeName: '/games',
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            else
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ButtonMain(
+                        text: 'Noticias',
+                        onPress: NoticiasView(user: widget.user),
+                        routeName: '/news',
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 15, right: 15),
+                        width: 3,
+                        height: 50,
+                        decoration: const BoxDecoration(color: Colors.white),
+                      ),
+                      ButtonMain(
+                        text: 'Reels',
+                        onPress: ReelsView(user: widget.user),
+                        routeName: '/reels',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
           ],
         ),
       ),

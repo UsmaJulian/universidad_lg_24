@@ -25,7 +25,7 @@ class ResuelveloTestView extends StatefulWidget {
 
 class _ResuelveloTestViewState extends State<ResuelveloTestView> {
   int _currentTest = 0;
-  final List<String> _currentAnswer = ['', '', '', '', ''];
+  final List<String> _currentAnswer = ['', '', '', '', '', '', '', '', '', ''];
   final _test = <dynamic>[];
   @override
   void initState() {
@@ -166,6 +166,16 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                     _currentAnswer[3] = '1';
                                   } else if (_currentTest == 4) {
                                     _currentAnswer[4] = '1';
+                                  } else if (_currentTest == 5) {
+                                    _currentAnswer[5] = '1';
+                                  } else if (_currentTest == 6) {
+                                    _currentAnswer[6] = '1';
+                                  } else if (_currentTest == 7) {
+                                    _currentAnswer[7] = '1';
+                                  } else if (_currentTest == 8) {
+                                    _currentAnswer[8] = '1';
+                                  } else if (_currentTest == 9) {
+                                    _currentAnswer[9] = '1';
                                   }
                                   setState(() {
                                     if (_currentTest < _test.length - 1) {
@@ -225,6 +235,16 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                         _currentAnswer[3] = '2';
                                       } else if (_currentTest == 4) {
                                         _currentAnswer[4] = '2';
+                                      } else if (_currentTest == 5) {
+                                        _currentAnswer[5] = '2';
+                                      } else if (_currentTest == 6) {
+                                        _currentAnswer[6] = '2';
+                                      } else if (_currentTest == 7) {
+                                        _currentAnswer[7] = '2';
+                                      } else if (_currentTest == 8) {
+                                        _currentAnswer[8] = '2';
+                                      } else if (_currentTest == 9) {
+                                        _currentAnswer[9] = '2';
                                       }
                                       setState(() {
                                         if (_currentTest < _test.length - 1) {
@@ -285,6 +305,16 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                     _currentAnswer[3] = '3';
                                   } else if (_currentTest == 4) {
                                     _currentAnswer[4] = '3';
+                                  } else if (_currentTest == 5) {
+                                    _currentAnswer[5] = '3';
+                                  } else if (_currentTest == 6) {
+                                    _currentAnswer[6] = '3';
+                                  } else if (_currentTest == 7) {
+                                    _currentAnswer[7] = '3';
+                                  } else if (_currentTest == 8) {
+                                    _currentAnswer[8] = '3';
+                                  } else if (_currentTest == 9) {
+                                    _currentAnswer[9] = '3';
                                   }
                                   setState(() {
                                     if (_currentTest < _test.length - 1) {
@@ -341,6 +371,16 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                     _currentAnswer[3] = '4';
                                   } else if (_currentTest == 4) {
                                     _currentAnswer[4] = '4';
+                                  } else if (_currentTest == 5) {
+                                    _currentAnswer[5] = '4';
+                                  } else if (_currentTest == 6) {
+                                    _currentAnswer[6] = '4';
+                                  } else if (_currentTest == 7) {
+                                    _currentAnswer[7] = '4';
+                                  } else if (_currentTest == 8) {
+                                    _currentAnswer[8] = '4';
+                                  } else if (_currentTest == 9) {
+                                    _currentAnswer[9] = '4';
                                   }
                                   setState(() {
                                     if (_currentTest < _test.length - 1) {
@@ -385,12 +425,17 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                       _test.length - 1) {}
                                 });
                                 debugPrint(_currentAnswer.toString());
-                                if (_currentTest == 4 &&
+                                if (_currentTest == 9 &&
                                     _currentAnswer[0].isNotEmpty &&
                                     _currentAnswer[1].isNotEmpty &&
                                     _currentAnswer[2].isNotEmpty &&
                                     _currentAnswer[3].isNotEmpty &&
-                                    _currentAnswer[4].isNotEmpty) {
+                                    _currentAnswer[4].isNotEmpty &&
+                                    _currentAnswer[5].isNotEmpty &&
+                                    _currentAnswer[6].isNotEmpty &&
+                                    _currentAnswer[7].isNotEmpty &&
+                                    _currentAnswer[8].isNotEmpty &&
+                                    _currentAnswer[9].isNotEmpty) {
                                   final response = await IsResuelveloService()
                                       .saveResuelveloTestAnswers(
                                     token: widget.user.token.toString(),
@@ -407,8 +452,19 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                           title: const Text(
                                             '¡Gracias por participar!',
                                           ),
-                                          content: const Text(
-                                            'Has completado el test',
+                                          content: Text.rich(
+                                            TextSpan(
+                                              text: 'Tu puntaje es: ',
+                                              children: [
+                                                TextSpan(
+                                                  text: response.body.puntos
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                           actions: [
                                             ButtonMain(
@@ -437,7 +493,10 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                 ),
                               ),
                               child: Text(
-                                (_currentTest == 4) ? 'Guardar' : 'Siguiente',
+                                (_currentTest == 9 &&
+                                        _currentAnswer[9].isNotEmpty)
+                                    ? 'Guardar'
+                                    : 'Siguiente',
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

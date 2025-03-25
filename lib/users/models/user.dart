@@ -83,6 +83,44 @@ class UserStorage {
     await UserSecureStorage.setRole(user!.role.toString());
   }
 
+  /// Obtiene el almacenamiento del usuario guardando los datos en almacenamiento seguro.
+
+  Future<User?> getUserStorage() async {
+    final userId = await UserSecureStorage.getUserId();
+    final loginToken = await UserSecureStorage.getLoginToken();
+    final loginCodigo = await UserSecureStorage.getLoginCodigo();
+    final email = await UserSecureStorage.getEmail();
+    final username = await UserSecureStorage.getUsername();
+    final nombre = await UserSecureStorage.getNombre();
+    final documento = await UserSecureStorage.getDocumento();
+    final celular = await UserSecureStorage.getCelular();
+    final empresa = await UserSecureStorage.getEmpresa();
+    final cargo = await UserSecureStorage.getCargo();
+    final mensaje = await UserSecureStorage.getMensaje();
+    final role = await UserSecureStorage.getRole();
+
+    if (userId != null && loginToken != null) {
+      return User(
+        userId: userId,
+        token: loginToken,
+        codigo: (loginCodigo != null && loginCodigo != 'null')
+            ? int.parse(loginCodigo)
+            : 0,
+        email: email,
+        username: username,
+        name: nombre,
+        documento: documento,
+        celular: celular,
+        empresa: empresa,
+        cargo: cargo,
+        mensaje: mensaje,
+        role: role,
+      );
+    } else {
+      return null;
+    }
+  }
+
   /// Destruye el almacenamiento del usuario limpiando los datos del almacenamiento seguro.
   Future<bool> destroyUserStorage() async {
     await UserSecureStorage.clearUserId();

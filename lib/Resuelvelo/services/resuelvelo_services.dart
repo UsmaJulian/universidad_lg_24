@@ -113,6 +113,7 @@ class IsResuelveloService extends ResuelveloService {
     int? nid,
     List<String>? answers,
   }) async {
+    log('saveResuelveloTestAnswers: $token $userId $nid $answers');
     try {
       final response = await http.post(
         Uri.https(baseUrl, 'app/resuelvelolg/test/save'),

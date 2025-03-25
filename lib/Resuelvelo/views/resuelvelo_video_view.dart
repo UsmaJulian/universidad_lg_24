@@ -92,13 +92,14 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               YoutubePlayer(controller: _controller),
+
               Padding(
                 padding: const EdgeInsets.only(
                   top: 14,
                   bottom: 14,
                 ),
                 child: ElevatedButton(
-                  onPressed: (widget.resuelveloData.test.toString() == '1')
+                  onPressed: (widget.resuelveloData.test.toString() == '0')
                       ? () async {
                           final response =
                               await IsResuelveloService().getTestResuelvelo(

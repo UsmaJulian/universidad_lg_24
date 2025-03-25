@@ -33,6 +33,23 @@ class DrawerMenu extends StatefulWidget {
 
 class _DrawerMenuState extends State<DrawerMenu> {
   bool _isVisible = false;
+  String? role;
+
+  Future<String?> _getRole() async {
+    await UserStorage().getUserStorage().then((value) {
+      role = value?.role;
+    });
+
+    setState(() {});
+    return role;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getRole();
+  }
+
   @override
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
@@ -159,78 +176,85 @@ class _DrawerMenuState extends State<DrawerMenu> {
             ).withOpacity(0.4),
             thickness: 1,
           ),
-          ListTile(
-            title: const Center(child: Text('Evaluación')),
-            onTap: () {
-              if (widget.currenPage != 'evaluaciones') {
-                Navigator.of(context).pop();
-                if (widget.isHome) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return EvaluacionView(user: widget.user!);
-                      },
-                      settings: const RouteSettings(name: '/assessment'),
-                    ),
-                  );
-                } else {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return EvaluacionView(user: widget.user!);
-                      },
-                      settings: const RouteSettings(name: '/assessment'),
-                    ),
-                  );
+
+          if (role != 'visitorApp')
+            ListTile(
+              title: const Center(child: Text('Evaluación')),
+              onTap: () {
+                if (widget.currenPage != 'evaluaciones') {
+                  Navigator.of(context).pop();
+                  if (widget.isHome) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (context) {
+                          return EvaluacionView(user: widget.user!);
+                        },
+                        settings: const RouteSettings(name: '/assessment'),
+                      ),
+                    );
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (context) {
+                          return EvaluacionView(user: widget.user!);
+                        },
+                        settings: const RouteSettings(name: '/assessment'),
+                      ),
+                    );
+                  }
                 }
-              }
-              return;
-            },
-          ),
-          Divider(
-            color: const Color(
-              0xff707070,
-            ).withOpacity(0.4),
-            thickness: 1,
-          ),
-          ListTile(
-            title: const Center(child: Text('Biblioteca')),
-            onTap: () {
-              if (widget.currenPage != 'biblioteca') {
-                Navigator.of(context).pop();
-                if (widget.isHome) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return BibliotecaView(user: widget.user);
-                      },
-                      settings: const RouteSettings(name: '/library'),
-                    ),
-                  );
-                } else {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return BibliotecaView(user: widget.user);
-                      },
-                      settings: const RouteSettings(name: '/library'),
-                    ),
-                  );
+                return;
+              },
+            )
+          else
+            const SizedBox(),
+          if (role != 'visitorApp')
+            Divider(
+              color: const Color(
+                0xff707070,
+              ).withOpacity(0.4),
+              thickness: 1,
+            ),
+          if (role != 'visitorApp')
+            ListTile(
+              title: const Center(child: Text('Biblioteca')),
+              onTap: () {
+                if (widget.currenPage != 'biblioteca') {
+                  Navigator.of(context).pop();
+                  if (widget.isHome) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (context) {
+                          return BibliotecaView(user: widget.user);
+                        },
+                        settings: const RouteSettings(name: '/library'),
+                      ),
+                    );
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (context) {
+                          return BibliotecaView(user: widget.user);
+                        },
+                        settings: const RouteSettings(name: '/library'),
+                      ),
+                    );
+                  }
                 }
-              }
-              return;
-            },
-          ),
-          Divider(
-            color: const Color(
-              0xff707070,
-            ).withOpacity(0.4),
-            thickness: 1,
-          ),
+                return;
+              },
+            ),
+          if (role != 'visitorApp')
+            Divider(
+              color: const Color(
+                0xff707070,
+              ).withOpacity(0.4),
+              thickness: 1,
+            ),
           ListTile(
             title: const Center(child: Text('Noticias')),
             onTap: () {
@@ -287,115 +311,121 @@ class _DrawerMenuState extends State<DrawerMenu> {
           //       }
           //       return null;
           //     }),
-          ListTile(
-            title: const Center(child: Text('Resuelvelo con LG')),
-            onTap: () {
-              if (widget.currenPage != 'resuelvelo') {
-                Navigator.of(context).pop();
-                if (widget.isHome) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return ResuelveloView(user: widget.user!);
-                      },
-                      settings: const RouteSettings(name: '/solve'),
-                    ),
-                  );
-                } else {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return ResuelveloView(user: widget.user!);
-                      },
-                      settings: const RouteSettings(name: '/solve'),
-                    ),
-                  );
+          if (role != 'visitorApp')
+            ListTile(
+              title: const Center(child: Text('Resuelvelo con LG')),
+              onTap: () {
+                if (widget.currenPage != 'resuelvelo') {
+                  Navigator.of(context).pop();
+                  if (widget.isHome) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (context) {
+                          return ResuelveloView(user: widget.user!);
+                        },
+                        settings: const RouteSettings(name: '/solve'),
+                      ),
+                    );
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (context) {
+                          return ResuelveloView(user: widget.user!);
+                        },
+                        settings: const RouteSettings(name: '/solve'),
+                      ),
+                    );
+                  }
                 }
-              }
-              return;
-            },
-          ),
-          Divider(
-            color: const Color(
-              0xff707070,
-            ).withOpacity(0.4),
-            thickness: 1,
-          ),
-          ListTile(
-            title: const Center(child: Text('Calendario')),
-            onTap: () {
-              if (widget.currenPage != 'calendario') {
-                Navigator.of(context).pop();
-                if (widget.isHome) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return CalendarioView(user: widget.user!);
-                      },
-                      settings: const RouteSettings(name: '/calendar'),
-                    ),
-                  );
-                } else {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return CalendarioView(user: widget.user!);
-                      },
-                      settings: const RouteSettings(name: '/calendar'),
-                    ),
-                  );
+                return;
+              },
+            ),
+          if (role != 'visitorApp')
+            Divider(
+              color: const Color(
+                0xff707070,
+              ).withOpacity(0.4),
+              thickness: 1,
+            ),
+          if (role != 'visitorApp')
+            ListTile(
+              title: const Center(child: Text('Calendario')),
+              onTap: () {
+                if (widget.currenPage != 'calendario') {
+                  Navigator.of(context).pop();
+                  if (widget.isHome) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (context) {
+                          return CalendarioView(user: widget.user!);
+                        },
+                        settings: const RouteSettings(name: '/calendar'),
+                      ),
+                    );
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (context) {
+                          return CalendarioView(user: widget.user!);
+                        },
+                        settings: const RouteSettings(name: '/calendar'),
+                      ),
+                    );
+                  }
                 }
-              }
-              return;
-            },
-          ),
-          Divider(
-            color: const Color(
-              0xff707070,
-            ).withOpacity(0.4),
-            thickness: 1,
-          ),
+                return;
+              },
+            ),
+          if (role != 'visitorApp')
+            Divider(
+              color: const Color(
+                0xff707070,
+              ).withOpacity(0.4),
+              thickness: 1,
+            ),
 
-          ListTile(
-            title: const Center(child: Text('Ranking')),
-            onTap: () {
-              if (widget.currenPage != 'ranking') {
-                Navigator.of(context).pop();
-                if (widget.isHome) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return RankingView(user: widget.user);
-                      },
-                      settings: const RouteSettings(name: '/ranking'),
-                    ),
-                  );
-                } else {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (context) {
-                        return RankingView(user: widget.user);
-                      },
-                      settings: const RouteSettings(name: '/ranking'),
-                    ),
-                  );
+          if (role != 'visitorApp')
+            ListTile(
+              title: const Center(child: Text('Ranking')),
+              onTap: () {
+                if (widget.currenPage != 'ranking') {
+                  Navigator.of(context).pop();
+                  if (widget.isHome) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (context) {
+                          return RankingView(user: widget.user);
+                        },
+                        settings: const RouteSettings(name: '/ranking'),
+                      ),
+                    );
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (context) {
+                          return RankingView(user: widget.user);
+                        },
+                        settings: const RouteSettings(name: '/ranking'),
+                      ),
+                    );
+                  }
                 }
-              }
-              return;
-            },
-          ),
-          Divider(
-            color: const Color(
-              0xff707070,
-            ).withOpacity(0.4),
-            thickness: 1,
-          ),
+                return;
+              },
+            ),
+          if (role != 'visitorApp')
+            Divider(
+              color: const Color(
+                0xff707070,
+              ).withOpacity(0.4),
+              thickness: 1,
+            ),
           ListTile(
             title: const Center(child: Text('Ayuda')),
             onTap: () {
