@@ -1,5 +1,7 @@
 // ignore_for_file: unused_local_variable, always_declare_return_types, unused_element
 
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
@@ -305,7 +307,7 @@ class __VideoPlayerLeccion extends State<_VideoPlayerLeccion>
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    log('video data: ${widget.leccion.status!.data!.curso!.datos!}');
     return Container(
       padding: const EdgeInsets.all(10.5),
       child: FlickVideoPlayer(flickManager: flickManager!),

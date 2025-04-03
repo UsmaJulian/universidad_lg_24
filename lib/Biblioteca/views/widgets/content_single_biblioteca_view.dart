@@ -3,7 +3,7 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:universidad_lg_24/Biblioteca/models/biblioteca_model.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/widgets/global/body_footer_global.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+import 'package:vimeo_video_player/vimeo_video_player.dart';
 
 class ContentSingleBibliotecaView extends StatefulWidget {
   const ContentSingleBibliotecaView({super.key, this.data});
@@ -16,29 +16,29 @@ class ContentSingleBibliotecaView extends StatefulWidget {
 
 class _ContentSingleBibliotecaViewState
     extends State<ContentSingleBibliotecaView> {
-  final _controller = YoutubePlayerController(
-    params: const YoutubePlayerParams(
-      showFullscreenButton: true,
-    ),
-  );
+  // final _controller = YoutubePlayerController(
+  //   params: const YoutubePlayerParams(
+  //     showFullscreenButton: true,
+  //   ),
+  // );
 
   @override
   void initState() {
     super.initState();
-    if (widget.data!.fieldRecursosTipoValue.toString() == 'Video') {
-      _controller
-        ..setSize(
-          double.infinity,
-          300,
-        )
-        ..loadVideo(widget.data!.recurso.toString());
-    }
+    // if (widget.data!.fieldRecursosTipoValue.toString() == 'Video') {
+    //   _controller
+    //     ..setSize(
+    //       double.infinity,
+    //       300,
+    //     )
+    //     ..loadVideo(widget.data!.recurso.toString());
+    // }
   }
 
   @override
   void dispose() {
     print('dispose video');
-    _controller.close();
+    // _controller.close();
 
     super.dispose();
   }
@@ -78,8 +78,14 @@ class _ContentSingleBibliotecaViewState
                       widget.data!.recurso != null &&
                       widget.data!.recurso!.isNotEmpty)
                   ? SingleChildScrollView(
-                      child: YoutubePlayer(
-                        controller: _controller,
+                      // child: YoutubePlayer(
+                      //   controller: _controller,
+                      // ),
+                      child: VimeoVideoPlayer(
+                        // videoId: '12860646',
+
+                        videoId: widget.data!.recurso.toString(),
+                        backgroundColor: mainColor,
                       ),
                       //  HtmlWidget(
                       //   widget.data!.recurso.toString(),

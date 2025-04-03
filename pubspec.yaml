@@ -1,7 +1,7 @@
 name: universidad_lg_24
 description: Aplicación desarrollada para el manejo de las integraciones
   previstas de universidad_lg
-version: 2.0.0+12
+version: 2.0.0+13
 publish_to: none
 
 environment:
@@ -13,7 +13,7 @@ dependencies:
   cached_network_image: ^3.4.1
 
   carousel_slider: ^5.0.0
-  chewie: ^1.10.0
+  # chewie: ^1.10.0
   cool_stepper_reloaded: ^3.2.6
   cupertino_icons: ^1.0.8
   equatable: ^2.0.7
@@ -35,7 +35,8 @@ dependencies:
   pull_to_refresh: ^2.0.0
   rainbow_color: ^2.0.1
   string_extensions: ^0.7.3
-  video_player: ^2.9.3
+  # video_player: ^2.9.3
+  vimeo_video_player: ^1.0.1
   webview_flutter: ^4.10.0
   youtube_player_iframe: ^5.2.1
 

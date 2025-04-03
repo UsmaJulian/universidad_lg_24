@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:universidad_lg_24/Reels/models/reels_model.dart';
@@ -10,7 +9,8 @@ import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/body_footer_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
-import 'package:video_player/video_player.dart';
+
+import 'package:vimeo_video_player/vimeo_video_player.dart';
 
 class ReelsView extends StatefulWidget {
   const ReelsView({required this.user, super.key});
@@ -258,10 +258,10 @@ class _ReelsViewState extends State<ReelsView> {
   }
 
   Future<void> dialogo(BuildContext context, Map<String, Object> reel) async {
-    final videoPlayerController = VideoPlayerController.networkUrl(
-      Uri.parse(reel['resource'].toString()),
-    );
-    await videoPlayerController.initialize();
+    // final videoPlayerController = VideoPlayerController.networkUrl(
+    //   Uri.parse(reel['resource'].toString()),
+    // );
+    // await videoPlayerController.initialize();
     return Future.delayed(Duration.zero, () {
       return showDialog<void>(
         context: context,
@@ -270,38 +270,44 @@ class _ReelsViewState extends State<ReelsView> {
           return AlertDialog(
             backgroundColor: bgColor,
             insetPadding: EdgeInsets.zero,
-            icon: Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  videoPlayerController.pause().then((_) {
-                    videoPlayerController.dispose();
-                  });
-                },
-                icon: const Icon(
-                  Icons.close,
-                  color: mainColor,
-                ),
-              ),
-            ),
+            // icon: Align(
+            //   alignment: Alignment.topRight,
+            //   child: IconButton(
+            //     onPressed: () {
+            //       Navigator.of(context).pop();
+            //       videoPlayerController.pause().then((_) {
+            //         videoPlayerController.dispose();
+            //       });
+            //     },
+            //     icon: const Icon(
+            //       Icons.close,
+            //       color: mainColor,
+            //     ),
+            //   ),
+            // ),
             content: SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: Chewie(
-                controller: ChewieController(
-                  videoPlayerController: videoPlayerController,
-                  errorBuilder: (
-                    context,
-                    errorMessage,
-                  ) {
-                    return const Center(
-                      child: Text(
-                        'Error al cargar el video',
-                      ),
-                    );
-                  },
-                ),
+              // child: Chewie(
+              //   controller: ChewieController(
+              //     videoPlayerController: videoPlayerController,
+              //     errorBuilder: (
+              //       context,
+              //       errorMessage,
+              //     ) {
+              //       return const Center(
+              //         child: Text(
+              //           'Error al cargar el video',
+              //         ),
+              //       );
+              //     },
+              //   ),
+              // ),
+              child: VimeoVideoPlayer(
+                // videoId: '12860646',
+
+                videoId: reel['resource'].toString(),
+                backgroundColor: mainColor,
               ),
             ),
           );

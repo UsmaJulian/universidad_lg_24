@@ -6,11 +6,12 @@ import 'package:universidad_lg_24/Resuelvelo/models/resuelvelo_model.dart';
 import 'package:universidad_lg_24/Resuelvelo/services/comment_resuelvelo_service.dart';
 import 'package:universidad_lg_24/Resuelvelo/services/resuelvelo_services.dart';
 import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_test_view.dart';
+import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/helpers/my_long_print.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+import 'package:vimeo_video_player/vimeo_video_player.dart';
 
 class ResuelveloVideoView extends StatefulWidget {
   const ResuelveloVideoView({
@@ -26,11 +27,11 @@ class ResuelveloVideoView extends StatefulWidget {
 }
 
 class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
-  final _controller = YoutubePlayerController(
-    params: const YoutubePlayerParams(
-      showFullscreenButton: true,
-    ),
-  );
+  // final _controller = YoutubePlayerController(
+  //   params: const YoutubePlayerParams(
+  //     showFullscreenButton: true,
+  //   ),
+  // );
 
   final TextEditingController _commentController = TextEditingController();
   final List<Map<String, String>> _comments = [];
@@ -39,7 +40,7 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
   void initState() {
     super.initState();
     log('ResuelveloVideoView: ${widget.resuelveloData.resource}');
-    _controller.loadVideo(widget.resuelveloData.resource);
+    // _controller.loadVideo(widget.resuelveloData.resource);
     // Inicializa comentarios desde los datos existentes
     _comments.addAll(
       widget.resuelveloData.comments
@@ -49,8 +50,8 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
 
   @override
   void dispose() {
-    _controller.stopVideo();
-    _controller.close();
+    // _controller.stopVideo();
+    // _controller.close();
     _commentController.dispose();
     super.dispose();
   }
@@ -70,7 +71,7 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
 
   @override
   Widget build(BuildContext context) {
-    log('ResuelveloVideoView: ${widget.resuelveloData.test}');
+    log('ResuelveloVideoView: ${widget.resuelveloData.resource}');
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
@@ -91,7 +92,16 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              YoutubePlayer(controller: _controller),
+              // YoutubePlayer(controller: _controller),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.45,
+                child: VimeoVideoPlayer(
+                  // videoId: '12860646',
+
+                  videoId: widget.resuelveloData.resource,
+                  backgroundColor: mainColor,
+                ),
+              ),
 
               Padding(
                 padding: const EdgeInsets.only(

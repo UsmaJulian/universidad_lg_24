@@ -1,15 +1,18 @@
-import 'package:chewie/chewie.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:universidad_lg_24/Cursos/services/cursos_services.dart';
 import 'package:universidad_lg_24/Entrenamiento/models/models.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/test_entrada_view.dart';
 import 'package:universidad_lg_24/Entrenamiento/views/test_salida_view.dart';
+import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
-import 'package:video_player/video_player.dart';
+
+import 'package:vimeo_video_player/vimeo_video_player.dart';
 
 class NewCursoSingleView extends StatefulWidget {
   const NewCursoSingleView({required this.user, required this.nid, super.key});
@@ -41,6 +44,7 @@ class _NewCursoSingleViewState extends State<NewCursoSingleView> {
 
   @override
   Widget build(BuildContext context) {
+    log('cursoData: ${cursoData?.status?.data?.curso?.video}');
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
@@ -123,16 +127,23 @@ class _NewCursoSingleViewState extends State<NewCursoSingleView> {
                     height: 555,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: Chewie(
-                        controller: ChewieController(
-                          videoPlayerController:
-                              VideoPlayerController.networkUrl(
-                            Uri.parse(
-                              cursoData!.status!.data!.curso!.video.toString(),
-                            ),
-                          ),
-                          aspectRatio: 16 / 9,
-                        ),
+                      // child: Chewie(
+                      //   controller: ChewieController(
+                      //     videoPlayerController:
+                      //         VideoPlayerController.networkUrl(
+                      //       Uri.parse(
+                      //         cursoData!.status!.data!.curso!.video.toString(),
+                      //       ),
+                      //     ),
+                      //     aspectRatio: 16 / 9,
+                      //   ),
+                      // ),
+                      child: VimeoVideoPlayer(
+                        // videoId: '12860646',
+
+                        videoId:
+                            cursoData!.status!.data!.curso!.video.toString(),
+                        backgroundColor: mainColor,
                       ),
                     ),
                   )

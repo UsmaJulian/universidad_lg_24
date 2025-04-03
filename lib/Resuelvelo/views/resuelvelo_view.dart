@@ -140,8 +140,10 @@ class _ResuelveloViewState extends State<ResuelveloView> {
                             ),
                           ),
                         ),
-                        if (resuelve.resource.isNotEmpty &&
-                            resuelve.resource.contains('youtube'))
+                        if (resuelve.resource.isNotEmpty
+                            //  &&
+                            // resuelve.resource.contains('youtube')
+                            )
                           Positioned(
                             bottom: MediaQuery.of(context).size.height * 0.04,
                             left: 15,
