@@ -270,6 +270,7 @@ class _ReelsViewState extends State<ReelsView> {
           return AlertDialog(
             backgroundColor: bgColor,
             insetPadding: EdgeInsets.zero,
+
             // icon: Align(
             //   alignment: Alignment.topRight,
             //   child: IconButton(
@@ -303,11 +304,31 @@ class _ReelsViewState extends State<ReelsView> {
               //     },
               //   ),
               // ),
-              child: VimeoVideoPlayer(
-                // videoId: '12860646',
+              child: Stack(
+                children: [
+                  VimeoVideoPlayer(
+                    // videoId: '12860646',
 
-                videoId: reel['resource'].toString(),
-                backgroundColor: mainColor,
+                    videoId: reel['resource'].toString(),
+                    backgroundColor: Colors.transparent,
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        // videoPlayerController.pause().then((_) {
+                        //   videoPlayerController.dispose();
+                        // });
+                      },
+                      icon: const Icon(
+                        size: 40,
+                        Icons.close,
+                        color: mainColor,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           );
