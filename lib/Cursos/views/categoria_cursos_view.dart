@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+// import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:universidad_lg_24/Cursos/services/cursos_services.dart';
 import 'package:universidad_lg_24/Cursos/views/new_curso_single_view.dart';
@@ -335,12 +335,12 @@ class CursoCard extends StatelessWidget {
             // ),
           ],
         ),
-        HtmlWidget(
-          curso['body'].toString(),
-          textStyle: const TextStyle(
-            fontSize: 14,
-          ),
-        ),
+        // HtmlWidget(
+        //   curso['body'].toString(),
+        //   textStyle: const TextStyle(
+        //     fontSize: 14,
+        //   ),
+        // ),
         const SizedBox(height: 26),
         ButtonMain(
           text: 'Ver Curso',

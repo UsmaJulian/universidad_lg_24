@@ -4,7 +4,8 @@ import 'package:universidad_lg_24/Resuelvelo/models/resuelvelo_model.dart';
 import 'package:universidad_lg_24/Resuelvelo/services/resuelvelo_services.dart';
 import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_video_view.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
-import 'package:universidad_lg_24/widgets/global/body_footer_global.dart';
+
+import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
 
@@ -99,86 +100,84 @@ class _ResuelveloViewState extends State<ResuelveloView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (data != null) Image.network(data!.body.info.banner),
+              if (data != null)
+                Image.network(data!.body.info.banner, fit: BoxFit.cover),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
                 child: HtmlWidget(
                   data?.body.info.content ?? '',
                 ),
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 20),
-                height: MediaQuery.of(context).size.height * 0.4,
                 child: GridView.builder(
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Número de columnas en el Grid
-                    crossAxisSpacing:
-                        10, // Espaciado horizontal entre elementos
-                    mainAxisSpacing: 10, // Espaciado vertical entre elementos
-                    childAspectRatio:
-                        0.75, // Relación de aspecto de los elementos
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 0.7, // ✅ Ajustado para dar más altura
                   ),
                   itemCount: data?.body.data.length ?? 0,
                   itemBuilder: (context, index) {
                     final resuelve = data!.body.data[index];
-                    return Stack(
-                      children: [
-                        SizedBox(
-                          width: 200,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: Image.network(
-                                    resuelve.thumbnail,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        if (resuelve.resource.isNotEmpty
-                            //  &&
-                            // resuelve.resource.contains('youtube')
-                            )
-                          Positioned(
-                            bottom: MediaQuery.of(context).size.height * 0.04,
-                            left: 15,
-                            child: ButtonMain(
-                              text: 'Ver',
-                              onPress: ResuelveloVideoView(
-                                user: widget.user,
-                                resuelveloData: resuelve,
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min, // ✅ Importante
+                        children: [
+                          // ✅ SizedBox con altura específica en lugar de Expanded
+                          SizedBox(
+                            height: 270, // ✅ Altura fija para la imagen
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(30),
+                              child: Image.network(
+                                resuelve.thumbnail,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[300],
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    child:
+                                        const Icon(Icons.image_not_supported),
+                                  );
+                                },
                               ),
-                              routeName: '/resuelvelo-video/${resuelve.title}',
-                            ),
-                          )
-                        else
-                          Positioned(
-                            bottom: 10,
-                            left: 15,
-                            child: ButtonMain(
-                              text: 'Ver',
                             ),
                           ),
-                      ],
+                          const SizedBox(height: 8),
+                          // ✅ Botón con altura específica
+                          SizedBox(
+                            height: 35,
+                            width: 150,
+                            child: resuelve.resource.isNotEmpty
+                                ? ButtonMain(
+                                    text: 'Ver',
+                                    onPress: ResuelveloVideoView(
+                                      user: widget.user,
+                                      resuelveloData: resuelve,
+                                    ),
+                                    routeName:
+                                        '/resuelvelo-video/${resuelve.title}',
+                                  )
+                                : ButtonMain(text: 'Ver'),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.08,
-                ),
-                child: const BodyFooter(),
               ),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: const CustomBottomAppBar(),
     );
   }
 }

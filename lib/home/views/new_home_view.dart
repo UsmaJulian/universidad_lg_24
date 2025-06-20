@@ -158,298 +158,218 @@ class _NewHomeViewState extends State<NewHomeView> {
       ), */
       body: Padding(
         padding: const EdgeInsets.only(top: 48),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
+            // CarouselSlider ocupando toda la pantalla disponible
             SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.51,
+              height: MediaQuery.of(context).size.height * 0.87,
               child: CarouselSlider.builder(
                 itemCount: 3,
                 options: CarouselOptions(
                   autoPlay: true,
-                  aspectRatio: 0.1,
-                  enlargeCenterPage: true,
-                  enlargeFactor: 0.15,
-                  viewportFraction: 0.6,
+                  height: MediaQuery.of(context).size.height *
+                      0.87, // Ajustado para coincidir con el contenedor
+                  enlargeFactor: 0,
+                  viewportFraction: 1,
                 ),
                 itemBuilder:
                     (BuildContext context, int index, int pageViewIndex) {
-                  switch (index) {
-                    case 0:
-                      return MouseRegion(
-                        cursor: SystemMouseCursors.move,
-                        child: GestureDetector(
+                  Widget buildSlide(String imageUrl) {
+                    log('imageUrl: $imageUrl');
+                    return MouseRegion(
+                      cursor: SystemMouseCursors.move,
+                      child: GestureDetector(
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height *
+                              0.87, // Ajustado
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: (data?.body != null)
                                 ? Image.network(
-                                    data!.body!.slides![index].imagenWeb
-                                        .toString(),
+                                    imageUrl,
                                     fit: BoxFit.cover,
                                     width: MediaQuery.of(context).size.width,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.87, // Ajustado
+                                    // Agregar loading placeholder
+                                    loadingBuilder:
+                                        (context, child, loadingProgress) {
+                                      if (loadingProgress == null) return child;
+                                      return Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.87,
+                                        color: Colors.grey[300],
+                                        child: Center(
+                                          child: CircularProgressIndicator(
+                                            value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    // Manejar errores de carga
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.87,
+                                        color: Colors.grey[300],
+                                        child: const Icon(
+                                          Icons.error,
+                                          color: Colors.red,
+                                          size: 50,
+                                        ),
+                                      );
+                                    },
                                   )
-                                : const SizedBox(),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(
-                                builder: (context) {
-                                  switch (data!.body!.slides![index].linkApp) {
-                                    case '/':
-                                      return NewHomeView(user: widget.user);
-                                    case '/courses':
-                                      return (role != 'visitorApp')
-                                          ? NewCursosView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case '/assessment':
-                                      return (role != 'visitorApp')
-                                          ? EvaluacionView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case 'library':
-                                      return (role != 'visitorApp')
-                                          ? BibliotecaView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case '/solve':
-                                      return (role != 'visitorApp')
-                                          ? ResuelveloView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case '/ranking':
-                                      return (role != 'visitorApp')
-                                          ? RankingView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case '/help':
-                                      return AyudaView(user: widget.user);
-                                    case '/profile':
-                                      return PerfilView(user: widget.user);
-                                    case '/reels':
-                                      return ReelsView(user: widget.user);
-                                    default:
-                                      return NewHomeView(user: widget.user);
-                                  }
-                                },
-                                settings: RouteSettings(
-                                  name: data!.body!.slides![index].linkApp
-                                      .toString(),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    case 1:
-                      return MouseRegion(
-                        cursor: SystemMouseCursors.move,
-                        child: GestureDetector(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: (data?.body != null)
-                                ? Image.network(
-                                    data!.body!.slides![index].imagenWeb
-                                        .toString(),
-                                    fit: BoxFit.cover,
+                                : Container(
                                     width: MediaQuery.of(context).size.width,
-                                  )
-                                : const SizedBox(),
+                                    height: MediaQuery.of(context).size.height *
+                                        0.87,
+                                    color: Colors.grey[300],
+                                  ),
                           ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(
-                                builder: (context) {
-                                  switch (data!.body!.slides![index].linkApp) {
-                                    case '/':
-                                      return NewHomeView(user: widget.user);
-                                    case '/courses':
-                                      return (role != 'visitorApp')
-                                          ? NewCursosView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case '/assessment':
-                                      return (role != 'visitorApp')
-                                          ? EvaluacionView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case 'library':
-                                      return (role != 'visitorApp')
-                                          ? BibliotecaView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case '/solve':
-                                      return (role != 'visitorApp')
-                                          ? ResuelveloView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case '/ranking':
-                                      return (role != 'visitorApp')
-                                          ? RankingView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case '/help':
-                                      return AyudaView(user: widget.user);
-                                    case '/profile':
-                                      return PerfilView(user: widget.user);
-                                    case '/reels':
-                                      return ReelsView(user: widget.user);
-                                    default:
-                                      return NewHomeView(user: widget.user);
-                                  }
-                                },
-                                settings: RouteSettings(
-                                  name: data!.body!.slides![index].linkApp
-                                      .toString(),
-                                ),
-                              ),
-                            );
-                          },
                         ),
-                      );
-                    case 2:
-                      return MouseRegion(
-                        cursor: SystemMouseCursors.move,
-                        child: GestureDetector(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: (data?.body != null)
-                                ? Image.network(
-                                    data!.body!.slides![index].imagenWeb
-                                        .toString(),
-                                    fit: BoxFit.cover,
-                                    width: MediaQuery.of(context).size.width,
-                                  )
-                                : const SizedBox(),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(
-                                builder: (context) {
-                                  switch (data!.body!.slides![index].linkApp) {
-                                    case '/':
-                                      return NewHomeView(user: widget.user);
-                                    case '/courses':
-                                      return (role != 'visitorApp')
-                                          ? NewCursosView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case '/assessment':
-                                      return (role != 'visitorApp')
-                                          ? EvaluacionView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case 'library':
-                                      return (role != 'visitorApp')
-                                          ? BibliotecaView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case '/solve':
-                                      return (role != 'visitorApp')
-                                          ? ResuelveloView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case '/ranking':
-                                      return (role != 'visitorApp')
-                                          ? RankingView(user: widget.user)
-                                          : NewHomeView(user: widget.user);
-                                    case '/help':
-                                      return AyudaView(user: widget.user);
-                                    case '/profile':
-                                      return PerfilView(user: widget.user);
-                                    case '/reels':
-                                      return ReelsView(user: widget.user);
-                                    default:
-                                      return NewHomeView(user: widget.user);
-                                  }
-                                },
-                                settings: RouteSettings(
-                                  name: data!.body!.slides![index].linkApp
-                                      .toString(),
-                                ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (context) => _getDestinationView(index),
+                              settings: RouteSettings(
+                                name: data!.body!.slides![index].linkApp
+                                    .toString(),
                               ),
-                            );
-                          },
-                        ),
-                      );
-
-                    default:
-                      return Container();
+                            ),
+                          );
+                        },
+                      ),
+                    );
                   }
+
+                  if (data != null) {
+                    switch (index) {
+                      case 0:
+                        return buildSlide(
+                          data!.body!.slides![index].imagenApp.toString(),
+                        );
+                      case 1:
+                        return buildSlide(
+                          data!.body!.slides![index].imagenWeb.toString(),
+                        );
+                      case 2:
+                        return buildSlide(
+                          data!.body!.slides![index].imagenWeb.toString(),
+                        );
+                      default:
+                        return Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.87,
+                          color: Colors.grey[300],
+                        );
+                    }
+                  }
+                  return const SizedBox.shrink();
                 },
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            if (role != 'visitorApp')
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ButtonMain(
-                        text: 'Cursos',
-                        onPress: NewCursosView(
-                          user: widget.user,
-                        ),
-                        routeName: '/courses',
+
+            // Botones posicionados explícitamente en la parte inferior
+            Positioned(
+              bottom: 50, // Margen desde abajo
+              left: 0,
+              right: 0,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: role != 'visitorApp'
+                    ? Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ButtonMain(
+                                text: 'Cursos',
+                                onPress: NewCursosView(user: widget.user),
+                                routeName: '/courses',
+                              ),
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                width: 3,
+                                height: 50,
+                                decoration:
+                                    const BoxDecoration(color: Colors.white),
+                              ),
+                              ButtonMain(
+                                text: 'Noticias',
+                                onPress: NoticiasView(user: widget.user),
+                                routeName: '/news',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 26),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ButtonMain(
+                                text: 'Reels',
+                                onPress: ReelsView(user: widget.user),
+                                routeName: '/reels',
+                              ),
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                width: 3,
+                                height: 50,
+                                decoration:
+                                    const BoxDecoration(color: Colors.white),
+                              ),
+                              ButtonMain(
+                                text: 'Juegos',
+                                onPress: JuegosView(user: widget.user),
+                                routeName: '/games',
+                              ),
+                            ],
+                          ),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ButtonMain(
+                            text: 'Noticias',
+                            onPress: NoticiasView(user: widget.user),
+                            routeName: '/news',
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 15, right: 15),
+                            width: 3,
+                            height: 50,
+                            decoration:
+                                const BoxDecoration(color: Colors.white),
+                          ),
+                          ButtonMain(
+                            text: 'Reels',
+                            onPress: ReelsView(user: widget.user),
+                            routeName: '/reels',
+                          ),
+                        ],
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 15, right: 15),
-                        width: 3,
-                        height: 50,
-                        decoration: const BoxDecoration(color: Colors.white),
-                      ),
-                      ButtonMain(
-                        text: 'Noticias',
-                        onPress: NoticiasView(user: widget.user),
-                        routeName: '/news',
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 26,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ButtonMain(
-                        text: 'Reels',
-                        onPress: ReelsView(user: widget.user),
-                        routeName: '/reels',
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 15, right: 15),
-                        width: 3,
-                        height: 50,
-                        decoration: const BoxDecoration(color: Colors.white),
-                      ),
-                      ButtonMain(
-                        text: 'Juegos',
-                        onPress: JuegosView(user: widget.user),
-                        routeName: '/games',
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            else
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ButtonMain(
-                        text: 'Noticias',
-                        onPress: NoticiasView(user: widget.user),
-                        routeName: '/news',
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 15, right: 15),
-                        width: 3,
-                        height: 50,
-                        decoration: const BoxDecoration(color: Colors.white),
-                      ),
-                      ButtonMain(
-                        text: 'Reels',
-                        onPress: ReelsView(user: widget.user),
-                        routeName: '/reels',
-                      ),
-                    ],
-                  ),
-                ],
               ),
+            ),
           ],
         ),
       ),
@@ -467,5 +387,40 @@ class _NewHomeViewState extends State<NewHomeView> {
       //   ),
       // ),
     );
+  }
+
+  Widget _getDestinationView(int index) {
+    switch (data!.body!.slides![index].linkApp) {
+      case '/':
+        return NewHomeView(user: widget.user);
+      case '/courses':
+        return (role != 'visitorApp')
+            ? NewCursosView(user: widget.user)
+            : NewHomeView(user: widget.user);
+      case '/assessment':
+        return (role != 'visitorApp')
+            ? EvaluacionView(user: widget.user)
+            : NewHomeView(user: widget.user);
+      case 'library':
+        return (role != 'visitorApp')
+            ? BibliotecaView(user: widget.user)
+            : NewHomeView(user: widget.user);
+      case '/solve':
+        return (role != 'visitorApp')
+            ? ResuelveloView(user: widget.user)
+            : NewHomeView(user: widget.user);
+      case '/ranking':
+        return (role != 'visitorApp')
+            ? RankingView(user: widget.user)
+            : NewHomeView(user: widget.user);
+      case '/help':
+        return AyudaView(user: widget.user);
+      case '/profile':
+        return PerfilView(user: widget.user);
+      case '/reels':
+        return ReelsView(user: widget.user);
+      default:
+        return NewHomeView(user: widget.user);
+    }
   }
 }
