@@ -1,17 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/app/views/app.dart';
-import 'bootstrap.dart';
+import 'package:universidad_lg_24/bootstrap.dart';
 
 /// The main entry point for the application.
-/// 
+///
 /// This function initializes the application with the appropriate environment
 /// based on the build configuration.
-/// 
+///
 /// To run in development mode:
 /// ```
 /// flutter run -t lib/main.dart --dart-define=ENVIRONMENT=development
 /// ```
-/// 
+///
 /// To run in production mode (default):
 /// ```
 /// flutter run -t lib/main.dart
@@ -27,9 +26,8 @@ void main() async {
 
   // Initialize the app with the determined environment
   await bootstrap(
-    environment: env == 'development' 
-        ? Environment.development 
-        : Environment.production,
+    environment:
+        env == 'development' ? Environment.development : Environment.production,
     appBuilder: (context) => const App(),
   );
 }
