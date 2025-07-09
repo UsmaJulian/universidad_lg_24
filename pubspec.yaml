@@ -1,7 +1,7 @@
 name: universidad_lg_24
 description: Aplicación desarrollada para el manejo de las integraciones
   previstas de universidad_lg
-version: 2.0.0+13
+version: 2.0.0+15
 publish_to: none
 
 environment:
@@ -34,6 +34,7 @@ dependencies:
   kalender: ^0.5.0
   pull_to_refresh: ^2.0.0
   rainbow_color: ^2.0.1
+  roulette: ^0.2.0
   string_extensions: ^0.7.3
   # video_player: ^2.9.3
   vimeo_video_player: ^1.0.1

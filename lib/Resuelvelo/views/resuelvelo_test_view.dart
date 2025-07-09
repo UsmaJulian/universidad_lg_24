@@ -83,16 +83,31 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                   ),
                 ),
               ),
-              const Text(
-                'Test',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                spacing: MediaQuery.of(context).size.width * 0.28,
+                children: [
+                  const Text(
+                    'Test',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: mainColor,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Image.asset(
+                      'assets/png/lg premia tu conocimiento blanco _Mesa de trabajo 1 (2).png',
+                      width: 180,
+                    ),
+                  ),
+                ],
               ),
               const Padding(
-                padding: EdgeInsets.only(top: 43),
+                padding: EdgeInsets.only(top: 3),
                 child: Divider(
                   color: Color(0xff707070),
                   thickness: 1,
@@ -331,6 +346,7 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                     ),
                                   ),
                                 ),
+                                //TODO:Validar
                                 child: SizedBox(
                                   width: 235,
                                   child: AutoSizeText(

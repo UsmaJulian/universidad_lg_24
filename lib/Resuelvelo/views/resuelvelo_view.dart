@@ -95,13 +95,18 @@ class _ResuelveloViewState extends State<ResuelveloView> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.14),
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.height * 0.14,
+            bottom: MediaQuery.of(context).size.height * 0.2,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (data != null)
-                Image.network(data!.body.info.banner, fit: BoxFit.cover),
+                Image.network(
+                  data!.body.info.banner,
+                  fit: BoxFit.cover,
+                ),
               Padding(
                 padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
                 child: HtmlWidget(
@@ -130,7 +135,8 @@ class _ResuelveloViewState extends State<ResuelveloView> {
                         children: [
                           // ✅ SizedBox con altura específica en lugar de Expanded
                           SizedBox(
-                            height: 270, // ✅ Altura fija para la imagen
+                            height: MediaQuery.of(context).size.height *
+                                0.25, // ✅ Altura fija para la imagen
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(30),
                               child: Image.network(
@@ -150,10 +156,10 @@ class _ResuelveloViewState extends State<ResuelveloView> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 22),
                           // ✅ Botón con altura específica
                           SizedBox(
-                            height: 35,
+                            height: 40,
                             width: 150,
                             child: resuelve.resource.isNotEmpty
                                 ? ButtonMain(

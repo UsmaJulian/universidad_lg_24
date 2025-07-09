@@ -22,7 +22,7 @@ class ButtonMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        minimumSize: const Size(170, 50),
+        minimumSize: const Size(140, 40),
         padding: const EdgeInsets.symmetric(horizontal: 30),
         backgroundColor: bgColor,
         shape: const RoundedRectangleBorder(

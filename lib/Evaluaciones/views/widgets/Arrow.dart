@@ -1,0 +1,37 @@
+import 'package:flutter/material.dart';
+
+class Arrow extends StatelessWidget {
+  const Arrow({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 20,
+      height: 36,
+      child: CustomPaint(painter: _ArrowPainter()),
+    );
+  }
+}
+
+class _ArrowPainter extends CustomPainter {
+  final _paint = Paint()
+    ..color = const Color(0xFFFD312E)
+    ..style = PaintingStyle.fill;
+  final Paint _strokePaint = Paint()
+    ..color = const Color(0xFF000000)
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 4.0;
+  @override
+  void paint(Canvas canvas, Size size) {
+    final path = Path()
+      ..lineTo(0, 0)
+      ..relativeLineTo(size.width / 2, size.height)
+      ..relativeLineTo(size.width / 2, -size.height)
+      ..close();
+    canvas.drawPath(path, _strokePaint);
+    canvas.drawPath(path, _paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}

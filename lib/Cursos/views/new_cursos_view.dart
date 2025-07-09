@@ -117,16 +117,17 @@ class CursoCard extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 20),
-        Text(
-          description,
-          textAlign: TextAlign.justify,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+        //TODO:Pendiente de confirmación
+        // const SizedBox(height: 20),
+        // Text(
+        //   description,
+        //   textAlign: TextAlign.justify,
+        //   style: const TextStyle(
+        //     color: Colors.black,
+        //     fontSize: 16,
+        //     fontWeight: FontWeight.w400,
+        //   ),
+        // ),
         const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

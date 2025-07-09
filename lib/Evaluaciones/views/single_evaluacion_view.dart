@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, always_declare_return_types, inference_failure_on_function_return_type
+// ignore_for_file: must_be_immutable, always_declare_return_types, inference_failure_on_function_return_type, unused_field, unused_element_parameter, unused_local_variable
 
 import 'package:cool_stepper_reloaded/cool_stepper_reloaded.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/helpers/flutter_radio_button_form_field.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/drawer_menu.dart';
+import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 
 Map<dynamic, dynamic> preguntasList = {};
@@ -44,45 +45,75 @@ class _SingleEvaluacionViewState extends State<SingleEvaluacionView> {
       key: _scaffoldKey,
       extendBodyBehindAppBar: true,
       extendBody: true,
-      backgroundColor: secondColor,
+      backgroundColor: const Color(0xffF6F3EB),
       appBar: CustomAppBar(user: widget.user),
       endDrawer: DrawerMenu(
         user: widget.user,
-        isHome: true, // Indica que el DrawerMenuLeft se está utilizando
-        // en la pantalla de inicio.
+        isHome: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.only(
-          top: MediaQuery.of(context).size.height * 0.15,
-        ),
-        child: SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.9,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, bottom: 10, top: 20),
-                  child: OutlinedButton(
-                    onPressed: _onBackPressed,
-                    child: const Text(
-                      'Volver',
-                      style: TextStyle(color: Colors.black),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding:
+              const EdgeInsets.only(top: 166, left: 18, right: 18, bottom: 119),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ElevatedButton(
+                onPressed: _onBackPressed,
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(129, 41),
+                  backgroundColor: Colors.white,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    side: BorderSide(),
+                  ),
+                ),
+                child: const Text(
+                  'Volver',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Evaluación',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 43),
+                child: Divider(
+                  color: Color(0xff707070),
+                  thickness: 1,
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 2,
+                      blurRadius: 10,
+                      offset: const Offset(0, 3),
                     ),
-                  ),
+                  ],
                 ),
-                Expanded(
-                  child: _SingleEvaluacionContent(
-                    user: widget.user,
-                    nid: widget.nid,
-                    singleRoute: widget.singleRoute,
-                  ),
+                padding: const EdgeInsets.only(top: 20, bottom: 20),
+                child: _SingleEvaluacionContent(
+                  user: widget.user,
+                  nid: widget.nid,
+                  singleRoute: widget.singleRoute,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
+      bottomNavigationBar: const CustomBottomAppBar(),
     );
   }
 
@@ -151,10 +182,17 @@ class _SingleEvaluacionViewState extends State<SingleEvaluacionView> {
 }
 
 class _SingleEvaluacionContent extends StatefulWidget {
-  _SingleEvaluacionContent({required this.singleRoute, this.user, this.nid});
-  User? user;
-  String? nid;
+  const _SingleEvaluacionContent({
+    required this.singleRoute,
+    this.user,
+    this.nid,
+    super.key,
+  });
+
+  final User? user;
+  final String? nid;
   final String singleRoute;
+
   @override
   __SingleEvaluacionContentState createState() =>
       __SingleEvaluacionContentState();
@@ -201,24 +239,18 @@ class __SingleEvaluacionContentState extends State<_SingleEvaluacionContent> {
 
   @override
   Widget build(BuildContext context) {
-    if (load) {
-      return SizedBox(
-        child: _ContentSingleEvaluacion(
-          evaluacionInfo: evaluacionInfo,
-          time: int.parse(
-            evaluacionInfo!.status!.tiempo!,
-          ),
-          nid: widget.nid,
-          user: widget.user,
-          singleRoute: widget.singleRoute,
-        ),
+    if (!load) {
+      return const Center(
+        child: CircularProgressIndicator(),
       );
     }
 
-    return const Center(
-      child: CircularProgressIndicator(
-        color: bgColor,
-      ),
+    return _ContentSingleEvaluacion(
+      evaluacionInfo: evaluacionInfo,
+      time: int.parse(evaluacionInfo!.status!.tiempo ?? '30'),
+      user: widget.user,
+      nid: widget.nid,
+      singleRoute: widget.singleRoute,
     );
   }
 }
@@ -226,10 +258,10 @@ class __SingleEvaluacionContentState extends State<_SingleEvaluacionContent> {
 class _ContentSingleEvaluacion extends StatefulWidget {
   const _ContentSingleEvaluacion({
     required this.singleRoute,
-    this.evaluacionInfo,
-    this.time,
-    this.user,
-    this.nid,
+    required this.evaluacionInfo,
+    required this.time,
+    required this.user,
+    required this.nid,
   });
   final SingleEvaluacion? evaluacionInfo;
   final int? time;
@@ -244,18 +276,24 @@ class _ContentSingleEvaluacion extends StatefulWidget {
 
 class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
     with TickerProviderStateMixin, WidgetsBindingObserver {
-  EvaluacionBloc evalacionBloc = EvaluacionBloc();
+  // Services and state
+  final EvaluacionBloc evalacionBloc = EvaluacionBloc();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
-  List<CoolStep> steps = [];
-  String selectedRole = '';
-  bool _autoValidate = false;
-  SendEvaluacion? respuesta;
-  Color barra = const Color(0xFF009846);
+  // Navigation
+  final PageController _pageController = PageController();
+  int _currentQuestionIndex = 0;
 
+  // Form and data
+  final List<CoolStep> steps = [];
+  SendEvaluacion? respuesta;
+  bool _autoValidate = false;
+
+  // Timer and animation
   AnimationController? controllerAnimation;
   Animation<double>? _anim;
   int endTime = 0;
+  final Color barra = const Color(0xFF009846);
 
   @override
   void initState() {
@@ -310,15 +348,6 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
     super.dispose();
   }
 
-  void startTimer() {
-    controllerTime?.start();
-  }
-
-  void pauseTimer() {
-    print('pauseController');
-    controllerTime?.disposeTimer();
-  }
-
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     print('stateUI: $state');
@@ -331,151 +360,197 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
     }
   }
 
+  void startTimer() {
+    controllerTime?.start();
+  }
+
+  void pauseTimer() {
+    print('pauseController');
+    controllerTime?.disposeTimer();
+  }
+
+  void _goToNextQuestion() {
+    if (_currentQuestionIndex < steps.length - 1) {
+      setState(() {
+        _currentQuestionIndex++;
+      });
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      _onFinish();
+    }
+  }
+
+  void _goToPreviousQuestion() {
+    if (_currentQuestionIndex > 0) {
+      setState(() {
+        _currentQuestionIndex--;
+      });
+      _pageController.previousPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Form(
-        key: _key,
-        autovalidateMode:
-            _autoValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
-        child: Column(
-          children: [
-            Expanded(
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
-                child: CoolStepper(
-                  onCompleted: _onFinish,
-                  contentPadding: const EdgeInsets.only(top: 10, bottom: 10),
-                  steps: steps,
-                  config: CoolStepperConfig(
-                    backText: 'ANTERIOR',
-                    nextText: 'SIGUIENTE',
-                    finalText: 'ENVIAR',
-                    stepText: '',
-                    ofText: 'DE',
-                    icon: const Icon(null, size: 0),
-                    headerColor: secondColor,
-                    titleTextStyle:
-                        const TextStyle(color: Colors.black, fontSize: 20),
-                    subtitleTextStyle:
-                        const TextStyle(color: Colors.black, fontSize: 16),
-                    nextTextStyle: const TextStyle(
-                      color: mainColor,
+    print('Sección de preguntas:${steps[_currentQuestionIndex].title}');
+    if (steps.isEmpty) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Progress indicator (e.g., "1/10")
+          Padding(
+            padding: const EdgeInsets.only(top: 20, bottom: 10),
+            child: Text(
+              '${_currentQuestionIndex + 1}/${steps.length}',
+              style: const TextStyle(
+                color: Color(0xffAAA8A5),
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+
+          // Question text
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Text(
+              steps[_currentQuestionIndex].title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+
+          // Divider
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 15),
+            child: Divider(
+              color: Color(0xff707070),
+              thickness: 1,
+            ),
+          ),
+
+          // PageView for questions
+          SizedBox(
+            height: MediaQuery.of(context).size.height *
+                0.3, // Fixed height for the question area
+            child: PageView.builder(
+              controller: _pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: steps.length,
+              itemBuilder: (context, index) {
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: steps[index].content,
+                  ),
+                );
+              },
+            ),
+          ),
+
+          // Navigation buttons
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Previous button (only show if not first question)
+                if (_currentQuestionIndex > 0)
+                  ElevatedButton(
+                    onPressed: _goToPreviousQuestion,
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(120, 50),
+                      backgroundColor: const Color(0xffF6F3EB),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: const BorderSide(),
+                      ),
+                    ),
+                    child: const Text(
+                      'ANTERIOR',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                else
+                  const SizedBox(width: 120), // Spacer when button is hidden
+
+                // Next/Submit button
+                ElevatedButton(
+                  onPressed: _goToNextQuestion,
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(120, 50),
+                    backgroundColor: mainColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: Text(
+                    _currentQuestionIndex < steps.length - 1
+                        ? 'SIGUIENTE'
+                        : 'ENVIAR',
+                    style: const TextStyle(
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                    nextButton: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(110, 50),
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        backgroundColor: mainColor,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(30),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                        'SIGUIENTE',
-                        style: TextStyle(color: secondColor),
-                      ),
-                    ),
-                    finishButton: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(110, 50),
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        backgroundColor: mainColor,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(30),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                        'ENVIAR',
-                        style: TextStyle(color: secondColor),
-                      ),
-                    ),
-                    backButton: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(110, 50),
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        backgroundColor: secondColor,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(30),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                        'ANTERIOR',
-                        style: TextStyle(color: mainColor),
-                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-            Container(
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  LinearProgressIndicator(
-                    value: controllerAnimation!.value,
-                    color: mainColor,
-                    backgroundColor: rb[_anim!.value],
-                    minHeight: 30,
-                  ),
-                  CountdownTimer(
-                    controller: controllerTime,
-                    onEnd: _onFinishTime,
-                    endTime: endTime,
-                    widgetBuilder: (_, CurrentRemainingTime? time) {
-                      // print((widget.time / 1.2));
-                      // print(time.min);
+          ),
 
-                      // if (time.min <= 8) {
-                      //   setState(() {
-                      //     barra = Color(0xFFFFE900);
-                      //   });
-                      // }
-
-                      if (time == null) {
-                        return const Text(
-                          'Tiempo finalizado',
-                          style: TextStyle(color: Colors.white),
-                        );
-                      }
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.timer,
-                            color: Colors.white,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            '${time.min ?? 0} : ${time.sec}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              ),
+          // Timer
+          Container(
+            margin: const EdgeInsets.only(bottom: 10),
+            child: CountdownTimer(
+              controller: controllerTime,
+              onEnd: _onFinish,
+              widgetBuilder: (_, CurrentRemainingTime? time) {
+                if (time == null) {
+                  return const Text(
+                    'Tiempo finalizado',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                }
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.timer, color: Colors.white),
+                    const SizedBox(width: 5),
+                    Text(
+                      '${time.min ?? 0}:${time.sec.toString().padLeft(2, '0')}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -496,7 +571,8 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
       preguntasList[item.id] = '0';
       steps.add(
         CoolStep(
-          title: 'Pregunta $cont',
+          // title: 'Pregunta $cont',
+          title: item.texto!,
           subtitle: item.texto!,
           content: SizedBox(
             child: Column(
@@ -550,7 +626,7 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
 
   ///////////////  finalizavion de los steps //////////
 
-  _onFinish() {
+  void _onFinish() {
     showDialog<String>(
       barrierDismissible: false,
       context: context,
@@ -673,13 +749,15 @@ _result({EvaluacionRest? res, User? user, BuildContext? context, String? id}) {
   final puntaje = res.puntaje!;
   final copa = res.copa!;
 
+  if (puntaje >= 90) {}
+
   showDialog<String>(
     context: context!,
     barrierDismissible: false,
     // para no cerrar outclick de la alerta
-    builder: (BuildContext context) => WillPopScope(
+    builder: (BuildContext context) => PopScope(
       // will para evitar el retroceso
-      onWillPop: () async => false,
+      canPop: false,
       child: AlertDialog(
         title: const Text(
           'RESULTADO',
