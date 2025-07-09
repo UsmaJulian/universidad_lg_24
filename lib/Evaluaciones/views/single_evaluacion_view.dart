@@ -276,6 +276,8 @@ class _ContentSingleEvaluacion extends StatefulWidget {
 
 class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
     with TickerProviderStateMixin, WidgetsBindingObserver {
+  final ScrollController _controller = ScrollController();
+
   // Services and state
   final EvaluacionBloc evalacionBloc = EvaluacionBloc();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
@@ -345,6 +347,8 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
 
     // detroy de la animacion
     controllerAnimation?.dispose();
+
+    _controller.dispose();
     super.dispose();
   }
 
@@ -453,10 +457,17 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
               physics: const NeverScrollableScrollPhysics(),
               itemCount: steps.length,
               itemBuilder: (context, index) {
-                return SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: steps[index].content,
+                return Scrollbar(
+                  thumbVisibility: true,
+                  trackVisibility: true,
+                  interactive: true,
+                  controller: _controller,
+                  child: SingleChildScrollView(
+                    controller: _controller,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: steps[index].content,
+                    ),
                   ),
                 );
               },

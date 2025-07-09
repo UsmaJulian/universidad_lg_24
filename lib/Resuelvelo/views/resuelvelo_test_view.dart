@@ -26,7 +26,7 @@ class ResuelveloTestView extends StatefulWidget {
 class _ResuelveloTestViewState extends State<ResuelveloTestView> {
   int _currentTest = 0;
   final List<String> _currentAnswer = ['', '', '', '', '', '', '', '', '', ''];
-  final _test = <dynamic>[];
+  final List<Test> _test = [];
   @override
   void initState() {
     _test.addAll(widget.content.body.test);
@@ -211,7 +211,9 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                 child: SizedBox(
                                   width: 235,
                                   child: AutoSizeText(
-                                    _test[_currentTest].anwers[0].toString(),
+                                    _test[_currentTest].anwers.isNotEmpty 
+                                        ? _test[_currentTest].anwers[0].toString() 
+                                        : 'Opción no disponible',
                                     maxLines: 4,
                                     style: const TextStyle(
                                       color: Colors.black,
@@ -351,7 +353,9 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                   width: 235,
                                   child: AutoSizeText(
                                     maxLines: 4,
-                                    _test[_currentTest].anwers[2].toString(),
+                                    _test[_currentTest].anwers.length >= 3
+                                        ? _test[_currentTest].anwers[2].toString() 
+                                        : 'Opción no disponible',
                                     style: const TextStyle(
                                       color: Colors.black,
                                     ),
@@ -417,7 +421,9 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                   width: 235,
                                   child: AutoSizeText(
                                     maxLines: 4,
-                                    _test[_currentTest].anwers[3].toString(),
+                                    _test[_currentTest].anwers.length >= 4
+                                        ? _test[_currentTest].anwers[3].toString() 
+                                        : 'Opción no disponible',
                                     style: const TextStyle(
                                       color: Colors.black,
                                     ),
