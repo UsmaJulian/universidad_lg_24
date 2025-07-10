@@ -60,7 +60,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.16,
+            height: MediaQuery.of(context).size.height * 0.19,
             child: DrawerHeader(
               margin: const EdgeInsets.only(bottom: 20),
               decoration: const BoxDecoration(
@@ -89,7 +89,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                         },
                         child: const Image(
                           image: AssetImage('assets/images/Grupo 77.png'),
-                          height: 40,
+                          height: 35,
                         ),
                       ),
                       IconButton(
@@ -97,7 +97,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                           Navigator.pop(context);
                         },
                         icon: const Icon(Icons.close),
-                        iconSize: 35,
+                        iconSize: 30,
                         color: mainColor,
                       ),
                     ],

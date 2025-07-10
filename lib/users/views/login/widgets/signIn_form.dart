@@ -73,7 +73,7 @@ class _SignInFormState extends State<SignInForm> {
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       hintText: 'Correo Eletronico',
-                      hintStyle: TextStyle(color: Colors.black),
+                      hintStyle: TextStyle(color: Colors.black, fontSize: 14),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: mainColor,
@@ -107,7 +107,8 @@ class _SignInFormState extends State<SignInForm> {
                     ),
                     decoration: InputDecoration(
                       hintText: 'Contraseña',
-                      hintStyle: const TextStyle(color: Colors.black),
+                      hintStyle:
+                          const TextStyle(color: Colors.black, fontSize: 14),
                       focusedBorder: const UnderlineInputBorder(),
                       enabledBorder: const UnderlineInputBorder(),
                       icon: const Icon(
@@ -157,6 +158,7 @@ class _SignInFormState extends State<SignInForm> {
                           'Políticas de confidencialidad y privacidad',
                           style: TextStyle(
                             color: Colors.black,
+                            fontSize: 13,
                           ),
                         ),
                         onTap: () {

@@ -84,7 +84,6 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                 ),
               ),
               Row(
-                spacing: MediaQuery.of(context).size.width * 0.28,
                 children: [
                   const Text(
                     'Test',
@@ -94,6 +93,7 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const Spacer(),
                   Container(
                     decoration: BoxDecoration(
                       color: mainColor,
@@ -122,11 +122,12 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 32),
-                      child: Text(
+                      child: AutoSizeText(
                         '${_currentTest + 1}/${_test.length}',
+                        minFontSize: 41,
+                        maxFontSize: 45,
                         style: const TextStyle(
                           color: Color(0xffAAA8A5),
-                          fontSize: 50,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -135,12 +136,12 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                       padding:
                           const EdgeInsets.only(top: 6, left: 38, right: 38),
                       child: AutoSizeText(
-                        maxLines: 4,
-                        _test[_currentTest].question.toString(),
+                        minFontSize: 10,
+                        maxFontSize: 14,
+                        _test[_currentTest].question,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Colors.black,
-                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -161,10 +162,10 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                             children: [
                               const AutoSizeText(
                                 'a',
-                                maxLines: 4,
+                                minFontSize: 10,
+                                maxFontSize: 14,
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -209,12 +210,14 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                   ),
                                 ),
                                 child: SizedBox(
-                                  width: 235,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
                                   child: AutoSizeText(
-                                    _test[_currentTest].anwers.isNotEmpty 
-                                        ? _test[_currentTest].anwers[0].toString() 
+                                    minFontSize: 10,
+                                    maxFontSize: 14,
+                                    _test[_currentTest].anwers.isNotEmpty
+                                        ? _test[_currentTest].anwers[0]
                                         : 'Opción no disponible',
-                                    maxLines: 4,
                                     style: const TextStyle(
                                       color: Colors.black,
                                     ),
@@ -279,12 +282,12 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                       ),
                                     ),
                                     child: SizedBox(
-                                      width: 235,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.5,
                                       child: AutoSizeText(
-                                        maxLines: 4,
-                                        _test[_currentTest]
-                                            .anwers[1]
-                                            .toString(),
+                                        minFontSize: 10,
+                                        maxFontSize: 14,
+                                        _test[_currentTest].anwers[1],
                                         style: const TextStyle(
                                           color: Colors.black,
                                         ),
@@ -348,13 +351,14 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                     ),
                                   ),
                                 ),
-                                //TODO:Validar
                                 child: SizedBox(
-                                  width: 235,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
                                   child: AutoSizeText(
-                                    maxLines: 4,
+                                    minFontSize: 10,
+                                    maxFontSize: 14,
                                     _test[_currentTest].anwers.length >= 3
-                                        ? _test[_currentTest].anwers[2].toString() 
+                                        ? _test[_currentTest].anwers[2]
                                         : 'Opción no disponible',
                                     style: const TextStyle(
                                       color: Colors.black,
@@ -418,11 +422,13 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                   ),
                                 ),
                                 child: SizedBox(
-                                  width: 235,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
                                   child: AutoSizeText(
-                                    maxLines: 4,
+                                    minFontSize: 10,
+                                    maxFontSize: 14,
                                     _test[_currentTest].anwers.length >= 4
-                                        ? _test[_currentTest].anwers[3].toString() 
+                                        ? _test[_currentTest].anwers[3]
                                         : 'Opción no disponible',
                                     style: const TextStyle(
                                       color: Colors.black,

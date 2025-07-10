@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, always_declare_return_types, inference_failure_on_function_return_type, unused_field, unused_element_parameter, unused_local_variable
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cool_stepper_reloaded/cool_stepper_reloaded.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
@@ -428,12 +429,13 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
           // Question text
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text(
+            child: AutoSizeText(
               steps[_currentQuestionIndex].title,
               textAlign: TextAlign.center,
+              minFontSize: 14,
+              maxFontSize: 18,
               style: const TextStyle(
                 color: Colors.black,
-                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -450,8 +452,8 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
 
           // PageView for questions
           SizedBox(
-            height: MediaQuery.of(context).size.height *
-                0.3, // Fixed height for the question area
+            // height: MediaQuery.of(context).size.height *
+            //     0.3, // Fixed height for the question area
             child: PageView.builder(
               controller: _pageController,
               physics: const NeverScrollableScrollPhysics(),
@@ -465,7 +467,7 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
                   child: SingleChildScrollView(
                     controller: _controller,
                     child: Padding(
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.only(top: 20, bottom: 20),
                       child: steps[index].content,
                     ),
                   ),

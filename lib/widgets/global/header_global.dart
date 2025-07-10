@@ -61,7 +61,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
           child: Builder(
             builder: (context) {
               return IconButton(
-                icon: const Icon(Icons.menu, color: mainColor, size: 43),
+                icon: const Icon(Icons.menu, color: mainColor, size: 40),
                 onPressed: () {
                   Scaffold.of(context).openEndDrawer();
                 },

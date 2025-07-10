@@ -76,7 +76,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       hintText: 'Correo Eletronico',
-                      hintStyle: TextStyle(color: Colors.black),
+                      hintStyle: TextStyle(color: Colors.black, fontSize: 14),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: mainColor,
@@ -110,7 +110,8 @@ class _SignUpFormState extends State<SignUpForm> {
                     ),
                     decoration: InputDecoration(
                       hintText: 'Contraseña',
-                      hintStyle: const TextStyle(color: Colors.black),
+                      hintStyle:
+                          const TextStyle(color: Colors.black, fontSize: 14),
                       focusedBorder: const UnderlineInputBorder(),
                       enabledBorder: const UnderlineInputBorder(),
                       icon: const Icon(
@@ -152,7 +153,8 @@ class _SignUpFormState extends State<SignUpForm> {
                     ),
                     decoration: InputDecoration(
                       hintText: 'Confirmar Contraseña',
-                      hintStyle: const TextStyle(color: Colors.black),
+                      hintStyle:
+                          const TextStyle(color: Colors.black, fontSize: 14),
                       focusedBorder: const UnderlineInputBorder(),
                       enabledBorder: const UnderlineInputBorder(),
                       icon: const Icon(
@@ -202,6 +204,7 @@ class _SignUpFormState extends State<SignUpForm> {
                           'Políticas de confidencialidad y privacidad',
                           style: TextStyle(
                             color: Colors.black,
+                            fontSize: 13,
                           ),
                         ),
                         onTap: () {

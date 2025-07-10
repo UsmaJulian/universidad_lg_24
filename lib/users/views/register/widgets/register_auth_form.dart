@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
@@ -32,11 +33,12 @@ class RegisterAuthForm extends StatelessWidget {
       margin: const EdgeInsets.only(
         bottom: 30,
       ),
-      child: const Text(
+      child: const AutoSizeText(
+        minFontSize: 21,
+        maxFontSize: 25,
         'Universidad LG',
         style: TextStyle(
           color: Colors.black,
-          fontSize: 25,
         ),
       ),
     );
