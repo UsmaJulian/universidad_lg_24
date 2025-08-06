@@ -9,7 +9,6 @@ import 'package:universidad_lg_24/Evaluaciones/bloc/ruleta_bloc/ruleta_bloc.dart
 import 'package:universidad_lg_24/Evaluaciones/services/ruleta_services.dart';
 import 'package:universidad_lg_24/Evaluaciones/views/widgets/Arrow.dart';
 import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_view.dart';
-import 'package:universidad_lg_24/constants.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
@@ -212,18 +211,9 @@ class _RouletteViewState extends State<RouletteView> {
                 ),
                 child: Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.width * 0.05,
-                      ),
-                      decoration: BoxDecoration(
-                        color: mainColor,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Image.asset(
-                        'assets/png/lg premia tu conocimiento blanco _Mesa de trabajo 1 (2).png',
-                        width: 180,
-                      ),
+                    Image.asset(
+                      'assets/png/LOGO_FINAL_PREM.png',
+                      width: 180,
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(

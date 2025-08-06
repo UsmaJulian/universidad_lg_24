@@ -95,15 +95,9 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                     ),
                   ),
                   const Spacer(),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: mainColor,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Image.asset(
-                      'assets/png/lg premia tu conocimiento blanco _Mesa de trabajo 1 (2).png',
-                      width: 180,
-                    ),
+                  Image.asset(
+                    'assets/png/LOGO_FINAL_PREM.png',
+                    width: 180,
                   ),
                 ],
               ),
@@ -474,6 +468,7 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                   );
                                   myLongPrint('Respuesta del save:$response');
                                   if (response.response.type == 'success') {
+                                    //TODO:Agregar validaciones de apertura de la ruleta
                                     (response.body.puntos == 100)
                                         ? Navigator.pushReplacement(
                                             context,
