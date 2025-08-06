@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:universidad_lg_24/Resuelvelo/loading_bloc/loading_bloc.dart';
 import 'package:universidad_lg_24/Resuelvelo/models/resuelvelo_model.dart';
 import 'package:universidad_lg_24/Resuelvelo/services/resuelvelo_services.dart';
 import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_video_view.dart';
@@ -68,6 +70,7 @@ class _ResuelveloViewState extends State<ResuelveloView> {
   }
 
   Future<void> _getDataResuelvelo() async {
+    context.read<LoadingBloc>().add(ShowLoading());
     await IsResuelveloService()
         .getResuelveloService(
       uid: widget.user.userId,
@@ -78,6 +81,7 @@ class _ResuelveloViewState extends State<ResuelveloView> {
       setState(() {
         data = value;
       });
+      context.read<LoadingBloc>().add(HideLoading());
     });
   }
 
@@ -171,7 +175,7 @@ class _ResuelveloViewState extends State<ResuelveloView> {
                                     routeName:
                                         '/resuelvelo-video/${resuelve.title}',
                                   )
-                                : ButtonMain(text: 'Ver'),
+                                : ButtonMain(),
                           ),
                         ],
                       ),

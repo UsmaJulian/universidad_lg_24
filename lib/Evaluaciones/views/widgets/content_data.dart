@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:universidad_lg_24/Evaluaciones/bloc/evaluacion_bloc.dart';
+import 'package:universidad_lg_24/Evaluaciones/bloc/evaluaci%C3%B3n_bloc/evaluacion_bloc.dart';
 import 'package:universidad_lg_24/Evaluaciones/models/models.dart';
 import 'package:universidad_lg_24/Evaluaciones/views/widgets/item_respuestas.dart';
 import 'package:universidad_lg_24/constants.dart';

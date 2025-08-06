@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:universidad_lg_24/Evaluaciones/views/roulette_view.dart';
+
+// import 'package:universidad_lg_24/Evaluaciones/views/roulette_view.dart';
+import 'package:universidad_lg_24/Home/views/new_home_view.dart';
 
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
@@ -28,24 +30,24 @@ class _CustomAppBarState extends State<CustomAppBar> {
       backgroundColor: bgColor,
       leading: GestureDetector(
         onTap: () {
-          // Navigator.pushReplacement(
-          //   context,
-          //   MaterialPageRoute<void>(
-          //     builder: (context) {
-          //       return NewHomeView(user: widget.user!);
-          //     },
-          //     settings: const RouteSettings(name: '/'),
-          //   ),
-          // );
           Navigator.pushReplacement(
             context,
             MaterialPageRoute<void>(
               builder: (context) {
-                return RouletteView(user: widget.user);
+                return NewHomeView(user: widget.user!);
               },
-              settings: const RouteSettings(name: '/roulette'),
+              settings: const RouteSettings(name: '/'),
             ),
           );
+          // Navigator.pushReplacement(
+          //   context,
+          //   MaterialPageRoute<void>(
+          //     builder: (context) {
+          //       return RouletteView(user: widget.user);
+          //     },
+          //     settings: const RouteSettings(name: '/roulette'),
+          //   ),
+          // );
         },
         child: Padding(
           padding: const EdgeInsets.only(left: 21),

@@ -7,7 +7,7 @@ import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:rainbow_color/rainbow_color.dart';
-import 'package:universidad_lg_24/Evaluaciones/bloc/evaluacion_bloc.dart';
+import 'package:universidad_lg_24/Evaluaciones/bloc/evaluaci%C3%B3n_bloc/evaluacion_bloc.dart';
 import 'package:universidad_lg_24/Evaluaciones/models/models.dart';
 import 'package:universidad_lg_24/Evaluaciones/views/evaluacion_view.dart';
 import 'package:universidad_lg_24/Evaluaciones/views/resultado_view.dart';
@@ -452,8 +452,7 @@ class __ContentSingleEvaluacionState extends State<_ContentSingleEvaluacion>
 
           // PageView for questions
           SizedBox(
-            // height: MediaQuery.of(context).size.height *
-            //     0.3, // Fixed height for the question area
+            height: MediaQuery.of(context).size.height * 0.4,
             child: PageView.builder(
               controller: _pageController,
               physics: const NeverScrollableScrollPhysics(),

@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable, always_declare_return_types, inference_failure_on_function_return_type, unused_field, unused_element_parameter, unused_local_variable
 
 import 'package:flutter/material.dart';
-import 'package:universidad_lg_24/Evaluaciones/bloc/evaluacion_bloc.dart';
+import 'package:universidad_lg_24/Evaluaciones/bloc/evaluaci%C3%B3n_bloc/evaluacion_bloc.dart';
 import 'package:universidad_lg_24/Evaluaciones/views/evaluacion_view.dart';
 
 import 'package:universidad_lg_24/users/models/models.dart';

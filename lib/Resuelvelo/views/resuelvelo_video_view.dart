@@ -9,6 +9,7 @@ import 'package:universidad_lg_24/Resuelvelo/views/resuelvelo_test_view.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/helpers/my_long_print.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
+import 'package:universidad_lg_24/widgets/global/bottom_app_bar_global.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
 import 'package:vimeo_video_player/vimeo_video_player.dart';
@@ -275,6 +276,7 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
           ),
         ),
       ),
+      bottomNavigationBar: const CustomBottomAppBar(),
     );
   }
 }

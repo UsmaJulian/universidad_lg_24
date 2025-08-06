@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:universidad_lg_24/Evaluaciones/views/roulette_view.dart';
 
 import 'package:universidad_lg_24/Resuelvelo/models/resuelvelo_test_model.dart';
 import 'package:universidad_lg_24/Resuelvelo/services/resuelvelo_services.dart';
@@ -473,39 +474,60 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                   );
                                   myLongPrint('Respuesta del save:$response');
                                   if (response.response.type == 'success') {
-                                    await showDialog<void>(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text(
-                                            '¡Gracias por participar!',
-                                          ),
-                                          content: Text.rich(
-                                            TextSpan(
-                                              text: 'Tu puntaje es: ',
-                                              children: [
-                                                TextSpan(
-                                                  text: response.body.puntos
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                    (response.body.puntos == 100)
+                                        ? Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute<void>(
+                                              builder: (context) {
+                                                return RouletteView(
+                                                  user: widget.user,
+                                                  nid: int.parse(
+                                                    widget.content.body.nid,
+                                                  ),
+                                                  trivia:
+                                                      widget.content.body.title,
+                                                );
+                                              },
+                                              settings: const RouteSettings(
+                                                name: '/roulette',
+                                              ),
+                                            ),
+                                          )
+                                        : await showDialog<void>(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: const Text(
+                                                  '¡Gracias por participar!',
+                                                ),
+                                                content: Text.rich(
+                                                  TextSpan(
+                                                    text: 'Tu puntaje es: ',
+                                                    children: [
+                                                      TextSpan(
+                                                        text: response
+                                                            .body.puntos
+                                                            .toString(),
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                              ],
-                                            ),
-                                          ),
-                                          actions: [
-                                            ButtonMain(
-                                              text: 'Aceptar',
-                                              onPress: ResuelveloView(
-                                                user: widget.user,
-                                              ),
-                                              routeName: '/solve',
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
+                                                actions: [
+                                                  ButtonMain(
+                                                    text: 'Aceptar',
+                                                    onPress: ResuelveloView(
+                                                      user: widget.user,
+                                                    ),
+                                                    routeName: '/solve',
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
                                   } else {
                                     debugPrint('error');
                                   }

@@ -4,6 +4,8 @@ import 'dart:developer' as developer;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:universidad_lg_24/Evaluaciones/bloc/ruleta_bloc/ruleta_bloc.dart';
+import 'package:universidad_lg_24/Resuelvelo/loading_bloc/loading_bloc.dart';
 import 'package:universidad_lg_24/home/views/globals.dart' as globals;
 import 'package:universidad_lg_24/users/blocs/authentication/authentication_bloc.dart';
 import 'package:universidad_lg_24/users/services/services.dart';
@@ -12,24 +14,23 @@ import 'package:universidad_lg_24/users/services/services.dart';
 enum Environment {
   /// Development environment with debug tools enabled
   development,
-  
+
   /// Production environment with optimizations
   production,
 }
 
 /// Configuration class that holds environment-specific settings
 class AppConfig {
-  final Environment environment;
-  final String appName;
-  final bool enableLogging;
-  final bool enableErrorReporting;
-
   const AppConfig({
     required this.environment,
     required this.appName,
     this.enableLogging = false,
     this.enableErrorReporting = false,
   });
+  final Environment environment;
+  final String appName;
+  final bool enableLogging;
+  final bool enableErrorReporting;
 
   bool get isDevelopment => environment == Environment.development;
   bool get isProduction => environment == Environment.production;
@@ -37,9 +38,8 @@ class AppConfig {
 
 /// Custom BLoC observer that logs state changes and errors
 class AppBlocObserver extends BlocObserver {
-  final bool enableLogging;
-
   const AppBlocObserver({this.enableLogging = false});
+  final bool enableLogging;
 
   @override
   void onCreate(BlocBase<dynamic> bloc) {
@@ -78,12 +78,12 @@ class AppBlocObserver extends BlocObserver {
 
 /// Global error handler for Flutter framework errors
 void _setupErrorHandling(AppConfig config) {
-  final bool logErrors = config.enableLogging;
-  
+  final logErrors = config.enableLogging;
+
   // Handle Flutter framework errors
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
-    
+
     if (logErrors) {
       developer.log(
         'Flutter Error: ${details.exception}',
@@ -92,7 +92,7 @@ void _setupErrorHandling(AppConfig config) {
         level: 2000, // Error level
       );
     }
-    
+
     // In production, you might want to report this to a service like Sentry or Firebase Crashlytics
     if (config.enableErrorReporting) {
       // TODO: Implement error reporting service integration
@@ -109,18 +109,18 @@ void _setupErrorHandling(AppConfig config) {
         level: 2000, // Error level
       );
     }
-    
+
     // In production, report the error
     if (config.enableErrorReporting) {
       // TODO: Implement error reporting service integration
     }
-    
+
     return true; // Prevent the error from being thrown again
   };
 }
 
 /// Bootstrap the application with the given environment and configuration
-/// 
+///
 /// [environment]: The environment to run the app in (development/production)
 /// [appBuilder]: A builder function that creates the root widget of the app
 Future<void> bootstrap({
@@ -129,13 +129,13 @@ Future<void> bootstrap({
 }) async {
   // Initialize app configuration based on environment
   final config = _getConfigForEnvironment(environment);
-  
+
   // Set up error handling and logging
   _setupErrorHandling(config);
-  
+
   // Initialize BLoC observer with appropriate logging level
   Bloc.observer = AppBlocObserver(enableLogging: config.enableLogging);
-  
+
   // Enable performance profiling in debug mode
   if (config.isDevelopment) {
     debugProfileBuildsEnabled = true;
@@ -145,15 +145,25 @@ Future<void> bootstrap({
   // Run the app with proper error boundaries
   runZonedGuarded(
     () => runApp(
-      // Injects the Authentication service and BLoC
       RepositoryProvider<AuthenticationService>(
         create: (context) => IsAuthenticationService(),
-        child: BlocProvider<AuthenticationBloc>(
-          create: (context) {
-            globals.appNavigator = GlobalKey<NavigatorState>();
-            final authService = RepositoryProvider.of<AuthenticationService>(context);
-            return AuthenticationBloc(authService)..add(AppLoadedEvent());
-          },
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<AuthenticationBloc>(
+              create: (context) {
+                globals.appNavigator = GlobalKey<NavigatorState>();
+                final authService =
+                    RepositoryProvider.of<AuthenticationService>(context);
+                return AuthenticationBloc(authService)..add(AppLoadedEvent());
+              },
+            ),
+            BlocProvider<LoadingBloc>(
+              create: (_) => LoadingBloc(),
+            ),
+            BlocProvider<RuletaBloc>(
+              create: (_) => RuletaBloc(),
+            ),
+          ],
           child: Builder(builder: appBuilder),
         ),
       ),
@@ -166,7 +176,7 @@ Future<void> bootstrap({
         stackTrace: stackTrace,
         level: 2000, // Error level
       );
-      
+
       if (config.enableErrorReporting) {
         // TODO: Report error to your error tracking service
       }
@@ -182,13 +192,11 @@ AppConfig _getConfigForEnvironment(Environment environment) {
         environment: environment,
         appName: 'Universidad LG (Dev)',
         enableLogging: true,
-        enableErrorReporting: false,
       );
     case Environment.production:
       return AppConfig(
         environment: environment,
         appName: 'Universidad LG',
-        enableLogging: false,
         enableErrorReporting: true,
       );
   }
