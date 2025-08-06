@@ -27,7 +27,7 @@ class TestEntradaView extends StatefulWidget {
 class _TestEntradaViewState extends State<TestEntradaView> {
   final EntrenamientoBloc _entrenamientoBloc = EntrenamientoBloc();
   int _currentTest = 0;
-  final List<String> _currentAnswer = List.filled(10, '');
+  final List<int?> _selectedAnswers = List.filled(10, null);
   List<Pregunta> _preguntas = [];
   bool _isLoading = true;
 
@@ -68,7 +68,7 @@ class _TestEntradaViewState extends State<TestEntradaView> {
     if (_preguntas.isEmpty || _currentTest >= _preguntas.length) return;
 
     setState(() {
-      _currentAnswer[_currentTest] = (answerIndex + 1).toString();
+      _selectedAnswers[_currentTest] = answerIndex;
     });
   }
 
@@ -78,6 +78,7 @@ class _TestEntradaViewState extends State<TestEntradaView> {
     if (_currentTest < _preguntas.length - 1) {
       setState(() {
         _currentTest++;
+        _selectedAnswers[_currentTest] = null;
       });
     } else {
       _submitTest();
@@ -90,11 +91,12 @@ class _TestEntradaViewState extends State<TestEntradaView> {
     try {
       final response = await _entrenamientoBloc.sendTestEntrada(
         data: Map.fromEntries(
-          _currentAnswer
+          _selectedAnswers
               .asMap()
               .entries
-              .where((entry) => entry.value.isNotEmpty)
-              .map((entry) => MapEntry(entry.key.toString(), entry.value)),
+              .where((entry) => entry.value != null)
+              .map((entry) => MapEntry(
+                  entry.key.toString(), (entry.value! + 1).toString())),
         ),
         uid: widget.user.userId,
         token: widget.user.token,
@@ -284,23 +286,21 @@ class _TestEntradaViewState extends State<TestEntradaView> {
   }
 
   Widget _buildAnswerOption(
-    String letter,
-    int index,
-    List<Respuesta> respuestas,
-  ) {
+      String letter, int index, List<Respuesta> respuestas) {
     if (index >= respuestas.length) {
       return const SizedBox.shrink();
     }
 
     final respuesta = respuestas[index];
+    final isSelected = _selectedAnswers[_currentTest] == index;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           letter,
-          style: const TextStyle(
-            color: Colors.black,
+          style: TextStyle(
+            color: isSelected ? Colors.white : Colors.black,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -310,9 +310,12 @@ class _TestEntradaViewState extends State<TestEntradaView> {
           onPressed: () => _onAnswerSelected(index),
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(129, 41),
-            backgroundColor: const Color(0xffF6F3EB),
+            backgroundColor: isSelected ? mainColor : const Color(0xffF6F3EB),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
+              side: isSelected
+                  ? const BorderSide(color: Colors.transparent)
+                  : const BorderSide(color: Colors.grey),
             ),
           ),
           child: SizedBox(
@@ -321,7 +324,9 @@ class _TestEntradaViewState extends State<TestEntradaView> {
               respuesta.texto ?? 'Opción no disponible',
               minFontSize: 10,
               maxFontSize: 14,
-              style: const TextStyle(color: Colors.black),
+              style: TextStyle(
+                color: isSelected ? Colors.white : Colors.black,
+              ),
             ),
           ),
         ),
@@ -334,11 +339,12 @@ class _TestEntradaViewState extends State<TestEntradaView> {
       return const SizedBox.shrink();
     }
 
+    final hasAnswer = _selectedAnswers[_currentTest] != null;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: ElevatedButton(
-        onPressed:
-            _currentAnswer[_currentTest].isNotEmpty ? _onNextOrSubmit : null,
+        onPressed: hasAnswer ? _onNextOrSubmit : null,
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(129, 41),
           backgroundColor: mainColor,
