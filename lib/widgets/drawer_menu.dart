@@ -36,12 +36,15 @@ class _DrawerMenuState extends State<DrawerMenu> {
   String? role;
 
   Future<String?> _getRole() async {
-    await UserStorage().getUserStorage().then((value) {
-      role = value?.role;
-    });
+    if (mounted) {
+      await UserStorage().getUserStorage().then((value) {
+        role = value?.role;
+      });
 
-    setState(() {});
-    return role;
+      setState(() {});
+      return role;
+    }
+    return null;
   }
 
   @override

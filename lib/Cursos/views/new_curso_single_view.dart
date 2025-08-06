@@ -162,8 +162,10 @@ class _NewCursoSingleViewState extends State<NewCursoSingleView> {
                         onPress: (cursoData!.status!.data!.testEntrada == 0)
                             ? TestEntradaView(
                                 user: widget.user,
-                                curso: cursoData!.status!.data!.curso!.nid,
-                                leccion: cursoData!.status!.data!.leccionId,
+                                curso: cursoData!.status!.data!.curso!.nid
+                                    .toString(),
+                                leccion: cursoData!.status!.data!.leccionId
+                                    .toString(),
                               )
                             : null,
                         routeName:

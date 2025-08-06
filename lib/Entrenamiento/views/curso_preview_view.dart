@@ -278,7 +278,7 @@ class __CursoPreviewContentState extends State<_CursoPreviewContent> {
     }
   }
 
-  _viewTestEntrada(String textDinamic, bool acceso) {
+  void _viewTestEntrada(String textDinamic, bool acceso) {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -305,9 +305,9 @@ class __CursoPreviewContentState extends State<_CursoPreviewContent> {
                       MaterialPageRoute<void>(
                         builder: (context) => TestEntradaView(
                           parent: widget.nid,
-                          user: widget.user,
-                          curso: cursoPreview!.status!.data!.curso!.nid,
-                          leccion: cursoPreview!.status!.data!.leccionId,
+                          user: widget.user!,
+                          curso: cursoPreview!.status!.data!.curso!.nid!,
+                          leccion: cursoPreview!.status!.data!.leccionId!,
                         ),
                       ),
                     );
@@ -327,7 +327,7 @@ class __CursoPreviewContentState extends State<_CursoPreviewContent> {
     );
   }
 
-  _viewLeccion(String textDinamic, bool acceso) async {
+  Future<void> _viewLeccion(String textDinamic, bool acceso) async {
     if (acceso) {
       await Navigator.push(
         context,
@@ -375,7 +375,7 @@ class __CursoPreviewContentState extends State<_CursoPreviewContent> {
     }
   }
 
-  _viewTestSalida(String textDinamic, bool acceso) {
+  void _viewTestSalida(String textDinamic, bool acceso) {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(

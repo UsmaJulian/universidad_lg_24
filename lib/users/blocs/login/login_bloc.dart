@@ -68,7 +68,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(LoginSuccessState());
         emit(LoginInitialState());
       } else {
-        emit(LoginFailureState(error: 'Codigo no valido'));
+        emit(LoginFailureState(error: 'Código no válido'));
       }
     } on AuthenticationException catch (e) {
       emit(LoginFailureState(error: e.message));
