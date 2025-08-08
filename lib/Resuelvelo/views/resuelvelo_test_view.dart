@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:universidad_lg_24/Evaluaciones/views/roulette_view.dart';
+import 'package:universidad_lg_24/Resuelvelo/models/resuelvelo_model.dart';
 
 import 'package:universidad_lg_24/Resuelvelo/models/resuelvelo_test_model.dart';
 import 'package:universidad_lg_24/Resuelvelo/services/resuelvelo_services.dart';
@@ -16,10 +19,12 @@ class ResuelveloTestView extends StatefulWidget {
   const ResuelveloTestView({
     required this.user,
     required this.content,
+    required this.resuelveloData,
     super.key,
   });
   final User user;
   final ResuelveloTestModel content;
+  final Datum resuelveloData;
   @override
   State<ResuelveloTestView> createState() => _ResuelveloTestViewState();
 }
@@ -468,8 +473,11 @@ class _ResuelveloTestViewState extends State<ResuelveloTestView> {
                                   );
                                   myLongPrint('Respuesta del save:$response');
                                   if (response.response.type == 'success') {
-                                    //TODO:Agregar validaciones de apertura de la ruleta
-                                    (response.body.puntos == 100)
+                                    log('userRuleta ${widget.user.userRuleta}, viewRuleta: ${widget.resuelveloData.viewRuleta}');
+                                    (response.body.puntos == 100 &&
+                                            widget.user.userRuleta == 1 &&
+                                            widget.resuelveloData.viewRuleta ==
+                                                1)
                                         ? Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute<void>(

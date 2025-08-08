@@ -19,6 +19,7 @@ class User {
     this.codigo,
     this.isLogin,
     this.role,
+    this.userRuleta,
   });
 
   /// Factory constructor para crear una instancia de User desde un JSON.
@@ -36,6 +37,8 @@ class User {
       cargo: json['status']['dataUser']['cargo'].toString(),
       mensaje: json['status']['dataUser']['mensaje'].toString(),
       role: json['status']['dataUser']['role'].toString(),
+      userRuleta:
+          int.parse(json['status']['dataUser']['userRuleta'].toString()),
     );
   }
 
@@ -52,10 +55,11 @@ class User {
   final int? codigo;
   final int? isLogin;
   final String? role;
+  final int? userRuleta;
 
   @override
   String toString() =>
-      'User { name: $name, email: $email, token: $token, uid:$userId, role: $role }';
+      'User { name: $name, email: $email, token: $token, uid:$userId, role: $role, userRuleta: $userRuleta}';
 }
 
 /// Clase que maneja el almacenamiento seguro del usuario.
@@ -81,6 +85,9 @@ class UserStorage {
     await UserSecureStorage.setCargo(user!.cargo.toString());
     await UserSecureStorage.setMensaje(user!.mensaje.toString());
     await UserSecureStorage.setRole(user!.role.toString());
+    await UserSecureStorage.setUserRuleta(
+      int.parse(user!.userRuleta.toString()),
+    );
   }
 
   /// Obtiene el almacenamiento del usuario guardando los datos en almacenamiento seguro.
@@ -98,6 +105,7 @@ class UserStorage {
     final cargo = await UserSecureStorage.getCargo();
     final mensaje = await UserSecureStorage.getMensaje();
     final role = await UserSecureStorage.getRole();
+    final userRuleta = await UserSecureStorage.getUserRuleta();
 
     if (userId != null && loginToken != null) {
       return User(
@@ -115,6 +123,7 @@ class UserStorage {
         cargo: cargo,
         mensaje: mensaje,
         role: role,
+        userRuleta: userRuleta,
       );
     } else {
       return null;
@@ -135,6 +144,7 @@ class UserStorage {
     await UserSecureStorage.clearCargo();
     await UserSecureStorage.clearMensaje();
     await UserSecureStorage.clearRole();
+    await UserSecureStorage.clearUserRuleta();
     return true;
   }
 }

@@ -66,6 +66,7 @@ class Datum {
     required this.likes,
     required this.comments,
     required this.test,
+    required this.viewRuleta,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
@@ -85,6 +86,7 @@ class Datum {
               .toList(),
         ),
         test: int.parse(json['test'].toString()),
+        viewRuleta: int.parse(json['viewRuleta'].toString()),
       );
   String resource;
   String thumbnail;
@@ -96,6 +98,7 @@ class Datum {
   int likes;
   List<Comment> comments;
   int test;
+  int viewRuleta;
 
   Map<String, dynamic> toJson() => {
         'resource': resource,
@@ -108,6 +111,7 @@ class Datum {
         'likes': likes,
         'comments': List<dynamic>.from(comments.map((x) => x.toJson())),
         'test': test,
+        'viewRuleta': viewRuleta,
       };
 }
 

@@ -36,6 +36,7 @@ class Body {
     required this.username,
     required this.token,
     required this.role,
+    required this.userRuleta,
   });
 
   factory Body.fromJson(Map<String, dynamic> json) => Body(
@@ -44,12 +45,14 @@ class Body {
         username: json['username'].toString(),
         token: json['token'].toString(),
         role: json['role'].toString(),
+        userRuleta: int.parse(json['userRuleta'].toString()),
       );
   String userId;
   String email;
   String username;
   String token;
   String role;
+  int userRuleta;
 
   Map<String, dynamic> toJson() => {
         'userId': userId,
@@ -57,6 +60,7 @@ class Body {
         'username': username,
         'token': token,
         'role': role,
+        'userRuleta': userRuleta,
       };
 }
 

@@ -129,6 +129,7 @@ class _ResuelveloVideoViewState extends State<ResuelveloVideoView> {
                                     return ResuelveloTestView(
                                       user: widget.user,
                                       content: response,
+                                      resuelveloData: widget.resuelveloData,
                                     );
                                   },
                                   settings: RouteSettings(

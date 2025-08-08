@@ -30,12 +30,8 @@ class IsAuthenticationService extends AuthenticationService {
     final isLogin = await UserSecureStorage.getIsLogin();
 
     if (isLogin != null) {
-      final nombre = await UserSecureStorage.getNombre();
-      final email = await UserSecureStorage.getEmail();
       final token = await UserSecureStorage.getLoginToken();
       final uid = await UserSecureStorage.getUserId();
-      final documento = await UserSecureStorage.getDocumento();
-      final celular = await UserSecureStorage.getCelular();
 
       final response = await http.post(
         Uri.https(baseUrl, 'app/validate-session'),
@@ -52,14 +48,9 @@ class IsAuthenticationService extends AuthenticationService {
         final request = json.decode(response.body);
 
         if (request['status']['type'] != 'error') {
-          return User(
-            name: nombre,
-            email: email,
-            token: token,
-            userId: uid,
-            documento: documento,
-            celular: celular,
-          );
+          // Usar UserStorage para obtener todos los campos del usuario
+          final userStorage = UserStorage();
+          return userStorage.getUserStorage();
         } else {
           return null;
         }
@@ -106,6 +97,8 @@ class IsAuthenticationService extends AuthenticationService {
           cargo: request['status']['dataUser']['cargo'].toString(),
           mensaje: request['status']['dataUser']['mensaje'].toString(),
           role: request['status']['dataUser']['role'].toString(),
+          userRuleta:
+              int.parse(request['status']['dataUser']['userRuleta'].toString()),
         );
 
         final userStorage = UserStorage(user: user);
@@ -157,6 +150,7 @@ class IsAuthenticationService extends AuthenticationService {
             username: user.body.username,
             token: user.body.token,
             role: user.body.role,
+            userRuleta: user.body.userRuleta,
           );
           final userStorage = UserStorage(user: userForStorage);
           await userStorage.createUserStorage();

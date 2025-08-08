@@ -19,6 +19,7 @@ class UserSecureStorage {
   static const _keyMensaje = 'mensaje';
   static const _keyIsLogin = 'isLogin';
   static const _keyIsRole = 'role';
+  static const _keyUserRuleta = 'userRuleta';
 
   // Métodos para manejar UserId
 
@@ -178,4 +179,16 @@ class UserSecureStorage {
   static Future<String?> getRole() async => _storage.read(key: _keyIsRole);
 
   static Future<void> clearRole() async => _storage.delete(key: _keyIsRole);
+
+  // Métodos para manejar el usuario de Ruleta
+  static Future<void> setUserRuleta(int userRuleta) async =>
+      _storage.write(key: _keyUserRuleta, value: userRuleta.toString());
+
+  static Future<int?> getUserRuleta() async {
+    final value = await _storage.read(key: _keyUserRuleta);
+    return value != null ? int.tryParse(value) : null;
+  }
+
+  static Future<void> clearUserRuleta() async =>
+      _storage.delete(key: _keyUserRuleta);
 }

@@ -203,7 +203,7 @@ class _CategoriaCursosViewState extends State<CategoriaCursosView> {
           onPressed: () => Navigator.pop(context),
           child: const Text('Volver', style: TextStyle(color: Colors.black)),
         ),
-        const SizedBox(width: 20),
+        const SizedBox(width: 16),
         Expanded(
           child: DropdownButtonFormField<String>(
             elevation: 16,
@@ -212,7 +212,7 @@ class _CategoriaCursosViewState extends State<CategoriaCursosView> {
               fillColor: mainColor,
               filled: true,
               hintText: 'CATEGORÍAS',
-              hintStyle: TextStyle(color: Colors.white),
+              hintStyle: TextStyle(color: Colors.white, fontSize: 10),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: mainColor),
               ),

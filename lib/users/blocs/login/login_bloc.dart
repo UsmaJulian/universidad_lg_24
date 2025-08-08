@@ -60,8 +60,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final name = await UserSecureStorage.getNombre();
         final uid = await UserSecureStorage.getUserId();
         final email = await UserSecureStorage.getEmail();
+        final userRuleta = await UserSecureStorage.getUserRuleta();
         await UserSecureStorage.setIsLogin('login');
-        final user = User(name: name, email: email, userId: uid, token: token);
+        final user = User(
+          name: name,
+          email: email,
+          userId: uid,
+          token: token,
+          userRuleta: userRuleta,
+        );
 
         _authenticationBloc.add(UserLoggedIn(user: user));
 
