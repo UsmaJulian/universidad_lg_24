@@ -44,6 +44,7 @@ class _NewCursoSingleViewState extends State<NewCursoSingleView> {
 
   @override
   Widget build(BuildContext context) {
+    log('CursoInfo: ${cursoData?.status?.data?.curso}');
     log('cursoData: ${cursoData?.status?.data?.curso?.video}');
     return Scaffold(
       extendBodyBehindAppBar: true,

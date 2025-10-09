@@ -1,13 +1,13 @@
-// ignore_for_file: strict_raw_type, must_be_immutable, inference_failure_on_function_return_type
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:universidad_lg_24/Cursos/views/new_cursos_view.dart';
 import 'package:universidad_lg_24/Entrenamiento/entrenamiento/entrenamiento_bloc.dart';
+
 import 'package:universidad_lg_24/Entrenamiento/models/test_salida_model.dart';
 import 'package:universidad_lg_24/constants.dart';
 import 'package:universidad_lg_24/users/models/models.dart';
 import 'package:universidad_lg_24/widgets/global/header_global.dart';
 import 'package:universidad_lg_24/widgets/widgets.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 class TestSalidaView extends StatefulWidget {
   const TestSalidaView({
@@ -30,6 +30,7 @@ class _TestSalidaViewState extends State<TestSalidaView> {
   final List<int?> _selectedAnswers = List.filled(10, null);
   List<StatusPregunta> _preguntas = [];
   bool _isLoading = true;
+  Map<String, String> preguntasList = {}; // Para almacenar respuestas con delta
 
   @override
   void initState() {
@@ -52,6 +53,11 @@ class _TestSalidaViewState extends State<TestSalidaView> {
               testData?.status?.preguntas?.cast<StatusPregunta>() ?? [];
           _isLoading = false;
         });
+
+        // Inicializar preguntasList con las preguntas
+        for (final pregunta in _preguntas) {
+          preguntasList[pregunta.id!] = '0';
+        }
       }
     } catch (e) {
       if (mounted) {
@@ -69,9 +75,18 @@ class _TestSalidaViewState extends State<TestSalidaView> {
   void _onAnswerSelected(int answerIndex) {
     if (_preguntas.isEmpty || _currentTest >= _preguntas.length) return;
 
-    setState(() {
-      _selectedAnswers[_currentTest] = answerIndex;
-    });
+    final pregunta = _preguntas[_currentTest];
+    final respuestas = pregunta.respuestas?.cast<Respuesta>() ?? [];
+
+    if (answerIndex < respuestas.length) {
+      final selectedRespuesta = respuestas[answerIndex];
+
+      setState(() {
+        _selectedAnswers[_currentTest] = answerIndex;
+        // Actualizar preguntasList con delta de la respuesta seleccionada
+        preguntasList[pregunta.id!] = selectedRespuesta.delta.toString();
+      });
+    }
   }
 
   void _onNextOrSubmit() {
@@ -91,47 +106,15 @@ class _TestSalidaViewState extends State<TestSalidaView> {
 
     try {
       final response = await _entrenamientoBloc.sendTestSalida(
-        data: Map.fromEntries(
-          _selectedAnswers
-              .asMap()
-              .entries
-              .where((entry) => entry.value != null)
-              .map(
-                (entry) => MapEntry(
-                  _preguntas[entry.key].id ?? entry.key.toString(),
-                  (entry.value! + 1).toString(),
-                ),
-              ),
-        ),
+        data: preguntasList, // Usar preguntasList en lugar del mapa construido
         uid: widget.user.userId,
         token: widget.user.token,
         curso: widget.curso,
         leccion: widget.leccion,
       );
 
-      if (mounted) {
-        await showDialog<void>(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text(
-                response?.status?.message ?? 'Test completado',
-                style: const TextStyle(color: mainColor),
-              ),
-              content: const Text('¡Has completado el test de salida!'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Aceptar'),
-                ),
-              ],
-            );
-          },
-        );
+      if (mounted && response != null) {
+        _showResultDialog(response);
       }
     } catch (e) {
       if (mounted) {
@@ -140,6 +123,136 @@ class _TestSalidaViewState extends State<TestSalidaView> {
         );
       }
     }
+  }
+
+  void _showResultDialog(dynamic response) {
+    // Verificar que la respuesta tenga la estructura correcta
+    if (response == null || response.status == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error: No se recibieron datos del test')),
+      );
+      return;
+    }
+
+    final dataTest = response.status.dataTest;
+    if (dataTest == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error: Datos del test no disponibles')),
+      );
+      return;
+    }
+
+    final title = dataTest.titulo?.toString() ?? 'Test completado';
+    final puntaje = dataTest.puntaje ?? 0;
+    final copa = dataTest.copa?.toString() ?? 'Sin copa';
+    final nombre = dataTest.nombre?.toString() ?? widget.user.name ?? 'Usuario';
+
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) => WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          title: const Text(
+            'RESULTADO',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: mainColor),
+          ),
+          content: SizedBox(
+            height: 200,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  nombre,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 20),
+                RichText(
+                  text: TextSpan(
+                    text: 'TEST SALIDA: ',
+                    style: const TextStyle(
+                      color: mainColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: title,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                RichText(
+                  text: TextSpan(
+                    text: 'PUNTAJE: ',
+                    style: const TextStyle(
+                      color: mainColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: '$puntaje%',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    const Icon(Icons.emoji_events, color: mainColor),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        copa,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Cerrar diálogo
+                    // Navegar a NewCursosView (test de salida no tiene parent)
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => NewCursosView(
+                          user: widget.user,
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'CONTINUAR',
+                    style: TextStyle(
+                      color: mainColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
